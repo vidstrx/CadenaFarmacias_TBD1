@@ -7,6 +7,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
     public CadenaFarmacias_TBD1() {
         initComponents();
+        setLocationRelativeTo(null);
+        
+        ConexionDB conectar = new ConexionDB();
+        conectar.getConnection();
+        //conectar.insertar("David Castro", "david@gmail.com", "3344-2934");
     }
 
     /**
