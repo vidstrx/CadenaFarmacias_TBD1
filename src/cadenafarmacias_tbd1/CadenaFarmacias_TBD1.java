@@ -1,20 +1,24 @@
 package cadenafarmacias_tbd1;
 
+import javax.swing.JOptionPane;
+
 
 public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
+    ConexionDB conectar;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadenaFarmacias_TBD1.class.getName());
 
     public CadenaFarmacias_TBD1() {
         initComponents();
         this.setTitle("Sistema de Control e Inventarios");
-        iniciarTurnoPanel.setVisible(false);
+        TurnoPanel.setVisible(false);
         verReportesPanel.setVisible(false);
+        iniciarTurnoPanel.setVisible(false);
         setLocationRelativeTo(null);
         
-        //ConexionDB conectar = new ConexionDB();
-        //conectar.getConnection();
-        //conectar.insertar("David Castro", "david@gmail.com", "3344-2934");
+//        conectar = new ConexionDB();
+//        conectar.getConnection();
+//        conectar.insertar("David Castro", "david@gmail.com", "3344-2934");
     }
 
     /**
@@ -44,14 +48,29 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         MargenProductoPanel = new javax.swing.JPanel();
         RankingFarmaciasPanel = new javax.swing.JPanel();
         volverDeReportesButton = new javax.swing.JButton();
-        iniciarTurnoPanel = new javax.swing.JPanel();
-        iniciarTurnoTabbedPane = new javax.swing.JTabbedPane();
+        TurnoPanel = new javax.swing.JPanel();
+        TurnoTabbedPane = new javax.swing.JTabbedPane();
+        paginaInicioTurnoPanel = new javax.swing.JPanel();
+        bienvenidoTurnoLabel = new javax.swing.JLabel();
+        finalizarTurnoButton = new javax.swing.JButton();
         registrarVentaPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        buscarProductoLabel = new javax.swing.JLabel();
+        ingresarProductoTextField = new javax.swing.JTextField();
+        buscarProductoButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        productosIngresarTable = new javax.swing.JTable();
+        agregarProductoButton = new javax.swing.JButton();
         registrarRecepciónPanel = new javax.swing.JPanel();
         preciosVigentesPanel = new javax.swing.JPanel();
         registrarInventarioFisicoPanel = new javax.swing.JPanel();
-        volverDeTurnoButton = new javax.swing.JButton();
+        iniciarTurnoPanel = new javax.swing.JPanel();
+        ingresarIdClienteLabel = new javax.swing.JLabel();
+        idClienteTextField = new javax.swing.JTextField();
+        iniciarTButton = new javax.swing.JButton();
+        ingresarIdFarmaciaLabel = new javax.swing.JLabel();
+        idFarmaciaTextField = new javax.swing.JTextField();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -125,7 +144,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addGroup(pantallaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(reportesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(iniciarTurnoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         verReportesPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -273,12 +292,86 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addComponent(ReportesTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(volverDeReportesButton)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        iniciarTurnoPanel.setBackground(new java.awt.Color(255, 255, 255));
+        TurnoPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        paginaInicioTurnoPanel.setBackground(new java.awt.Color(0, 153, 102));
+
+        bienvenidoTurnoLabel.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        bienvenidoTurnoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        bienvenidoTurnoLabel.setText("Bienvenido");
+
+        finalizarTurnoButton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        finalizarTurnoButton.setText("Finalizar Turno");
+        finalizarTurnoButton.addActionListener(this::finalizarTurnoButtonActionPerformed);
+
+        javax.swing.GroupLayout paginaInicioTurnoPanelLayout = new javax.swing.GroupLayout(paginaInicioTurnoPanel);
+        paginaInicioTurnoPanel.setLayout(paginaInicioTurnoPanelLayout);
+        paginaInicioTurnoPanelLayout.setHorizontalGroup(
+            paginaInicioTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paginaInicioTurnoPanelLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(paginaInicioTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(finalizarTurnoButton)
+                    .addComponent(bienvenidoTurnoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(640, Short.MAX_VALUE))
+        );
+        paginaInicioTurnoPanelLayout.setVerticalGroup(
+            paginaInicioTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paginaInicioTurnoPanelLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(bienvenidoTurnoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 375, Short.MAX_VALUE)
+                .addComponent(finalizarTurnoButton)
+                .addGap(15, 15, 15))
+        );
+
+        TurnoTabbedPane.addTab("Página Inicio", paginaInicioTurnoPanel);
 
         registrarVentaPanel.setBackground(new java.awt.Color(0, 153, 102));
+
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 893, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 898, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(jPanel1);
+
+        buscarProductoLabel.setText("Busque el producto que desea agregar a la venta:");
+
+        buscarProductoButton.setText("Buscar");
+        buscarProductoButton.addActionListener(this::buscarProductoButtonActionPerformed);
+
+        productosIngresarTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre de Producto", "Precio"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(productosIngresarTable);
+
+        agregarProductoButton.setText("Agregar");
+        agregarProductoButton.addActionListener(this::agregarProductoButtonActionPerformed);
 
         javax.swing.GroupLayout registrarVentaPanelLayout = new javax.swing.GroupLayout(registrarVentaPanel);
         registrarVentaPanel.setLayout(registrarVentaPanelLayout);
@@ -286,18 +379,38 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(registrarVentaPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGroup(registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(registrarVentaPanelLayout.createSequentialGroup()
+                        .addComponent(buscarProductoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ingresarProductoTextField)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buscarProductoButton)
+                        .addGap(28, 28, 28))
+                    .addGroup(registrarVentaPanelLayout.createSequentialGroup()
+                        .addGroup(registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(agregarProductoButton)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 866, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         registrarVentaPanelLayout.setVerticalGroup(
             registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registrarVentaPanelLayout.createSequentialGroup()
-                .addContainerGap(167, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(180, 180, 180))
+            .addGroup(registrarVentaPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ingresarProductoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarProductoLabel)
+                    .addComponent(buscarProductoButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(agregarProductoButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE))
         );
 
-        iniciarTurnoTabbedPane.addTab("Registrar Venta", registrarVentaPanel);
+        TurnoTabbedPane.addTab("Registrar Venta", registrarVentaPanel);
 
         registrarRecepciónPanel.setBackground(new java.awt.Color(0, 153, 102));
 
@@ -309,10 +422,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         );
         registrarRecepciónPanelLayout.setVerticalGroup(
             registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGap(0, 525, Short.MAX_VALUE)
         );
 
-        iniciarTurnoTabbedPane.addTab("Registrar Recepción", registrarRecepciónPanel);
+        TurnoTabbedPane.addTab("Registrar Recepción", registrarRecepciónPanel);
 
         preciosVigentesPanel.setBackground(new java.awt.Color(0, 153, 102));
 
@@ -324,10 +437,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         );
         preciosVigentesPanelLayout.setVerticalGroup(
             preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGap(0, 525, Short.MAX_VALUE)
         );
 
-        iniciarTurnoTabbedPane.addTab("Precios Vigentes", preciosVigentesPanel);
+        TurnoTabbedPane.addTab("Precios Vigentes", preciosVigentesPanel);
 
         registrarInventarioFisicoPanel.setBackground(new java.awt.Color(0, 153, 102));
 
@@ -339,33 +452,68 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         );
         registrarInventarioFisicoPanelLayout.setVerticalGroup(
             registrarInventarioFisicoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 476, Short.MAX_VALUE)
+            .addGap(0, 525, Short.MAX_VALUE)
         );
 
-        iniciarTurnoTabbedPane.addTab("Registrar Inventario Físico", registrarInventarioFisicoPanel);
+        TurnoTabbedPane.addTab("Registrar Inventario Físico", registrarInventarioFisicoPanel);
 
-        volverDeTurnoButton.setBackground(new java.awt.Color(255, 0, 0));
-        volverDeTurnoButton.setForeground(new java.awt.Color(255, 255, 255));
-        volverDeTurnoButton.setText("Volver");
-        volverDeTurnoButton.addActionListener(this::volverDeTurnoButtonActionPerformed);
+        javax.swing.GroupLayout TurnoPanelLayout = new javax.swing.GroupLayout(TurnoPanel);
+        TurnoPanel.setLayout(TurnoPanelLayout);
+        TurnoPanelLayout.setHorizontalGroup(
+            TurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TurnoTabbedPane)
+        );
+        TurnoPanelLayout.setVerticalGroup(
+            TurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(TurnoTabbedPane)
+        );
+
+        iniciarTurnoPanel.setBackground(new java.awt.Color(51, 255, 153));
+
+        ingresarIdClienteLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        ingresarIdClienteLabel.setForeground(new java.awt.Color(0, 0, 0));
+        ingresarIdClienteLabel.setText("Ingrese ID del empleado responsable:");
+
+        idClienteTextField.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+
+        iniciarTButton.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        iniciarTButton.setText("Iniciar");
+        iniciarTButton.addActionListener(this::iniciarTButtonActionPerformed);
+
+        ingresarIdFarmaciaLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        ingresarIdFarmaciaLabel.setForeground(new java.awt.Color(0, 0, 0));
+        ingresarIdFarmaciaLabel.setText("Ingrese ID de Farmacia:");
+
+        idFarmaciaTextField.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
 
         javax.swing.GroupLayout iniciarTurnoPanelLayout = new javax.swing.GroupLayout(iniciarTurnoPanel);
         iniciarTurnoPanel.setLayout(iniciarTurnoPanelLayout);
         iniciarTurnoPanelLayout.setHorizontalGroup(
             iniciarTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(iniciarTurnoTabbedPane)
-            .addGroup(iniciarTurnoPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(volverDeTurnoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, iniciarTurnoPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(iniciarTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(idClienteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ingresarIdClienteLabel)
+                    .addComponent(iniciarTButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ingresarIdFarmaciaLabel)
+                    .addComponent(idFarmaciaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(178, 178, 178))
         );
         iniciarTurnoPanelLayout.setVerticalGroup(
             iniciarTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(iniciarTurnoPanelLayout.createSequentialGroup()
-                .addComponent(iniciarTurnoTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(volverDeTurnoButton, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(75, 75, 75)
+                .addComponent(ingresarIdClienteLabel)
+                .addGap(18, 18, 18)
+                .addComponent(idClienteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(ingresarIdFarmaciaLabel)
+                .addGap(18, 18, 18)
+                .addComponent(idFarmaciaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65)
+                .addComponent(iniciarTButton)
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -376,7 +524,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(verReportesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(iniciarTurnoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(TurnoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(iniciarTurnoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,7 +534,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(verReportesPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(iniciarTurnoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(TurnoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(iniciarTurnoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -405,10 +557,28 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         iniciarTurnoPanel.setVisible(true);
     }//GEN-LAST:event_iniciarTurnoButtonActionPerformed
 
-    private void volverDeTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverDeTurnoButtonActionPerformed
-        pantallaPanel.setVisible(true);
+    private void buscarProductoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProductoButtonActionPerformed
+        if(ingresarProductoTextField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "No ha ingresado nombre de producto");
+            return;
+        }
+        
+//        conectar.buscarPorducto(ingresarProductoTextField.getText());
+    }//GEN-LAST:event_buscarProductoButtonActionPerformed
+
+    private void agregarProductoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoButtonActionPerformed
+        
+    }//GEN-LAST:event_agregarProductoButtonActionPerformed
+
+    private void iniciarTButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarTButtonActionPerformed
         iniciarTurnoPanel.setVisible(false);
-    }//GEN-LAST:event_volverDeTurnoButtonActionPerformed
+        TurnoPanel.setVisible(true);
+    }//GEN-LAST:event_iniciarTButtonActionPerformed
+
+    private void finalizarTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarTurnoButtonActionPerformed
+        TurnoPanel.setVisible(false);
+        pantallaPanel.setVisible(true);
+    }//GEN-LAST:event_finalizarTurnoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -439,20 +609,36 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JPanel MargenProductoPanel;
     private javax.swing.JPanel RankingFarmaciasPanel;
     private javax.swing.JTabbedPane ReportesTabbedPane;
+    private javax.swing.JPanel TurnoPanel;
+    private javax.swing.JTabbedPane TurnoTabbedPane;
     private javax.swing.JPanel VentasPanel;
+    private javax.swing.JButton agregarProductoButton;
     private javax.swing.JLabel bienvenidoLabel;
+    private javax.swing.JLabel bienvenidoTurnoLabel;
+    private javax.swing.JButton buscarProductoButton;
+    private javax.swing.JLabel buscarProductoLabel;
     private javax.swing.JPanel cierreTurnoPanel;
     private javax.swing.JPanel entregasPendientesPanel;
+    private javax.swing.JButton finalizarTurnoButton;
+    private javax.swing.JTextField idClienteTextField;
+    private javax.swing.JTextField idFarmaciaTextField;
     private javax.swing.JLabel imagenInicioLabel;
+    private javax.swing.JLabel ingresarIdClienteLabel;
+    private javax.swing.JLabel ingresarIdFarmaciaLabel;
+    private javax.swing.JTextField ingresarProductoTextField;
+    private javax.swing.JButton iniciarTButton;
     private javax.swing.JButton iniciarTurnoButton;
     private javax.swing.JPanel iniciarTurnoPanel;
-    private javax.swing.JTabbedPane iniciarTurnoTabbedPane;
     private javax.swing.JPanel inventarioEstimadoPanel;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel paginaInicioTurnoPanel;
     private javax.swing.JPanel pantallaPanel;
     private javax.swing.JPanel precioVigentesPanel;
     private javax.swing.JPanel preciosVigentesPanel;
+    private javax.swing.JTable productosIngresarTable;
     private javax.swing.JPanel registrarInventarioFisicoPanel;
     private javax.swing.JPanel registrarRecepciónPanel;
     private javax.swing.JPanel registrarVentaPanel;
@@ -461,6 +647,5 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JPanel topProductosPanel;
     private javax.swing.JPanel verReportesPanel;
     private javax.swing.JButton volverDeReportesButton;
-    private javax.swing.JButton volverDeTurnoButton;
     // End of variables declaration//GEN-END:variables
 }

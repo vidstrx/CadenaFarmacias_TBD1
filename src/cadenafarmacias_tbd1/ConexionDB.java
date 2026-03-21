@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 import java.sql.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -37,19 +38,39 @@ public class ConexionDB {
         return connection;
     }
     
-//    public void insertar(String nombre, String email, String telefono) {
-//        String query = "insert into clientes(nombre,email,telefono) values (?,?,?)";
-//        try {
-//            PreparedStatement ps = connection.prepareStatement(query);
-//            ps.setString(1, nombre);
-//            ps.setString(2, email);
-//            ps.setString(3, telefono);
-//            ps.executeUpdate();
-//            
-//            System.out.println("\nDato insertado correctamente");
-//        } catch (SQLException e) {
-//            System.out.println("Error al insertar");
-//            e.printStackTrace();
-//        }
-//    }
+    public DefaultTableModel buscarPorducto(String nombre_producto){
+        String sql = "SELECT id_producto, nombre_producto, precio FROM productos WHERE nombre_producto LIKE ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, "%" + nombre_producto + "%");
+            
+            ResultSet tabla = stmt.executeQuery();
+            DefaultTableModel modelo = new DefaultTableModel();
+            
+            while(tabla.next()){
+                modelo.addRow(new Object[3]);
+            }
+            
+            return modelo;
+        } catch (SQLException ex) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        return null;
+    }
+    
+    public void insertar(String nombre, String email, String telefono) {
+        String query = "insert into clientes(nombre,email,telefono) values (?,?,?)";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, nombre);
+            ps.setString(2, email);
+            ps.setString(3, telefono);
+            ps.executeUpdate();
+            
+            System.out.println("\nDato insertado correctamente");
+        } catch (SQLException e) {
+            System.out.println("Error al insertar");
+            e.printStackTrace();
+        }
+    }
 }
