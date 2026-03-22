@@ -7,8 +7,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     ConexionDB conectar;
     int cantidad_productos_venta = 0;
     DefaultTableModel listar_productos_para_venta_tabla;
+    DefaultTableModel listar_productos_venta_tabla;
     int id_empleado;
     int id_farmacia;
+    int id_proveedor;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadenaFarmacias_TBD1.class.getName());
 
@@ -18,6 +20,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         TurnoPanel.setVisible(false);
         verReportesPanel.setVisible(false);
         iniciarTurnoPanel.setVisible(false);
+        recepcionPanel.setVisible(false);
         setLocationRelativeTo(null);
         
         conectar = new ConexionDB();
@@ -67,10 +70,24 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         agregarProductoButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        listarProductosVentaTable = new javax.swing.JTable();
+        realizarVentaButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        cancelarVentaButton = new javax.swing.JButton();
         registrarRecepciónPanel = new javax.swing.JPanel();
+        realizarRecepcionButton = new javax.swing.JButton();
+        idProveedorTextField = new javax.swing.JTextField();
+        recepcionPanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        ingresarIDProdRecepcionTextField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        fechaVRecepcionTextField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        cantidadRecepcionTextField = new javax.swing.JTextField();
+        agregarLoteButton = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        precioRecepcionTextField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         preciosVigentesPanel = new javax.swing.JPanel();
         registrarInventarioFisicoPanel = new javax.swing.JPanel();
         iniciarTurnoPanel = new javax.swing.JPanel();
@@ -305,6 +322,12 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         TurnoPanel.setBackground(new java.awt.Color(255, 255, 255));
 
+        TurnoTabbedPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TurnoTabbedPaneMouseClicked(evt);
+            }
+        });
+
         paginaInicioTurnoPanel.setBackground(new java.awt.Color(0, 153, 102));
 
         bienvenidoTurnoLabel.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
@@ -347,6 +370,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         registrarVentaPanel.setBackground(new java.awt.Color(0, 153, 102));
 
+        buscarProductoLabel.setForeground(new java.awt.Color(255, 255, 255));
         buscarProductoLabel.setText("Busque el producto que desea agregar a la venta:");
 
         buscarProductoButton.setText("Buscar");
@@ -374,21 +398,37 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         agregarProductoButton.addActionListener(this::agregarProductoButtonActionPerformed);
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel1.setText("*Cambie la cantidad en la tabla");
+        jLabel1.setText("*Modifique cantidad deseada en la tabla");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        listarProductosVentaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre de Producto", "Cantidad", "Precio Unitario"
+                "Nombre de Producto", "Precio Unitario", "Cantidad"
             }
-        ));
-        jScrollPane3.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true
+            };
 
-        jButton1.setText("Realizar Venta");
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(listarProductosVentaTable);
+
+        realizarVentaButton.setBackground(new java.awt.Color(0, 0, 204));
+        realizarVentaButton.setForeground(new java.awt.Color(255, 255, 255));
+        realizarVentaButton.setText("Realizar Venta");
+        realizarVentaButton.addActionListener(this::realizarVentaButtonActionPerformed);
 
         jLabel2.setText("Monto total:");
+
+        cancelarVentaButton.setBackground(new java.awt.Color(255, 0, 0));
+        cancelarVentaButton.setForeground(new java.awt.Color(255, 255, 255));
+        cancelarVentaButton.setText("Cancelar Venta");
+        cancelarVentaButton.addActionListener(this::cancelarVentaButtonActionPerformed);
 
         javax.swing.GroupLayout registrarVentaPanelLayout = new javax.swing.GroupLayout(registrarVentaPanel);
         registrarVentaPanel.setLayout(registrarVentaPanelLayout);
@@ -409,11 +449,13 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                             .addGroup(registrarVentaPanelLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1))
+                                .addComponent(cancelarVentaButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(realizarVentaButton))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(agregarProductoButton)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(21, Short.MAX_VALUE))))
         );
         registrarVentaPanelLayout.setVerticalGroup(
@@ -434,24 +476,109 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel2))
+                    .addComponent(realizarVentaButton)
+                    .addComponent(jLabel2)
+                    .addComponent(cancelarVentaButton))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
         TurnoTabbedPane.addTab("Registrar Venta", registrarVentaPanel);
 
         registrarRecepciónPanel.setBackground(new java.awt.Color(0, 153, 102));
+        registrarRecepciónPanel.setForeground(new java.awt.Color(255, 255, 255));
+
+        realizarRecepcionButton.setText("Realizar Recepción");
+        realizarRecepcionButton.addActionListener(this::realizarRecepcionButtonActionPerformed);
+
+        jLabel3.setText("ID del producto:");
+
+        jLabel4.setText("Fecha de vencimiento:");
+
+        jLabel5.setText("Cantidad:");
+
+        agregarLoteButton.setText("Agregar Lote");
+        agregarLoteButton.addActionListener(this::agregarLoteButtonActionPerformed);
+
+        jLabel7.setText("Precio Unitario:");
+
+        javax.swing.GroupLayout recepcionPanelLayout = new javax.swing.GroupLayout(recepcionPanel);
+        recepcionPanel.setLayout(recepcionPanelLayout);
+        recepcionPanelLayout.setHorizontalGroup(
+            recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(recepcionPanelLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(agregarLoteButton)
+                    .addGroup(recepcionPanelLayout.createSequentialGroup()
+                        .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(ingresarIDProdRecepcionTextField)
+                            .addComponent(fechaVRecepcionTextField)
+                            .addComponent(cantidadRecepcionTextField)
+                            .addComponent(precioRecepcionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))))
+                .addContainerGap(637, Short.MAX_VALUE))
+        );
+        recepcionPanelLayout.setVerticalGroup(
+            recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(recepcionPanelLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(ingresarIDProdRecepcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(fechaVRecepcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(cantidadRecepcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(precioRecepcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(agregarLoteButton)
+                .addContainerGap(231, Short.MAX_VALUE))
+        );
+
+        jLabel6.setText("ID Proveedor:");
 
         javax.swing.GroupLayout registrarRecepciónPanelLayout = new javax.swing.GroupLayout(registrarRecepciónPanel);
         registrarRecepciónPanel.setLayout(registrarRecepciónPanelLayout);
         registrarRecepciónPanelLayout.setHorizontalGroup(
             registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
+            .addGroup(registrarRecepciónPanelLayout.createSequentialGroup()
+                .addGroup(registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(registrarRecepciónPanelLayout.createSequentialGroup()
+                        .addGap(399, 399, 399)
+                        .addComponent(realizarRecepcionButton))
+                    .addGroup(registrarRecepciónPanelLayout.createSequentialGroup()
+                        .addGap(377, 377, 377)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(idProveedorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(334, Short.MAX_VALUE))
+            .addGroup(registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(recepcionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         registrarRecepciónPanelLayout.setVerticalGroup(
             registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 525, Short.MAX_VALUE)
+            .addGroup(registrarRecepciónPanelLayout.createSequentialGroup()
+                .addGap(221, 221, 221)
+                .addGroup(registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(idProveedorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(realizarRecepcionButton)
+                .addContainerGap(245, Short.MAX_VALUE))
+            .addGroup(registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(recepcionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         TurnoTabbedPane.addTab("Registrar Recepción", registrarRecepciónPanel);
@@ -600,12 +727,19 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         int indice = productosIngresarTable.getSelectedRow();
         if(indice != -1){
             String nombre = listar_productos_para_venta_tabla.getValueAt(indice, 1).toString();
+            double precio = Double.parseDouble(listar_productos_para_venta_tabla.getValueAt(indice, 2).toString());
+            int cantidad = Integer.parseInt(listar_productos_para_venta_tabla.getValueAt(indice, 3).toString());
             
+            if(cantidad == 0){
+                JOptionPane.showMessageDialog(this, "No existen suficientes elementos de este producto");
+                return;
+            }
+            
+            listar_productos_venta_tabla.addRow(new Object[]{nombre, precio, cantidad});
         }else{
             JOptionPane.showMessageDialog(this, "No ha seleccionado producto");
             return;
         }
-        //listadoProductosPanel.add(this)
     }//GEN-LAST:event_agregarProductoButtonActionPerformed
 
     private void iniciarTButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarTButtonActionPerformed
@@ -633,6 +767,96 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         pantallaPanel.setVisible(true);
     }//GEN-LAST:event_finalizarTurnoButtonActionPerformed
 
+    private void TurnoTabbedPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TurnoTabbedPaneMouseClicked
+        
+    }//GEN-LAST:event_TurnoTabbedPaneMouseClicked
+
+    private void cancelarVentaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarVentaButtonActionPerformed
+        listar_productos_venta_tabla.setRowCount(0);
+        listarProductosVentaTable.setModel(listar_productos_venta_tabla);
+    }//GEN-LAST:event_cancelarVentaButtonActionPerformed
+
+    private void realizarVentaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarVentaButtonActionPerformed
+        if(listar_productos_venta_tabla.getRowCount() == 0){
+            JOptionPane.showMessageDialog(null, "Agregue productos para realizar venta");
+            return;
+        }
+        
+        for(int i = 0; i < listar_productos_venta_tabla.getRowCount(); i++){
+            if(Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 2).toString()) <= Integer.parseInt(listar_productos_para_venta_tabla.getValueAt(i, 3).toString())){
+                
+                
+                JOptionPane.showMessageDialog(null, "Venta Realizada con éxito");
+                listar_productos_venta_tabla.setRowCount(0);
+                listarProductosVentaTable.setModel(listar_productos_venta_tabla);
+            }else
+                JOptionPane.showMessageDialog(null, "Insuficiente cantidad de " + listar_productos_venta_tabla.getValueAt(i, 0).toString());
+        }
+    }//GEN-LAST:event_realizarVentaButtonActionPerformed
+
+    private void realizarRecepcionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarRecepcionButtonActionPerformed
+        if(idProveedorTextField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Ingrese ID del proveedor");
+            return;
+        }
+        
+        String nombre_proveedor = conectar.idExiste(idProveedorTextField.getText(), "id_proveedor", "nombre", "proveedor");
+        if(nombre_proveedor.equals("")){
+            JOptionPane.showMessageDialog(null, "ID de proveedor no existe");
+            return;
+        }
+        id_proveedor = Integer.parseInt(idProveedorTextField.getText());
+        recepcionPanel.setVisible(true);
+        realizarRecepcionButton.setVisible(false);
+        
+        conectar.iniciarRecepcion(id_farmacia, id_proveedor);
+    }//GEN-LAST:event_realizarRecepcionButtonActionPerformed
+
+    private void agregarLoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarLoteButtonActionPerformed
+        if(ingresarIDProdRecepcionTextField.getText().isEmpty() || fechaVRecepcionTextField.getText().isEmpty() ||
+                cantidadRecepcionTextField.getText().isEmpty() || precioRecepcionTextField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
+            return;
+        }
+        
+        String nombre_producto = conectar.idExiste(ingresarIDProdRecepcionTextField.getText(), "id_producto", "nombre_producto", "producto");
+        
+        if(nombre_producto.equals("")){
+            JOptionPane.showMessageDialog(null, "ID producto no existe");
+            return;
+        }
+        
+        String fecha_vencimiento = fechaVRecepcionTextField.getText();
+        
+        
+        
+        
+        int cantidad = Integer.parseInt(cantidadRecepcionTextField.getText());
+        
+        
+        
+        double precio;
+        if(convertirDouble(precioRecepcionTextField.getText()))
+            precio = Double.parseDouble(precioRecepcionTextField.getText());
+        else
+            JOptionPane.showMessageDialog(null, "Precio inválido");
+        
+        
+    }//GEN-LAST:event_agregarLoteButtonActionPerformed
+
+    private boolean convertirDouble(String valor){
+        try {
+            Double valor2 = Double.parseDouble(valor);
+            if(valor2 > 0)
+                return true;
+            else
+                return false;
+        }catch(NumberFormatException e){
+            System.out.println(e);
+            return false;
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -665,18 +889,24 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JPanel TurnoPanel;
     private javax.swing.JTabbedPane TurnoTabbedPane;
     private javax.swing.JPanel VentasPanel;
+    private javax.swing.JButton agregarLoteButton;
     private javax.swing.JButton agregarProductoButton;
     private javax.swing.JLabel bienvenidoLabel;
     private javax.swing.JLabel bienvenidoTurnoLabel;
     private javax.swing.JButton buscarProductoButton;
     private javax.swing.JLabel buscarProductoLabel;
+    private javax.swing.JButton cancelarVentaButton;
+    private javax.swing.JTextField cantidadRecepcionTextField;
     private javax.swing.JPanel cierreTurnoPanel;
     private javax.swing.JPanel entregasPendientesPanel;
     private javax.swing.JLabel farmaciaNombreLabel;
+    private javax.swing.JTextField fechaVRecepcionTextField;
     private javax.swing.JButton finalizarTurnoButton;
     private javax.swing.JTextField idClienteTextField;
     private javax.swing.JTextField idFarmaciaTextField;
+    private javax.swing.JTextField idProveedorTextField;
     private javax.swing.JLabel imagenInicioLabel;
+    private javax.swing.JTextField ingresarIDProdRecepcionTextField;
     private javax.swing.JLabel ingresarIdClienteLabel;
     private javax.swing.JLabel ingresarIdFarmaciaLabel;
     private javax.swing.JTextField ingresarProductoTextField;
@@ -684,18 +914,26 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JButton iniciarTurnoButton;
     private javax.swing.JPanel iniciarTurnoPanel;
     private javax.swing.JPanel inventarioEstimadoPanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable listarProductosVentaTable;
     private javax.swing.JPanel paginaInicioTurnoPanel;
     private javax.swing.JPanel pantallaPanel;
+    private javax.swing.JTextField precioRecepcionTextField;
     private javax.swing.JPanel precioVigentesPanel;
     private javax.swing.JPanel preciosVigentesPanel;
     private javax.swing.JTable productosIngresarTable;
+    private javax.swing.JButton realizarRecepcionButton;
+    private javax.swing.JButton realizarVentaButton;
+    private javax.swing.JPanel recepcionPanel;
     private javax.swing.JPanel registrarInventarioFisicoPanel;
     private javax.swing.JPanel registrarRecepciónPanel;
     private javax.swing.JPanel registrarVentaPanel;

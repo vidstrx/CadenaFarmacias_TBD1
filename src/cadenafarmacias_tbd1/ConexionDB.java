@@ -41,9 +41,9 @@ public class ConexionDB {
     }
     
     public DefaultTableModel buscarPorducto(String nombre_producto, int id_farmacia){
-        String sql = "SELECT id_producto, nombre_producto, precio, cantidad FROM producto p, almacena a WHERE p.id_producto = a.id_producto AND id_farmacia = ? AND nombre_producto LIKE ?";
+        String comando = "SELECT p.id_producto, p.nombre_producto, p.precio, a.cantidad FROM producto p, almacena a WHERE p.id_producto = a.id_producto AND a.id_farmacia = ? AND nombre_producto LIKE ?";
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            PreparedStatement stmt = connection.prepareStatement(comando);
             stmt.setString(1, id_farmacia + "");
             stmt.setString(2, "%" + nombre_producto + "%");
             
@@ -62,10 +62,10 @@ public class ConexionDB {
     }
     
     public String idExiste(String id, String campo1, String campo2, String tabla){
-        String sql = "SELECT * FROM " + tabla + " WHERE " + campo1 + " = ? LIMIT 1";
+        String comando = "SELECT * FROM " + tabla + " WHERE " + campo1 + " = ? LIMIT 1";
         PreparedStatement st;
         try {
-            st = connection.prepareStatement(sql);
+            st = connection.prepareStatement(comando);
             st.setString(1, id);
             
             ResultSet nueva_tabla = st.executeQuery();
@@ -77,6 +77,17 @@ public class ConexionDB {
         } catch (SQLException ex) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             return "";
+        }
+    }
+    
+    public void iniciarRecepcion(int id_farmacia, int id_proveedor){
+        String comando = "{call insertar_recepcion_suministra(?, ?)}";
+        try(CallableStatement cs = connection.prepareCall(comando)){
+            cs.setInt(1, id_farmacia);
+            cs.setInt(2, id_proveedor);
+            cs.execute();
+        } catch (SQLException ex) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
     
