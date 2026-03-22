@@ -48,6 +48,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         reportesButton = new javax.swing.JButton();
         iniciarTurnoButton = new javax.swing.JButton();
         seleccionInicioLabel = new javax.swing.JLabel();
+        salirToggleButton = new javax.swing.JToggleButton();
         verReportesPanel = new javax.swing.JPanel();
         ReportesTabbedPane = new javax.swing.JTabbedPane();
         VentasPanel = new javax.swing.JPanel();
@@ -78,9 +79,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         realizarVentaButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         cancelarVentaButton = new javax.swing.JButton();
-        registrarRecepciónPanel = new javax.swing.JPanel();
+        registrarRecepcionPanel = new javax.swing.JPanel();
         idProveedorTextField = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        ingresarIdProveedorLabel = new javax.swing.JLabel();
         realizarRecepcionButton = new javax.swing.JButton();
         recepcionPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -93,6 +94,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         precioRecepcionTextField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        finalizarRecepcionToggleButton = new javax.swing.JToggleButton();
         preciosVigentesPanel = new javax.swing.JPanel();
         registrarInventarioFisicoPanel = new javax.swing.JPanel();
         iniciarTurnoPanel = new javax.swing.JPanel();
@@ -101,6 +103,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         iniciarTButton = new javax.swing.JButton();
         ingresarIdFarmaciaLabel = new javax.swing.JLabel();
         idFarmaciaTextField = new javax.swing.JTextField();
+        regresarDeInicioTurnoButton = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -137,6 +140,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         seleccionInicioLabel.setForeground(new java.awt.Color(0, 0, 0));
         seleccionInicioLabel.setText("Seleccione lo que desea hacer:");
 
+        salirToggleButton.setBackground(new java.awt.Color(255, 0, 0));
+        salirToggleButton.setForeground(new java.awt.Color(255, 255, 255));
+        salirToggleButton.setText("Salir");
+        salirToggleButton.addActionListener(this::salirToggleButtonActionPerformed);
+
         javax.swing.GroupLayout pantallaPanelLayout = new javax.swing.GroupLayout(pantallaPanel);
         pantallaPanel.setLayout(pantallaPanelLayout);
         pantallaPanelLayout.setHorizontalGroup(
@@ -158,8 +166,13 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                         .addGap(282, 282, 282))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(seleccionInicioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(363, 363, 363))
+                .addGroup(pantallaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaPanelLayout.createSequentialGroup()
+                        .addComponent(seleccionInicioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(363, 363, 363))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaPanelLayout.createSequentialGroup()
+                        .addComponent(salirToggleButton)
+                        .addContainerGap())))
         );
         pantallaPanelLayout.setVerticalGroup(
             pantallaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,7 +187,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addGroup(pantallaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(reportesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(iniciarTurnoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(salirToggleButton)
+                .addContainerGap())
         );
 
         verReportesPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -489,10 +504,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         TurnoTabbedPane.addTab("Registrar Venta", registrarVentaPanel);
 
-        registrarRecepciónPanel.setBackground(new java.awt.Color(0, 153, 102));
-        registrarRecepciónPanel.setForeground(new java.awt.Color(255, 255, 255));
+        registrarRecepcionPanel.setBackground(new java.awt.Color(0, 153, 102));
+        registrarRecepcionPanel.setForeground(new java.awt.Color(255, 255, 255));
 
-        jLabel6.setText("ID Proveedor:");
+        ingresarIdProveedorLabel.setText("ID Proveedor:");
 
         realizarRecepcionButton.setText("Realizar Recepción");
         realizarRecepcionButton.addActionListener(this::realizarRecepcionButtonActionPerformed);
@@ -513,14 +528,16 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 0));
         jLabel8.setText("*Escriba fecha en formato YYYY-MM-DD");
 
+        finalizarRecepcionToggleButton.setText("Finalizar");
+        finalizarRecepcionToggleButton.addActionListener(this::finalizarRecepcionToggleButtonActionPerformed);
+
         javax.swing.GroupLayout recepcionPanelLayout = new javax.swing.GroupLayout(recepcionPanel);
         recepcionPanel.setLayout(recepcionPanelLayout);
         recepcionPanelLayout.setHorizontalGroup(
             recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(recepcionPanelLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(17, 17, 17)
                 .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(agregarLoteButton)
                     .addGroup(recepcionPanelLayout.createSequentialGroup()
                         .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -533,8 +550,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                             .addComponent(fechaVRecepcionTextField)
                             .addComponent(cantidadRecepcionTextField)
                             .addComponent(precioRecepcionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(637, Short.MAX_VALUE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(finalizarRecepcionToggleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(agregarLoteButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(649, Short.MAX_VALUE))
         );
         recepcionPanelLayout.setVerticalGroup(
             recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -559,42 +579,44 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                     .addComponent(precioRecepcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(agregarLoteButton)
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 175, Short.MAX_VALUE)
+                .addComponent(finalizarRecepcionToggleButton)
+                .addContainerGap())
         );
 
-        javax.swing.GroupLayout registrarRecepciónPanelLayout = new javax.swing.GroupLayout(registrarRecepciónPanel);
-        registrarRecepciónPanel.setLayout(registrarRecepciónPanelLayout);
-        registrarRecepciónPanelLayout.setHorizontalGroup(
-            registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(registrarRecepciónPanelLayout.createSequentialGroup()
-                .addGroup(registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(registrarRecepciónPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout registrarRecepcionPanelLayout = new javax.swing.GroupLayout(registrarRecepcionPanel);
+        registrarRecepcionPanel.setLayout(registrarRecepcionPanelLayout);
+        registrarRecepcionPanelLayout.setHorizontalGroup(
+            registrarRecepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registrarRecepcionPanelLayout.createSequentialGroup()
+                .addGroup(registrarRecepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(registrarRecepcionPanelLayout.createSequentialGroup()
                         .addGap(399, 399, 399)
                         .addComponent(realizarRecepcionButton))
-                    .addGroup(registrarRecepciónPanelLayout.createSequentialGroup()
+                    .addGroup(registrarRecepcionPanelLayout.createSequentialGroup()
                         .addGap(377, 377, 377)
-                        .addComponent(jLabel6)
+                        .addComponent(ingresarIdProveedorLabel)
                         .addGap(18, 18, 18)
                         .addComponent(idProveedorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(334, Short.MAX_VALUE))
-            .addGroup(registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registrarRecepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(recepcionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        registrarRecepciónPanelLayout.setVerticalGroup(
-            registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(registrarRecepciónPanelLayout.createSequentialGroup()
+        registrarRecepcionPanelLayout.setVerticalGroup(
+            registrarRecepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registrarRecepcionPanelLayout.createSequentialGroup()
                 .addGap(221, 221, 221)
-                .addGroup(registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                .addGroup(registrarRecepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ingresarIdProveedorLabel)
                     .addComponent(idProveedorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(realizarRecepcionButton)
                 .addContainerGap(245, Short.MAX_VALUE))
-            .addGroup(registrarRecepciónPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registrarRecepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(recepcionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        TurnoTabbedPane.addTab("Registrar Recepción", registrarRecepciónPanel);
+        TurnoTabbedPane.addTab("Registrar Recepción", registrarRecepcionPanel);
 
         preciosVigentesPanel.setBackground(new java.awt.Color(0, 153, 102));
 
@@ -655,16 +677,23 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         idFarmaciaTextField.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
 
+        regresarDeInicioTurnoButton.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        regresarDeInicioTurnoButton.setText("Regresar");
+        regresarDeInicioTurnoButton.addActionListener(this::regresarDeInicioTurnoButtonActionPerformed);
+
         javax.swing.GroupLayout iniciarTurnoPanelLayout = new javax.swing.GroupLayout(iniciarTurnoPanel);
         iniciarTurnoPanel.setLayout(iniciarTurnoPanelLayout);
         iniciarTurnoPanelLayout.setHorizontalGroup(
             iniciarTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, iniciarTurnoPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(133, Short.MAX_VALUE)
                 .addGroup(iniciarTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(idClienteTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ingresarIdClienteLabel)
-                    .addComponent(iniciarTButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(iniciarTurnoPanelLayout.createSequentialGroup()
+                        .addComponent(iniciarTButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(regresarDeInicioTurnoButton))
                     .addComponent(ingresarIdFarmaciaLabel)
                     .addComponent(idFarmaciaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(178, 178, 178))
@@ -681,7 +710,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(idFarmaciaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65)
-                .addComponent(iniciarTButton)
+                .addGroup(iniciarTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(iniciarTButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(regresarDeInicioTurnoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(88, Short.MAX_VALUE))
         );
 
@@ -765,13 +796,17 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         String nombre_farm = conectar.idExiste(idFarmaciaTextField.getText(), "id_farmacia", "nombre", "farmacia");
         if(!nombre_emp.equals("") && !nombre_farm.equals("")){
             conectar.iniciarTurno();
-            
             iniciarTurnoPanel.setVisible(false);
             TurnoPanel.setVisible(true);
             id_empleado = Integer.parseInt(idClienteTextField.getText());
             id_farmacia = Integer.parseInt(idFarmaciaTextField.getText());
             bienvenidoTurnoLabel.setText("Bienvenido/a:" + nombre_emp + "-ID:" + id_empleado);
             farmaciaNombreLabel.setText(nombre_farm + "-ID:" + id_farmacia);
+            realizarRecepcionButton.setVisible(true);
+            idProveedorTextField.setVisible(true);
+            ingresarIdProveedorLabel.setVisible(true);
+            idClienteTextField.setText("");
+            idFarmaciaTextField.setText("");
         }else{
             JOptionPane.showMessageDialog(null, "ID empleado o ID farmacia no existe");
         }
@@ -781,6 +816,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         conectar.finalizarTurno();
         TurnoPanel.setVisible(false);
         pantallaPanel.setVisible(true);
+        recepcionPanel.setVisible(false);
     }//GEN-LAST:event_finalizarTurnoButtonActionPerformed
 
     private void TurnoTabbedPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TurnoTabbedPaneMouseClicked
@@ -822,8 +858,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             return;
         }
         id_proveedor = Integer.parseInt(idProveedorTextField.getText());
-        recepcionPanel.setVisible(true);
         realizarRecepcionButton.setVisible(false);
+        idProveedorTextField.setText("");
+        idProveedorTextField.setVisible(false);
+        ingresarIdProveedorLabel.setVisible(false);
+        recepcionPanel.setVisible(true);
         
         conectar.iniciarRecepcion(id_farmacia, id_proveedor, id_empleado);
     }//GEN-LAST:event_realizarRecepcionButtonActionPerformed
@@ -886,6 +925,22 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_agregarLoteButtonActionPerformed
+
+    private void regresarDeInicioTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarDeInicioTurnoButtonActionPerformed
+        pantallaPanel.setVisible(true);
+        iniciarTurnoPanel.setVisible(false);
+    }//GEN-LAST:event_regresarDeInicioTurnoButtonActionPerformed
+
+    private void salirToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirToggleButtonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_salirToggleButtonActionPerformed
+
+    private void finalizarRecepcionToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarRecepcionToggleButtonActionPerformed
+        recepcionPanel.setVisible(false);
+        realizarRecepcionButton.setVisible(true);
+        idProveedorTextField.setVisible(true);
+        ingresarIdProveedorLabel.setVisible(true);
+    }//GEN-LAST:event_finalizarRecepcionToggleButtonActionPerformed
 
     public boolean esFechaValida(String fecha) {
         try {
@@ -959,6 +1014,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JPanel entregasPendientesPanel;
     private javax.swing.JLabel farmaciaNombreLabel;
     private javax.swing.JTextField fechaVRecepcionTextField;
+    private javax.swing.JToggleButton finalizarRecepcionToggleButton;
     private javax.swing.JButton finalizarTurnoButton;
     private javax.swing.JTextField idClienteTextField;
     private javax.swing.JTextField idFarmaciaTextField;
@@ -967,6 +1023,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTextField ingresarIDProdRecepcionTextField;
     private javax.swing.JLabel ingresarIdClienteLabel;
     private javax.swing.JLabel ingresarIdFarmaciaLabel;
+    private javax.swing.JLabel ingresarIdProveedorLabel;
     private javax.swing.JTextField ingresarProductoTextField;
     private javax.swing.JButton iniciarTButton;
     private javax.swing.JButton iniciarTurnoButton;
@@ -978,7 +1035,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
@@ -994,9 +1050,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JButton realizarVentaButton;
     private javax.swing.JPanel recepcionPanel;
     private javax.swing.JPanel registrarInventarioFisicoPanel;
-    private javax.swing.JPanel registrarRecepciónPanel;
+    private javax.swing.JPanel registrarRecepcionPanel;
     private javax.swing.JPanel registrarVentaPanel;
+    private javax.swing.JButton regresarDeInicioTurnoButton;
     private javax.swing.JButton reportesButton;
+    private javax.swing.JToggleButton salirToggleButton;
     private javax.swing.JLabel seleccionInicioLabel;
     private javax.swing.JPanel topProductosPanel;
     private javax.swing.JPanel verReportesPanel;
