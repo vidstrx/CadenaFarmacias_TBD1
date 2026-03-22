@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 import java.sql.*;
+import java.time.LocalDate;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -80,12 +81,48 @@ public class ConexionDB {
         }
     }
     
-    public void iniciarRecepcion(int id_farmacia, int id_proveedor){
-        String comando = "{call insertar_recepcion_suministra(?, ?)}";
+    public void iniciarRecepcion(int id_farmacia, int id_proveedor, int id_empleado){
+        String comando = "{call insertar_recepcion_suministra(?, ?, ?)}";
         try(CallableStatement cs = connection.prepareCall(comando)){
             cs.setInt(1, id_farmacia);
             cs.setInt(2, id_proveedor);
+            cs.setInt(3, id_empleado);
             cs.execute();
+        } catch (SQLException ex) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    
+    public void iniciarTurno(){
+        String comando = "{call insertar_turno()}";
+        try(CallableStatement cs = connection.prepareCall(comando)){
+            cs.execute();
+        } catch (SQLException ex) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    
+    public void insertarDetalleRecepcion(int id_farmacia, int id_producto, int cantidad, double precio, LocalDate fecha_vencimiento) throws SQLException{
+        String comando = "{Call insertar_detalle_recepcion_lote_almacena(?,?,?,?,?)}";
+        try(CallableStatement cs = connection.prepareCall(comando)){
+            cs.setInt(1, id_farmacia);
+            cs.setInt(2, id_producto);
+            cs.setInt(3, cantidad);
+            cs.setDouble(4, precio);
+            java.sql.Date fecha = java.sql.Date.valueOf(fecha_vencimiento);
+            cs.setDate(5, fecha);
+            cs.execute();
+        } catch (SQLException ex) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    
+    public void finalizarTurno(){
+        String comando = "UPDATE turno SET hora_final = CURRENT_TIME() WHERE id_turno = (SELECT * FROM (SELECT MAX(id_turno) FROM turno) AS t)";
+        PreparedStatement st;
+        try{
+            st = connection.prepareStatement(comando);
+            int cambio = st.executeUpdate();
         } catch (SQLException ex) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
