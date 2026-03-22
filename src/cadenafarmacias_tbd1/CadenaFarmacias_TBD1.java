@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     ConexionDB conectar;
     int cantidad_productos_venta = 0;
-    DefaultTableModel listar_productos_para_venta_tabla;
+    DefaultTableModel listar_productos_para_venta_tabla = new DefaultTableModel();
     DefaultTableModel listar_productos_venta_tabla;
     int id_empleado;
     int id_farmacia;
@@ -401,11 +401,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre de Producto", "Precio", "Cantidad"
+                "codigo_lote", "id_producto", "nombre_producto", "tipo_presentacion", "volumen_cantidad", "precio", "cantidad", "fecha_vencimiento"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -758,13 +758,19 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     }//GEN-LAST:event_iniciarTurnoButtonActionPerformed
 
     private void buscarProductoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProductoButtonActionPerformed
+        listar_productos_para_venta_tabla = (DefaultTableModel) productosIngresarTable.getModel();
         if(ingresarProductoTextField.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "No ha ingresado nombre de producto");
             return;
+        } else { 
+            listar_productos_para_venta_tabla.setRowCount(0);
+            listar_productos_para_venta_tabla = conectar.buscarProducto(ingresarProductoTextField.getText(), id_farmacia, listar_productos_para_venta_tabla);
+            if (listar_productos_para_venta_tabla.getRowCount() == 0 || listar_productos_para_venta_tabla == null) {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún producto con ese nombre.", "Sin resultados", JOptionPane.WARNING_MESSAGE);
+            } else {
+                productosIngresarTable.setModel(listar_productos_para_venta_tabla);  
+            }  
         }
-        
-        listar_productos_para_venta_tabla = conectar.buscarPorducto(ingresarProductoTextField.getText(), id_farmacia);
-        productosIngresarTable.setModel(listar_productos_para_venta_tabla);
     }//GEN-LAST:event_buscarProductoButtonActionPerformed
 
     private void agregarProductoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoButtonActionPerformed

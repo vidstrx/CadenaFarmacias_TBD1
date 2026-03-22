@@ -41,20 +41,28 @@ public class ConexionDB {
         return connection;
     }
     
-    public DefaultTableModel buscarPorducto(String nombre_producto, int id_farmacia){
-        String comando = "SELECT p.id_producto, p.nombre_producto, p.precio, a.cantidad FROM producto p, almacena a WHERE p.id_producto = a.id_producto AND a.id_farmacia = ? AND nombre_producto LIKE ?";
+    public DefaultTableModel buscarProducto(String nombre_producto, int id_farmacia, DefaultTableModel modelo){
+        String comando = "CALL buscar_producto(?,?)";
         try {
-            PreparedStatement stmt = connection.prepareStatement(comando);
-            stmt.setString(1, id_farmacia + "");
-            stmt.setString(2, "%" + nombre_producto + "%");
+            CallableStatement callStmt = connection.prepareCall(comando);
+            callStmt.setString(1, nombre_producto);
+            callStmt.setInt(2, id_farmacia);
             
-            ResultSet tabla = stmt.executeQuery();
-            DefaultTableModel modelo = new DefaultTableModel();
-              
-            while(tabla.next()){
-                modelo.addRow(new Object[]{tabla.getInt("id_producto"), tabla.getString("nombre_producto"), tabla.getDouble("precio"), tabla.getInt("cantidad")});
+            ResultSet rs = callStmt.executeQuery();
+            //DefaultTableModel modelo = new DefaultTableModel();
+            while(rs.next()){
+                modelo.addRow(new Object[] {
+                    rs.getInt("codigo_lote"), 
+                    rs.getInt("id_producto"), 
+                    rs.getString("nombre_producto"), 
+                    rs.getString("tipo_presentacion"), 
+                    rs.getString("volumen_cantidad"), 
+                    rs.getDouble("precio"), 
+                    rs.getInt("cantidad"),
+                    rs.getDate("fecha_vencimiento")
+                });
             }
-            
+    
             return modelo;
         } catch (SQLException ex) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
