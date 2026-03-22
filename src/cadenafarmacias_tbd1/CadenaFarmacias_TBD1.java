@@ -70,30 +70,30 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         buscarProductoLabel = new javax.swing.JLabel();
         ingresarProductoTextField = new javax.swing.JTextField();
         buscarProductoButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        listarProductosParaVentaScrollPane = new javax.swing.JScrollPane();
         productosIngresarTable = new javax.swing.JTable();
         agregarProductoButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        modificarCantidadEnTablaLabel = new javax.swing.JLabel();
+        listarProductosVentaScrollPane = new javax.swing.JScrollPane();
         listarProductosVentaTable = new javax.swing.JTable();
         realizarVentaButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        montoTotalVentaLabel = new javax.swing.JLabel();
         cancelarVentaButton = new javax.swing.JButton();
         registrarRecepcionPanel = new javax.swing.JPanel();
         idProveedorTextField = new javax.swing.JTextField();
         ingresarIdProveedorLabel = new javax.swing.JLabel();
         realizarRecepcionButton = new javax.swing.JButton();
         recepcionPanel = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        ingresarIdProductoRecepcionLabel = new javax.swing.JLabel();
         ingresarIDProdRecepcionTextField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        ingresarFechaVRecepcionLabel = new javax.swing.JLabel();
         fechaVRecepcionTextField = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        ingresarCantidadRecepcionLabel = new javax.swing.JLabel();
         cantidadRecepcionTextField = new javax.swing.JTextField();
         agregarLoteButton = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        ingresarPrecioUnitarioRecepcionLabel = new javax.swing.JLabel();
         precioRecepcionTextField = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        escribirFormatoFechaRecepcionLabel = new javax.swing.JLabel();
         finalizarRecepcionToggleButton = new javax.swing.JToggleButton();
         preciosVigentesPanel = new javax.swing.JPanel();
         registrarInventarioFisicoPanel = new javax.swing.JPanel();
@@ -412,13 +412,13 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(productosIngresarTable);
+        listarProductosParaVentaScrollPane.setViewportView(productosIngresarTable);
 
         agregarProductoButton.setText("Agregar");
         agregarProductoButton.addActionListener(this::agregarProductoButtonActionPerformed);
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel1.setText("*Modifique cantidad deseada en la tabla");
+        modificarCantidadEnTablaLabel.setForeground(new java.awt.Color(255, 255, 0));
+        modificarCantidadEnTablaLabel.setText("*Modifique cantidad deseada en la tabla");
 
         listarProductosVentaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -436,14 +436,14 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(listarProductosVentaTable);
+        listarProductosVentaScrollPane.setViewportView(listarProductosVentaTable);
 
         realizarVentaButton.setBackground(new java.awt.Color(0, 0, 204));
         realizarVentaButton.setForeground(new java.awt.Color(255, 255, 255));
         realizarVentaButton.setText("Realizar Venta");
         realizarVentaButton.addActionListener(this::realizarVentaButtonActionPerformed);
 
-        jLabel2.setText("Monto total:");
+        montoTotalVentaLabel.setText("Monto total:");
 
         cancelarVentaButton.setBackground(new java.awt.Color(255, 0, 0));
         cancelarVentaButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -467,15 +467,15 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                     .addGroup(registrarVentaPanelLayout.createSequentialGroup()
                         .addGroup(registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(registrarVentaPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addComponent(montoTotalVentaLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(cancelarVentaButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(realizarVentaButton))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(listarProductosVentaScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(agregarProductoButton)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(listarProductosParaVentaScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
+                            .addComponent(modificarCantidadEnTablaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(21, Short.MAX_VALUE))))
         );
         registrarVentaPanelLayout.setVerticalGroup(
@@ -487,17 +487,17 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                     .addComponent(buscarProductoLabel)
                     .addComponent(buscarProductoButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(listarProductosParaVentaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(agregarProductoButton)
                 .addGap(32, 32, 32)
-                .addComponent(jLabel1)
+                .addComponent(modificarCantidadEnTablaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(listarProductosVentaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(realizarVentaButton)
-                    .addComponent(jLabel2)
+                    .addComponent(montoTotalVentaLabel)
                     .addComponent(cancelarVentaButton))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -514,19 +514,19 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         recepcionPanel.setBackground(new java.awt.Color(0, 153, 102));
 
-        jLabel3.setText("ID del producto:");
+        ingresarIdProductoRecepcionLabel.setText("ID del producto:");
 
-        jLabel4.setText("Fecha de vencimiento:");
+        ingresarFechaVRecepcionLabel.setText("Fecha de vencimiento:");
 
-        jLabel5.setText("Cantidad:");
+        ingresarCantidadRecepcionLabel.setText("Cantidad:");
 
         agregarLoteButton.setText("Agregar Lote");
         agregarLoteButton.addActionListener(this::agregarLoteButtonActionPerformed);
 
-        jLabel7.setText("Precio Unitario:");
+        ingresarPrecioUnitarioRecepcionLabel.setText("Precio Unitario:");
 
-        jLabel8.setForeground(new java.awt.Color(255, 255, 0));
-        jLabel8.setText("*Escriba fecha en formato YYYY-MM-DD");
+        escribirFormatoFechaRecepcionLabel.setForeground(new java.awt.Color(255, 255, 0));
+        escribirFormatoFechaRecepcionLabel.setText("*Escriba fecha en formato YYYY-MM-DD");
 
         finalizarRecepcionToggleButton.setText("Finalizar");
         finalizarRecepcionToggleButton.addActionListener(this::finalizarRecepcionToggleButtonActionPerformed);
@@ -540,17 +540,17 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(recepcionPanelLayout.createSequentialGroup()
                         .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(ingresarPrecioUnitarioRecepcionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ingresarCantidadRecepcionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ingresarFechaVRecepcionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ingresarIdProductoRecepcionLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ingresarIDProdRecepcionTextField)
                             .addComponent(fechaVRecepcionTextField)
                             .addComponent(cantidadRecepcionTextField)
                             .addComponent(precioRecepcionTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(escribirFormatoFechaRecepcionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(finalizarRecepcionToggleButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(agregarLoteButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -561,21 +561,21 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             .addGroup(recepcionPanelLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(ingresarIdProductoRecepcionLabel)
                     .addComponent(ingresarIDProdRecepcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addComponent(jLabel8)
+                .addComponent(escribirFormatoFechaRecepcionLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(ingresarFechaVRecepcionLabel)
                     .addComponent(fechaVRecepcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                    .addComponent(ingresarCantidadRecepcionLabel)
                     .addComponent(cantidadRecepcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addGroup(recepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(ingresarPrecioUnitarioRecepcionLabel)
                     .addComponent(precioRecepcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(agregarLoteButton)
@@ -1012,6 +1012,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTextField cantidadRecepcionTextField;
     private javax.swing.JPanel cierreTurnoPanel;
     private javax.swing.JPanel entregasPendientesPanel;
+    private javax.swing.JLabel escribirFormatoFechaRecepcionLabel;
     private javax.swing.JLabel farmaciaNombreLabel;
     private javax.swing.JTextField fechaVRecepcionTextField;
     private javax.swing.JToggleButton finalizarRecepcionToggleButton;
@@ -1020,26 +1021,25 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTextField idFarmaciaTextField;
     private javax.swing.JTextField idProveedorTextField;
     private javax.swing.JLabel imagenInicioLabel;
+    private javax.swing.JLabel ingresarCantidadRecepcionLabel;
+    private javax.swing.JLabel ingresarFechaVRecepcionLabel;
     private javax.swing.JTextField ingresarIDProdRecepcionTextField;
     private javax.swing.JLabel ingresarIdClienteLabel;
     private javax.swing.JLabel ingresarIdFarmaciaLabel;
+    private javax.swing.JLabel ingresarIdProductoRecepcionLabel;
     private javax.swing.JLabel ingresarIdProveedorLabel;
+    private javax.swing.JLabel ingresarPrecioUnitarioRecepcionLabel;
     private javax.swing.JTextField ingresarProductoTextField;
     private javax.swing.JButton iniciarTButton;
     private javax.swing.JButton iniciarTurnoButton;
     private javax.swing.JPanel iniciarTurnoPanel;
     private javax.swing.JPanel inventarioEstimadoPanel;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane listarProductosParaVentaScrollPane;
+    private javax.swing.JScrollPane listarProductosVentaScrollPane;
     private javax.swing.JTable listarProductosVentaTable;
+    private javax.swing.JLabel modificarCantidadEnTablaLabel;
+    private javax.swing.JLabel montoTotalVentaLabel;
     private javax.swing.JPanel paginaInicioTurnoPanel;
     private javax.swing.JPanel pantallaPanel;
     private javax.swing.JTextField precioRecepcionTextField;
