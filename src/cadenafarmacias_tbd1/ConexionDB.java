@@ -136,6 +136,24 @@ public class ConexionDB {
         }
     }
     
+    public String verificarStock(int id_farmacia, String nombre_producto, int codigo_lote, int cantidad) {
+        String comando = "CALL verificar_stock(?,?,?,?,?)";
+        try {
+            CallableStatement callStmt = connection.prepareCall(comando);
+            callStmt.setInt(1, id_farmacia);
+            callStmt.setString(2, nombre_producto);
+            callStmt.setInt(3, codigo_lote);
+            callStmt.setInt(4, cantidad);
+            callStmt.registerOutParameter(5, Types.VARCHAR);
+            callStmt.execute();
+            
+            return callStmt.getString(5);
+        } catch (SQLException ex) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        return null;
+    }
+    
 //    public void insertar(String nombre, String email, String telefono) {
 //        String query = "insert into clientes(nombre,email,telefono) values (?,?,?)";
 //        try {
