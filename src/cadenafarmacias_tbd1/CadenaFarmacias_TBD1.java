@@ -12,16 +12,18 @@ import java.sql.*;
 import javax.swing.JButton;
 
 public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
+
     ConexionDB conectar;
     int cantidad_productos_venta = 0;
     DefaultTableModel listar_productos_para_venta_tabla = new DefaultTableModel();
     DefaultTableModel listar_productos_venta_tabla = new DefaultTableModel();
+    DefaultTableModel listar_productos_precio = new DefaultTableModel();
     int id_empleado;
     int id_farmacia;
     int id_proveedor;
     String hora_inicio_turno;
     boolean flag = true;
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadenaFarmacias_TBD1.class.getName());
 
     public CadenaFarmacias_TBD1() {
@@ -32,7 +34,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         iniciarTurnoPanel.setVisible(false);
         recepcionPanel.setVisible(false);
         setLocationRelativeTo(null);
-        
+
         conectar = new ConexionDB();
         conectar.getConnection();
 //        conectar.insertar("David Castro", "david@gmail.com", "3344-2934");
@@ -110,11 +112,19 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         precioRecepcionTextField = new javax.swing.JTextField();
         escribirFormatoFechaRecepcionLabel = new javax.swing.JLabel();
         finalizarRecepcionToggleButton = new javax.swing.JToggleButton();
-        preciosVigentesPanel = new javax.swing.JPanel();
         registrarInventarioFisicoPanel = new javax.swing.JPanel();
         ingreseFormaRegistroLabel = new javax.swing.JLabel();
         formaRegistroComboBox = new javax.swing.JComboBox<>();
         AceptarFormaRegistroButton = new javax.swing.JButton();
+        preciosVigentesPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla_productos_precio = new javax.swing.JTable();
+        label_buscar_producto_id = new javax.swing.JLabel();
+        txt_id_producto = new javax.swing.JTextField();
+        buscar_producto_btn = new javax.swing.JButton();
+        label_modificar_precio = new javax.swing.JLabel();
+        txt_modificar_precio = new javax.swing.JTextField();
+        btn_modificar_precio = new javax.swing.JButton();
         iniciarTurnoPanel = new javax.swing.JPanel();
         ingresarIdClienteLabel = new javax.swing.JLabel();
         idClienteTextField = new javax.swing.JTextField();
@@ -169,7 +179,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         pantallaPanel.setBackground(new java.awt.Color(153, 153, 255));
 
         bienvenidoLabel.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        bienvenidoLabel.setForeground(new java.awt.Color(0, 0, 0));
         bienvenidoLabel.setText("¡¡BIENVENIDO!!");
 
         imagenInicioLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cadenafarmacias_tbd1/images/imagen inicio.jpg"))); // NOI18N
@@ -185,7 +194,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         iniciarTurnoButton.setText("Iniciar Turno");
         iniciarTurnoButton.addActionListener(this::iniciarTurnoButtonActionPerformed);
 
-        seleccionInicioLabel.setForeground(new java.awt.Color(0, 0, 0));
         seleccionInicioLabel.setText("Seleccione lo que desea hacer:");
 
         salirToggleButton.setBackground(new java.awt.Color(255, 0, 0));
@@ -703,21 +711,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         TurnoTabbedPane.addTab("Registrar Recepción", registrarRecepcionPanel);
 
-        preciosVigentesPanel.setBackground(new java.awt.Color(0, 153, 102));
-
-        javax.swing.GroupLayout preciosVigentesPanelLayout = new javax.swing.GroupLayout(preciosVigentesPanel);
-        preciosVigentesPanel.setLayout(preciosVigentesPanelLayout);
-        preciosVigentesPanelLayout.setHorizontalGroup(
-            preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
-        );
-        preciosVigentesPanelLayout.setVerticalGroup(
-            preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 536, Short.MAX_VALUE)
-        );
-
-        TurnoTabbedPane.addTab("Precios Vigentes", preciosVigentesPanel);
-
         registrarInventarioFisicoPanel.setBackground(new java.awt.Color(0, 153, 102));
 
         ingreseFormaRegistroLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -756,6 +749,82 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         TurnoTabbedPane.addTab("Registrar Inventario Físico", registrarInventarioFisicoPanel);
 
+        preciosVigentesPanel.setBackground(new java.awt.Color(0, 153, 102));
+
+        tabla_productos_precio.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Id_producto", "Nombre", "Precio vigente"
+            }
+        ));
+        tabla_productos_precio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla_productos_precioMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabla_productos_precio);
+
+        label_buscar_producto_id.setText("Buscar producto por ID: ");
+
+        buscar_producto_btn.setText("BUSCAR");
+        buscar_producto_btn.addActionListener(this::buscar_producto_btnActionPerformed);
+
+        label_modificar_precio.setText("Ingrese el nueco precio del producto:");
+
+        btn_modificar_precio.setText("MODIFICAR");
+        btn_modificar_precio.addActionListener(this::btn_modificar_precioActionPerformed);
+
+        javax.swing.GroupLayout preciosVigentesPanelLayout = new javax.swing.GroupLayout(preciosVigentesPanel);
+        preciosVigentesPanel.setLayout(preciosVigentesPanelLayout);
+        preciosVigentesPanelLayout.setHorizontalGroup(
+            preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(preciosVigentesPanelLayout.createSequentialGroup()
+                .addGroup(preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(preciosVigentesPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 746, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(preciosVigentesPanelLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(preciosVigentesPanelLayout.createSequentialGroup()
+                                .addComponent(label_buscar_producto_id)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_id_producto, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(preciosVigentesPanelLayout.createSequentialGroup()
+                                .addComponent(label_modificar_precio)
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_modificar_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(42, 42, 42)
+                        .addGroup(preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btn_modificar_precio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buscar_producto_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(147, Short.MAX_VALUE))
+        );
+        preciosVigentesPanelLayout.setVerticalGroup(
+            preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(preciosVigentesPanelLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_buscar_producto_id)
+                    .addComponent(txt_id_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscar_producto_btn))
+                .addGap(51, 51, 51)
+                .addGroup(preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(label_modificar_precio)
+                    .addComponent(txt_modificar_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_modificar_precio))
+                .addContainerGap(214, Short.MAX_VALUE))
+        );
+
+        TurnoTabbedPane.addTab("Precios Vigentes", preciosVigentesPanel);
+
         javax.swing.GroupLayout TurnoPanelLayout = new javax.swing.GroupLayout(TurnoPanel);
         TurnoPanel.setLayout(TurnoPanelLayout);
         TurnoPanelLayout.setHorizontalGroup(
@@ -770,7 +839,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         iniciarTurnoPanel.setBackground(new java.awt.Color(51, 255, 153));
 
         ingresarIdClienteLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        ingresarIdClienteLabel.setForeground(new java.awt.Color(0, 0, 0));
         ingresarIdClienteLabel.setText("Ingrese ID del empleado responsable:");
 
         idClienteTextField.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -780,7 +848,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         iniciarTButton.addActionListener(this::iniciarTButtonActionPerformed);
 
         ingresarIdFarmaciaLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        ingresarIdFarmaciaLabel.setForeground(new java.awt.Color(0, 0, 0));
         ingresarIdFarmaciaLabel.setText("Ingrese ID de Farmacia:");
 
         idFarmaciaTextField.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -867,28 +934,27 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
     private void buscarProductoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProductoButtonActionPerformed
         listar_productos_para_venta_tabla = (DefaultTableModel) productosIngresarTable.getModel();
-        if(ingresarProductoTextField.getText().isEmpty()){
+        if (ingresarProductoTextField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No ha ingresado nombre de producto");
             return;
-        } else { 
+        } else {
             listar_productos_para_venta_tabla.setRowCount(0);
             listar_productos_para_venta_tabla = conectar.buscarProducto(ingresarProductoTextField.getText(), id_farmacia, listar_productos_para_venta_tabla);
             if (listar_productos_para_venta_tabla.getRowCount() == 0 || listar_productos_para_venta_tabla == null) {
                 JOptionPane.showMessageDialog(null, "No se encontró ningún producto con ese nombre.", "Sin resultados", JOptionPane.WARNING_MESSAGE);
             } else {
-                productosIngresarTable.setModel(listar_productos_para_venta_tabla);  
-            }  
+                productosIngresarTable.setModel(listar_productos_para_venta_tabla);
+            }
         }
     }//GEN-LAST:event_buscarProductoButtonActionPerformed
 
     private void agregarProductoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoButtonActionPerformed
         int indice = productosIngresarTable.getSelectedRow();
-        if(indice != -1){
+        if (indice != -1) {
             int codigo_lote = Integer.parseInt(listar_productos_para_venta_tabla.getValueAt(indice, 0).toString());
-            
-            
+
             for (int i = 0; i < listar_productos_venta_tabla.getRowCount(); i++) {
-                if (Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 0).toString()) == codigo_lote){
+                if (Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 0).toString()) == codigo_lote) {
                     JOptionPane.showMessageDialog(null, "No puedes agregar el mismo producto del mismo lote.", "Error", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
@@ -899,29 +965,29 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             String volumen_cantidad = listar_productos_para_venta_tabla.getValueAt(indice, 4).toString();
             double precio = Double.parseDouble(listar_productos_para_venta_tabla.getValueAt(indice, 5).toString());
             int cantidad = Integer.parseInt(listar_productos_para_venta_tabla.getValueAt(indice, 6).toString());
-            
-            if(cantidad == 0){
+
+            if (cantidad == 0) {
                 JOptionPane.showMessageDialog(this, "No existen suficientes elementos de este producto");
                 return;
             }
             listar_productos_venta_tabla = (DefaultTableModel) listarProductosVentaTable.getModel();
-            listar_productos_venta_tabla.addRow(new Object[]{codigo_lote,id_producto, nombre, tipo_presentacion, volumen_cantidad, precio, cantidad});
+            listar_productos_venta_tabla.addRow(new Object[]{codigo_lote, id_producto, nombre, tipo_presentacion, volumen_cantidad, precio, cantidad});
             listarProductosVentaTable.setModel(listar_productos_venta_tabla);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "No ha seleccionado producto");
             return;
         }
     }//GEN-LAST:event_agregarProductoButtonActionPerformed
 
     private void iniciarTButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarTButtonActionPerformed
-        if(idClienteTextField.getText().isEmpty() || idFarmaciaTextField.getText().isEmpty()){
+        if (idClienteTextField.getText().isEmpty() || idFarmaciaTextField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese todos los campos");
             return;
         }
-        
+
         String nombre_emp = conectar.idExiste(idClienteTextField.getText(), "id_empleado", "nombre", "empleado");
         String nombre_farm = conectar.idExiste(idFarmaciaTextField.getText(), "id_farmacia", "nombre", "farmacia");
-        if(!nombre_emp.equals("") && !nombre_farm.equals("")){
+        if (!nombre_emp.equals("") && !nombre_farm.equals("")) {
             conectar.iniciarTurno();
             iniciarTurnoPanel.setVisible(false);
             TurnoPanel.setVisible(true);
@@ -935,7 +1001,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             idClienteTextField.setText("");
             idFarmaciaTextField.setText("");
             AceptarFormaRegistroButton.setEnabled(false);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "ID empleado o ID farmacia no existe");
         }
     }//GEN-LAST:event_iniciarTButtonActionPerformed
@@ -948,7 +1014,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     }//GEN-LAST:event_finalizarTurnoButtonActionPerformed
 
     private void TurnoTabbedPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TurnoTabbedPaneMouseClicked
-        
+        tabla_productos_precio.setModel(conectar.cargarVistaProductos(listar_productos_precio));
+        label_modificar_precio.setVisible(false);
+        txt_modificar_precio.setVisible(false);
+        btn_modificar_precio.setVisible(false);
     }//GEN-LAST:event_TurnoTabbedPaneMouseClicked
 
     private void cancelarVentaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarVentaButtonActionPerformed
@@ -957,38 +1026,38 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarVentaButtonActionPerformed
 
     private void realizarVentaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarVentaButtonActionPerformed
-        if(listar_productos_venta_tabla.getRowCount() == 0){
+        if (listar_productos_venta_tabla.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "Agregue productos para realizar venta");
             return;
         }
-        
+
         if (idClienteVentaTextField.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Error. Ingresa el id del cliente", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
+
         String metodo = metodoPagoComboBox.getSelectedItem().toString();
         String id_cliente = conectar.idExiste(idClienteVentaTextField.getText(), "id_cliente", "nombre", "cliente");
         String mensaje = "";
         double precioTotal = 0;
-        
+
         if (!id_cliente.equals("")) {
-            for(int i = 0; i < listar_productos_venta_tabla.getRowCount(); i++){
+            for (int i = 0; i < listar_productos_venta_tabla.getRowCount(); i++) {
                 if (listar_productos_venta_tabla.getValueAt(i, 7) == null) {
                     JOptionPane.showMessageDialog(null, "Debes ingresar la cantidad que se vendera", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
-                } 
-                
+                }
+
                 try {
                     mensaje = conectar.verificarStock(
-                            id_farmacia, 
+                            id_farmacia,
                             listar_productos_venta_tabla.getValueAt(i, 2).toString(),
                             Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 0).toString()),
                             Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 7).toString())
                     );
                     precioTotal += Double.valueOf(listar_productos_venta_tabla.getValueAt(i, 5).toString()) * Double.valueOf(listar_productos_venta_tabla.getValueAt(i, 7).toString());
-                    
-                    if (mensaje.startsWith("Sin inventario") || mensaje.startsWith("Cantidad excedida") || mensaje.startsWith("Cantidad invalida")){
+
+                    if (mensaje.startsWith("Sin inventario") || mensaje.startsWith("Cantidad excedida") || mensaje.startsWith("Cantidad invalida")) {
                         JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
@@ -998,9 +1067,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 }
             }
             montoTotalVentaLabel.setText("Monto total: " + Double.toString(precioTotal));
-            
+
             int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas realizar la venta?", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            if (opcion == JOptionPane.YES_OPTION){
+            if (opcion == JOptionPane.YES_OPTION) {
                 precioTotal = 0;
                 conectar.insertar_venta(id_empleado, id_farmacia, Integer.parseInt(idClienteVentaTextField.getText()), metodo);
                 for (int i = 0; i < listar_productos_venta_tabla.getRowCount(); i++) {
@@ -1008,7 +1077,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                             Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 0).toString()),
                             Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 1).toString()),
                             Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 7).toString())
-                            );
+                    );
                 }
                 JOptionPane.showMessageDialog(null, "Se ha realizado la venta con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 listar_productos_venta_tabla.setRowCount(0);
@@ -1018,20 +1087,20 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 montoTotalVentaLabel.setText("Monto total: ");
                 idClienteVentaTextField.setText("");
                 AceptarFormaRegistroButton.setEnabled(true);
-            } 
+            }
         } else {
             JOptionPane.showMessageDialog(null, "No se encuentra el cliente en la base de datos", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_realizarVentaButtonActionPerformed
 
     private void realizarRecepcionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarRecepcionButtonActionPerformed
-        if(idProveedorTextField.getText().isEmpty()){
+        if (idProveedorTextField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Ingrese ID del proveedor");
             return;
         }
-        
+
         String nombre_proveedor = conectar.idExiste(idProveedorTextField.getText(), "id_proveedor", "nombre", "proveedor");
-        if(nombre_proveedor.equals("")){
+        if (nombre_proveedor.equals("")) {
             JOptionPane.showMessageDialog(null, "ID de proveedor no existe");
             return;
         }
@@ -1041,49 +1110,49 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         idProveedorTextField.setVisible(false);
         ingresarIdProveedorLabel.setVisible(false);
         recepcionPanel.setVisible(true);
-        
+
         conectar.iniciarRecepcion(id_farmacia, id_proveedor, id_empleado);
         AceptarFormaRegistroButton.setEnabled(true);
     }//GEN-LAST:event_realizarRecepcionButtonActionPerformed
 
     private void agregarLoteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarLoteButtonActionPerformed
-        if(ingresarIDProdRecepcionTextField.getText().isEmpty() || fechaVRecepcionTextField.getText().isEmpty() ||
-                cantidadRecepcionTextField.getText().isEmpty() || precioRecepcionTextField.getText().isEmpty()){
+        if (ingresarIDProdRecepcionTextField.getText().isEmpty() || fechaVRecepcionTextField.getText().isEmpty()
+                || cantidadRecepcionTextField.getText().isEmpty() || precioRecepcionTextField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
             return;
         }
-        
+
         String nombre_producto = conectar.idExiste(ingresarIDProdRecepcionTextField.getText(), "id_producto", "nombre_producto", "producto");
-        
-        if(nombre_producto.equals("")){
+
+        if (nombre_producto.equals("")) {
             JOptionPane.showMessageDialog(null, "ID producto no existe");
             return;
         }
-        
-        if(!esFechaValida(fechaVRecepcionTextField.getText())){
+
+        if (!esFechaValida(fechaVRecepcionTextField.getText())) {
             JOptionPane.showMessageDialog(null, "Fecha no válida");
             return;
         }
         LocalDate fecha_vencimiento = LocalDate.parse(fechaVRecepcionTextField.getText());
-        
-        if(!esIntValido(cantidadRecepcionTextField.getText())){
+
+        if (!esIntValido(cantidadRecepcionTextField.getText())) {
             JOptionPane.showMessageDialog(null, "Cantidad no válida");
             return;
         }
-        
+
         int cantidad = Integer.parseInt(cantidadRecepcionTextField.getText());
-        if(cantidad <= 0){
+        if (cantidad <= 0) {
             JOptionPane.showMessageDialog(null, "Cantidad no válida");
             return;
         }
-        
-        if(!convertirDouble(precioRecepcionTextField.getText())){
+
+        if (!convertirDouble(precioRecepcionTextField.getText())) {
             JOptionPane.showMessageDialog(null, "Precio inválido");
             return;
         }
-        
+
         double precio = Double.parseDouble(precioRecepcionTextField.getText());
-        if(precio <= 0){
+        if (precio <= 0) {
             JOptionPane.showMessageDialog(null, "Precio no válida");
             return;
         }
@@ -1123,11 +1192,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
     private void eliminarProductoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarProductoButtonActionPerformed
         int indice = listarProductosVentaTable.getSelectedRow();
-        if(indice != -1){
+        if (indice != -1) {
             listar_productos_venta_tabla = (DefaultTableModel) listarProductosVentaTable.getModel();
             listar_productos_venta_tabla.removeRow(indice);
             listarProductosVentaTable.setModel(listar_productos_venta_tabla);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "No has seleccionado el producto a eliminar.", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -1135,32 +1204,32 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
     private void AceptarFormaRegistroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarFormaRegistroButtonActionPerformed
         conectar.insertar_conciliacion(id_farmacia);
-        if(formaRegistroComboBox.getSelectedItem().equals("Ingreso Directo")){
+        if (formaRegistroComboBox.getSelectedItem().equals("Ingreso Directo")) {
             ingresoDirectoInventarioDialog.setVisible(true);
             ingresoDirectoInventarioDialog.setSize(494, 265);
             ingresoDirectoInventarioDialog.setLocationRelativeTo(this);
             ingresoDirectoInventarioDialog.setTitle("Registro por producto en físico");
             ResultSet tabla = conectar.enumerarProductos(id_farmacia);
-            if(tabla != null){
+            if (tabla != null) {
                 try {
                     Object espera = new Object();
-                    
-                    while(tabla.next()){
+
+                    while (tabla.next()) {
                         nombreProductoConciliacionLabel.setText("Producto: " + tabla.getString("nombre_producto"));
-                        
+
                         JButton aceptarCantidadConciliacionButton = new JButton("Aceptar");
                         aceptarCantidadConciliacionButton.setBounds(48, 150, 80, 30);
                         ingresoDirectoInventarioDialog.add(aceptarCantidadConciliacionButton);
-                        
-                        aceptarCantidadConciliacionButton.addActionListener(new ActionListener(){
+
+                        aceptarCantidadConciliacionButton.addActionListener(new ActionListener() {
                             @Override
-                            public void actionPerformed(ActionEvent e){
-                                if(esIntValido(ingresarConciliacionCantidad1TextField.getText())){
+                            public void actionPerformed(ActionEvent e) {
+                                if (esIntValido(ingresarConciliacionCantidad1TextField.getText())) {
                                     int cantidad = Integer.parseInt(ingresarConciliacionCantidad1TextField.getText());
-                                    if(cantidad < 0){
+                                    if (cantidad < 0) {
                                         JOptionPane.showMessageDialog(null, "Cantidad no puede ser menor a 0", "Error", JOptionPane.WARNING_MESSAGE);
                                         return;
-                                    }else{
+                                    } else {
                                         try {
                                             conectar.insertar_detalle_conciliacion(id_farmacia, tabla.getInt("id_producto"), cantidad);
                                             flag = false;
@@ -1168,35 +1237,73 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                                             System.getLogger(CadenaFarmacias_TBD1.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                                         }
                                     }
-                                }else{
+                                } else {
                                     JOptionPane.showMessageDialog(null, "Cantidad inválida", "Error", JOptionPane.WARNING_MESSAGE);
                                     return;
                                 }
                             }
                         });
-                        
-                        synchronized (espera){
+
+                        synchronized (espera) {
                             flag = true;
-                            while(flag){
-                                try{
+                            while (flag) {
+                                try {
                                     espera.wait();
-                                }catch(InterruptedException e){
+                                } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
                             }
                         }
-                        
+
                     }
                     finalizarTurnoButtonActionPerformed(evt);
                 } catch (SQLException ex) {
                     System.getLogger(CadenaFarmacias_TBD1.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                 }
             }
-            
-        }else{
-            
+
+        } else {
+
         }
     }//GEN-LAST:event_AceptarFormaRegistroButtonActionPerformed
+
+    private void buscar_producto_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_producto_btnActionPerformed
+        // TODO add your handling code here:
+
+        try {
+            int id = Integer.parseInt(txt_id_producto.getText());
+            tabla_productos_precio.setModel(conectar.buscarProductoPorId(id, listar_productos_precio));
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Ingrese un ID válido");
+        }
+
+
+    }//GEN-LAST:event_buscar_producto_btnActionPerformed
+
+    private void tabla_productos_precioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla_productos_precioMouseClicked
+        // TODO add your handling code here:
+        if (tabla_productos_precio.getSelectedRow() != -1) {
+            btn_modificar_precio.setVisible(true);
+            label_modificar_precio.setVisible(true);
+            txt_modificar_precio.setVisible(true);
+        }
+    }//GEN-LAST:event_tabla_productos_precioMouseClicked
+
+    private void btn_modificar_precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificar_precioActionPerformed
+        // TODO add your handling code here:
+        int fila = tabla_productos_precio.getSelectedRow();
+        if (txt_modificar_precio.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Ingrese un precio!!");
+        } else {
+            int id = Integer.parseInt(tabla_productos_precio.getValueAt(fila, 0).toString());
+            double nuevoprecio = Double.parseDouble(txt_modificar_precio.getText());
+            conectar.actualizarPrecioProducto(id, nuevoprecio);
+            tabla_productos_precio.setValueAt(nuevoprecio, fila, 2); 
+            JOptionPane.showMessageDialog(this, "Registro actualizado visualmente.");
+        }
+
+    }//GEN-LAST:event_btn_modificar_precioActionPerformed
 
     public boolean esFechaValida(String fecha) {
         try {
@@ -1206,7 +1313,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             return false;
         }
     }
-    
+
     public boolean esIntValido(String entero) {
         try {
             Integer.parseInt(entero);
@@ -1215,17 +1322,17 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             return false;
         }
     }
-    
-    private boolean convertirDouble(String valor){
+
+    private boolean convertirDouble(String valor) {
         try {
             Double valor2 = Double.parseDouble(valor);
             return true;
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println(e);
             return false;
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -1263,8 +1370,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JButton agregarProductoButton;
     private javax.swing.JLabel bienvenidoLabel;
     private javax.swing.JLabel bienvenidoTurnoLabel;
+    private javax.swing.JButton btn_modificar_precio;
     private javax.swing.JButton buscarProductoButton;
     private javax.swing.JLabel buscarProductoLabel;
+    private javax.swing.JButton buscar_producto_btn;
     private javax.swing.JButton cancelarVentaButton;
     private javax.swing.JLabel cantidadConciliacion1Label;
     private javax.swing.JTextField cantidadRecepcionTextField;
@@ -1300,6 +1409,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JPanel iniciarTurnoPanel;
     private javax.swing.JPanel inventarioEstimadoPanel;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel label_buscar_producto_id;
+    private javax.swing.JLabel label_modificar_precio;
     private javax.swing.JScrollPane listarProductosParaVentaScrollPane;
     private javax.swing.JScrollPane listarProductosVentaScrollPane;
     private javax.swing.JTable listarProductosVentaTable;
@@ -1324,7 +1436,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JButton reportesButton;
     private javax.swing.JToggleButton salirToggleButton;
     private javax.swing.JLabel seleccionInicioLabel;
+    private javax.swing.JTable tabla_productos_precio;
     private javax.swing.JPanel topProductosPanel;
+    private javax.swing.JTextField txt_id_producto;
+    private javax.swing.JTextField txt_modificar_precio;
     private javax.swing.JPanel verReportesPanel;
     private javax.swing.JButton volverDeReportesButton;
     // End of variables declaration//GEN-END:variables
