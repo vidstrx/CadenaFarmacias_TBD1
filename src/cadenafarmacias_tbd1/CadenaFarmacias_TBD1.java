@@ -1225,7 +1225,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         TurnoPanel.setVisible(false);
         pantallaPanel.setVisible(true);
         recepcionPanel.setVisible(false);
-        ingresoDirectoInventarioDialog.setVisible(false);
+        ingresoDirectoInventarioDialog.dispose();
     }//GEN-LAST:event_confirmarConciliacionButtonActionPerformed
 
     private void sumarCantidadConciliacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumarCantidadConciliacionButtonActionPerformed
