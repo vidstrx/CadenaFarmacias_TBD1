@@ -431,11 +431,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
             },
             new String [] {
-                "codigo_lote", "nombre_producto", "tipo_presentacion", "volumen_cantidad", "precio", "cantidad_disponible", "cantidad"
+                "codigo_lote", "id_producto", "nombre_producto", "tipo_presentacion", "volumen_cantidad", "precio", "cantidad_disponible", "cantidad"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -449,6 +449,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         realizarVentaButton.setText("Realizar Venta");
         realizarVentaButton.addActionListener(this::realizarVentaButtonActionPerformed);
 
+        montoTotalVentaLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         montoTotalVentaLabel.setText("Monto total:");
 
         cancelarVentaButton.setBackground(new java.awt.Color(255, 0, 0));
@@ -456,17 +457,20 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         cancelarVentaButton.setText("Cancelar Venta");
         cancelarVentaButton.addActionListener(this::cancelarVentaButtonActionPerformed);
 
+        metodoPagoComboBox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         metodoPagoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Efectivo", "Tarjeta", "Transferencia" }));
         metodoPagoComboBox.setSelectedItem("");
 
         eliminarProductoButton.setText("Eliminar");
         eliminarProductoButton.addActionListener(this::eliminarProductoButtonActionPerformed);
 
-        metodoPagoLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        metodoPagoLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         metodoPagoLabel.setText("Metodo de Pago");
 
-        idClienteLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        idClienteLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         idClienteLabel.setText("ID del cliente");
+
+        idClienteVentaTextField.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
 
         javax.swing.GroupLayout registrarVentaPanelLayout = new javax.swing.GroupLayout(registrarVentaPanel);
         registrarVentaPanel.setLayout(registrarVentaPanelLayout);
@@ -483,29 +487,32 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                         .addComponent(buscarProductoButton)
                         .addGap(28, 28, 28))
                     .addGroup(registrarVentaPanelLayout.createSequentialGroup()
-                        .addGroup(registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(listarProductosVentaScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(listarProductosParaVentaScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
+                            .addComponent(modificarCantidadEnTablaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(registrarVentaPanelLayout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(metodoPagoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(26, 26, 26)
+                                .addComponent(metodoPagoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(metodoPagoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(idClienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(metodoPagoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(72, 72, 72)
+                                .addComponent(idClienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(idClienteVentaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(293, 293, 293)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(eliminarProductoButton))
                             .addGroup(registrarVentaPanelLayout.createSequentialGroup()
-                                .addComponent(montoTotalVentaLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cancelarVentaButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(realizarVentaButton))
-                            .addComponent(listarProductosVentaScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(agregarProductoButton)
-                            .addComponent(listarProductosParaVentaScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
-                            .addComponent(modificarCantidadEnTablaLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(21, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(agregarProductoButton)
+                                    .addGroup(registrarVentaPanelLayout.createSequentialGroup()
+                                        .addComponent(montoTotalVentaLabel)
+                                        .addGap(195, 195, 195)
+                                        .addComponent(cancelarVentaButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(realizarVentaButton)))))
+                        .addContainerGap(14, Short.MAX_VALUE))))
         );
         registrarVentaPanelLayout.setVerticalGroup(
             registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -525,17 +532,17 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addComponent(listarProductosVentaScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(metodoPagoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(metodoPagoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(eliminarProductoButton)
                     .addComponent(metodoPagoLabel)
                     .addComponent(idClienteLabel)
                     .addComponent(idClienteVentaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(31, 31, 31)
                 .addGroup(registrarVentaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(realizarVentaButton)
-                    .addComponent(montoTotalVentaLabel)
+                    .addComponent(montoTotalVentaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelarVentaButton))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         TurnoTabbedPane.addTab("Registrar Venta", registrarVentaPanel);
@@ -821,6 +828,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                     return;
                 }
             }
+            int id_producto = Integer.parseInt(listar_productos_para_venta_tabla.getValueAt(indice, 1).toString());
             String nombre = listar_productos_para_venta_tabla.getValueAt(indice, 2).toString();
             String tipo_presentacion = listar_productos_para_venta_tabla.getValueAt(indice, 3).toString();
             String volumen_cantidad = listar_productos_para_venta_tabla.getValueAt(indice, 4).toString();
@@ -832,7 +840,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 return;
             }
             listar_productos_venta_tabla = (DefaultTableModel) listarProductosVentaTable.getModel();
-            listar_productos_venta_tabla.addRow(new Object[]{codigo_lote, nombre, tipo_presentacion, volumen_cantidad, cantidad, precio});
+            listar_productos_venta_tabla.addRow(new Object[]{codigo_lote,id_producto, nombre, tipo_presentacion, volumen_cantidad, precio, cantidad});
             listarProductosVentaTable.setModel(listar_productos_venta_tabla);
         }else{
             JOptionPane.showMessageDialog(this, "No ha seleccionado producto");
@@ -896,31 +904,54 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         String metodo = metodoPagoComboBox.getSelectedItem().toString();
         String id_cliente = conectar.idExiste(idClienteVentaTextField.getText(), "id_cliente", "nombre", "cliente");
         String mensaje = "";
+        double precioTotal = 0;
         
         if (!id_cliente.equals("")) {
             for(int i = 0; i < listar_productos_venta_tabla.getRowCount(); i++){
-                if (listar_productos_venta_tabla.getValueAt(i, 6) == null) {
+                if (listar_productos_venta_tabla.getValueAt(i, 7) == null) {
                     JOptionPane.showMessageDialog(null, "Debes ingresar la cantidad que se vendera", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 } 
                 
-                mensaje = conectar.verificarStock(
-                        id_farmacia, 
-                        listar_productos_venta_tabla.getValueAt(i, 1).toString(),
-                        Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 0).toString()),
-                        Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 6).toString())
-                );
-                
-                if (mensaje.startsWith("Sin inventario") || mensaje.startsWith("Cantidad excedida") || mensaje.startsWith("Cantidad invalida")){
-                    JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.WARNING_MESSAGE);
+                try {
+                    mensaje = conectar.verificarStock(
+                            id_farmacia, 
+                            listar_productos_venta_tabla.getValueAt(i, 2).toString(),
+                            Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 0).toString()),
+                            Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 7).toString())
+                    );
+                    precioTotal += Double.valueOf(listar_productos_venta_tabla.getValueAt(i, 5).toString()) * Double.valueOf(listar_productos_venta_tabla.getValueAt(i, 7).toString());
+                    
+                    if (mensaje.startsWith("Sin inventario") || mensaje.startsWith("Cantidad excedida") || mensaje.startsWith("Cantidad invalida")){
+                        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Debes de ingresar un numero", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
+            montoTotalVentaLabel.setText("Monto total: " + Double.toString(precioTotal));
             
-//            listar_productos_venta_tabla.setRowCount(0);
-//            listarProductosVentaTable.setModel(listar_productos_venta_tabla);
-//            JOptionPane.showMessageDialog(null, "Insuficiente cantidad de " + listar_productos_venta_tabla.getValueAt(i, 0).toString());
-            
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro que deseas realizar la venta?", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            if (opcion == JOptionPane.YES_OPTION){
+                precioTotal = 0;
+                conectar.insertar_venta(id_empleado, id_farmacia, Integer.parseInt(idClienteVentaTextField.getText()), metodo);
+                for (int i = 0; i < listar_productos_venta_tabla.getRowCount(); i++) {
+                    precioTotal += conectar.insertar_detalle_venta(
+                            Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 0).toString()),
+                            Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 1).toString()),
+                            Integer.parseInt(listar_productos_venta_tabla.getValueAt(i, 7).toString())
+                            );
+                }
+                JOptionPane.showMessageDialog(null, "Se ha realizado la venta con exito", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                listar_productos_venta_tabla.setRowCount(0);
+                listar_productos_para_venta_tabla.setRowCount(0);
+                productosIngresarTable.setModel(listar_productos_para_venta_tabla);
+                listarProductosVentaTable.setModel(listar_productos_venta_tabla);
+                montoTotalVentaLabel.setText("Monto total: ");
+                idClienteVentaTextField.setText("");
+            } 
         } else {
             JOptionPane.showMessageDialog(null, "No se encuentra el cliente en la base de datos", "Error", JOptionPane.WARNING_MESSAGE);
         }

@@ -49,7 +49,6 @@ public class ConexionDB {
             callStmt.setInt(2, id_farmacia);
             
             ResultSet rs = callStmt.executeQuery();
-            //DefaultTableModel modelo = new DefaultTableModel();
             while(rs.next()){
                 modelo.addRow(new Object[] {
                     rs.getInt("codigo_lote"), 
@@ -61,8 +60,7 @@ public class ConexionDB {
                     rs.getInt("cantidad"),
                     rs.getDate("fecha_vencimiento")
                 });
-            }
-    
+            }    
             return modelo;
         } catch (SQLException ex) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
@@ -152,6 +150,38 @@ public class ConexionDB {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return null;
+    }
+    
+    public void insertar_venta(int id_empleado, int id_farmacia, int id_cliente, String metodo_pago){
+        String comando = "call insertar_venta(?,?,?,?)";
+        try {
+            CallableStatement callStmt = connection.prepareCall(comando);
+            callStmt.setInt(1, id_empleado);
+            callStmt.setInt(2, id_farmacia);
+            callStmt.setInt(3, id_cliente);
+            callStmt.setString(4, metodo_pago);
+            
+            callStmt.execute();
+        } catch (SQLException e) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
+        }
+    }
+    
+    public double insertar_detalle_venta(int codigo_lote, int id_producto, int cantidad){
+        String comando = "call insertar_detalle_venta(?,?,?,?)";
+        try {
+            CallableStatement callStmt = connection.prepareCall(comando);
+            callStmt.setInt(1, codigo_lote);
+            callStmt.setInt(2, id_producto);
+            callStmt.setInt(3, cantidad);
+            callStmt.registerOutParameter(4, Types.DECIMAL);
+            callStmt.execute();
+            
+            return callStmt.getDouble(4);
+        } catch (SQLException e) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
+            return 0;
+        }
     }
     
 //    public void insertar(String nombre, String email, String telefono) {
