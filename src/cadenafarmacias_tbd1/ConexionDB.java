@@ -198,7 +198,7 @@ public class ConexionDB {
     }
     
     public ResultSet enumerarProductos(int id_farmacia){
-        String comando = "SELECT p.nombre_producto, p.id_producto FROM producto p, almacena a WHERE p.id_producto = a.id_producto AND a.id_farmacia = ?;";
+        String comando = "SELECT p.nombre_producto, p.id_producto, a.cantidad FROM producto p, almacena a WHERE p.id_producto = a.id_producto AND a.id_farmacia = ?;";
         PreparedStatement st;
         try {
             st = connection.prepareStatement(comando);
@@ -213,14 +213,14 @@ public class ConexionDB {
     }
     
     public void insertar_detalle_conciliacion(int id_farmacia, int id_producto, int cantidad){
-        String comando = "call insertar_detalle_conciliacion(?, ?, ?)";
+        String comando = "call insertar_detalle_conciliacion(?, ?, ?, ?)";
         try {
             CallableStatement callStmt = connection.prepareCall(comando);
             callStmt.setInt(1, id_farmacia);
             callStmt.setInt(2, id_producto);
             callStmt.setInt(3, cantidad);
-            String mensaje = callStmt.getString(4);
             callStmt.execute();
+            String mensaje = callStmt.getString(4);
             
             if(!mensaje.equals(" "))
                 JOptionPane.showConfirmDialog(null, mensaje, "CUIDADO", JOptionPane.WARNING_MESSAGE);

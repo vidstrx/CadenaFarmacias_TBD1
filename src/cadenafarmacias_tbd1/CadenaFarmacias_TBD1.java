@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.sql.SQLException;
 import java.sql.*;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 
 public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     ConexionDB conectar;
@@ -20,7 +21,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     int id_farmacia;
     int id_proveedor;
     String hora_inicio_turno;
-    boolean flag = true;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadenaFarmacias_TBD1.class.getName());
 
@@ -49,9 +49,13 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
         ingresoDirectoInventarioDialog = new javax.swing.JDialog();
-        nombreProductoConciliacionLabel = new javax.swing.JLabel();
-        cantidadConciliacion1Label = new javax.swing.JLabel();
-        ingresarConciliacionCantidad1TextField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaConciliacionTable = new javax.swing.JTable();
+        confirmarConciliacionButton = new javax.swing.JButton();
+        ingreseCantidadFisicaConciliacionLabel = new javax.swing.JLabel();
+        sumarCantidadConciliacionButton = new javax.swing.JButton();
+        restarCantidadConciliacionButton = new javax.swing.JButton();
+        ingreseCantidadManualConciliacionLabel = new javax.swing.JLabel();
         pantallaPanel = new javax.swing.JPanel();
         bienvenidoLabel = new javax.swing.JLabel();
         imagenInicioLabel = new javax.swing.JLabel();
@@ -134,34 +138,71 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        nombreProductoConciliacionLabel.setText("jLabel1");
+        tablaConciliacionTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        cantidadConciliacion1Label.setText("Cantidad:");
+            },
+            new String [] {
+                "ID producto", "Producto", "Cantidad Teórica", "Cantidad Física"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tablaConciliacionTable);
+
+        confirmarConciliacionButton.setText("Confirmar");
+        confirmarConciliacionButton.addActionListener(this::confirmarConciliacionButtonActionPerformed);
+
+        ingreseCantidadFisicaConciliacionLabel.setText("Ingrese la cantidad física de los productos");
+
+        sumarCantidadConciliacionButton.setText("+");
+        sumarCantidadConciliacionButton.addActionListener(this::sumarCantidadConciliacionButtonActionPerformed);
+
+        restarCantidadConciliacionButton.setText("-");
+        restarCantidadConciliacionButton.addActionListener(this::restarCantidadConciliacionButtonActionPerformed);
+
+        ingreseCantidadManualConciliacionLabel.setText("Ingreso manual (seleccione fila):");
 
         javax.swing.GroupLayout ingresoDirectoInventarioDialogLayout = new javax.swing.GroupLayout(ingresoDirectoInventarioDialog.getContentPane());
         ingresoDirectoInventarioDialog.getContentPane().setLayout(ingresoDirectoInventarioDialogLayout);
         ingresoDirectoInventarioDialogLayout.setHorizontalGroup(
             ingresoDirectoInventarioDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ingresoDirectoInventarioDialogLayout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
                 .addGroup(ingresoDirectoInventarioDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nombreProductoConciliacionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(ingresoDirectoInventarioDialogLayout.createSequentialGroup()
-                        .addComponent(cantidadConciliacion1Label, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ingresarConciliacionCantidad1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38))
+                    .addComponent(ingreseCantidadFisicaConciliacionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(ingresoDirectoInventarioDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ingresoDirectoInventarioDialogLayout.createSequentialGroup()
+                            .addComponent(ingreseCantidadManualConciliacionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(sumarCantidadConciliacionButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(restarCantidadConciliacionButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(confirmarConciliacionButton))))
+                .addGap(0, 27, Short.MAX_VALUE))
         );
         ingresoDirectoInventarioDialogLayout.setVerticalGroup(
             ingresoDirectoInventarioDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ingresoDirectoInventarioDialogLayout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(nombreProductoConciliacionLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(54, 54, 54)
+                .addComponent(ingreseCantidadFisicaConciliacionLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(ingresoDirectoInventarioDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cantidadConciliacion1Label)
-                    .addComponent(ingresarConciliacionCantidad1TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(121, Short.MAX_VALUE))
+                    .addComponent(confirmarConciliacionButton)
+                    .addComponent(ingreseCantidadManualConciliacionLabel)
+                    .addComponent(sumarCantidadConciliacionButton)
+                    .addComponent(restarCantidadConciliacionButton))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -1134,69 +1175,86 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminarProductoButtonActionPerformed
 
     private void AceptarFormaRegistroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AceptarFormaRegistroButtonActionPerformed
-        conectar.insertar_conciliacion(id_farmacia);
-        if(formaRegistroComboBox.getSelectedItem().equals("Ingreso Directo")){
-            ingresoDirectoInventarioDialog.setVisible(true);
-            ingresoDirectoInventarioDialog.setSize(494, 265);
-            ingresoDirectoInventarioDialog.setLocationRelativeTo(this);
-            ingresoDirectoInventarioDialog.setTitle("Registro por producto en físico");
-            ResultSet tabla = conectar.enumerarProductos(id_farmacia);
-            if(tabla != null){
-                try {
-                    Object espera = new Object();
-                    
-                    while(tabla.next()){
-                        nombreProductoConciliacionLabel.setText("Producto: " + tabla.getString("nombre_producto"));
-                        
-                        JButton aceptarCantidadConciliacionButton = new JButton("Aceptar");
-                        aceptarCantidadConciliacionButton.setBounds(48, 150, 80, 30);
-                        ingresoDirectoInventarioDialog.add(aceptarCantidadConciliacionButton);
-                        
-                        aceptarCantidadConciliacionButton.addActionListener(new ActionListener(){
-                            @Override
-                            public void actionPerformed(ActionEvent e){
-                                if(esIntValido(ingresarConciliacionCantidad1TextField.getText())){
-                                    int cantidad = Integer.parseInt(ingresarConciliacionCantidad1TextField.getText());
-                                    if(cantidad < 0){
-                                        JOptionPane.showMessageDialog(null, "Cantidad no puede ser menor a 0", "Error", JOptionPane.WARNING_MESSAGE);
-                                        return;
-                                    }else{
-                                        try {
-                                            conectar.insertar_detalle_conciliacion(id_farmacia, tabla.getInt("id_producto"), cantidad);
-                                            flag = false;
-                                        } catch (SQLException ex) {
-                                            System.getLogger(CadenaFarmacias_TBD1.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-                                        }
-                                    }
-                                }else{
-                                    JOptionPane.showMessageDialog(null, "Cantidad inválida", "Error", JOptionPane.WARNING_MESSAGE);
-                                    return;
-                                }
-                            }
-                        });
-                        
-                        synchronized (espera){
-                            flag = true;
-                            while(flag){
-                                try{
-                                    espera.wait();
-                                }catch(InterruptedException e){
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                        
-                    }
-                    finalizarTurnoButtonActionPerformed(evt);
-                } catch (SQLException ex) {
-                    System.getLogger(CadenaFarmacias_TBD1.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        ResultSet tabla = conectar.enumerarProductos(id_farmacia);
+        if(tabla != null){
+            try {
+                conectar.insertar_conciliacion(id_farmacia);
+                DefaultTableModel modelo = (DefaultTableModel) tablaConciliacionTable.getModel();
+                while(tabla.next()){
+                    modelo.addRow(new Object[]{tabla.getString("id_producto"), tabla.getString("nombre_producto"), tabla.getString("cantidad"), "0"});
                 }
+                ingresoDirectoInventarioDialog.setSize(970, 540);
+                ingresoDirectoInventarioDialog.setLocationRelativeTo(this);
+                ingresoDirectoInventarioDialog.setModal(true);
+                ingresoDirectoInventarioDialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                tablaConciliacionTable.revalidate();
+                tablaConciliacionTable.repaint();
+                tablaConciliacionTable.setModel(modelo);
+                ingresoDirectoInventarioDialog.setVisible(true);
+                ingresoDirectoInventarioDialog.setTitle("Registro por producto en físico");
+            } catch (SQLException ex) {
+                System.getLogger(CadenaFarmacias_TBD1.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
-            
-        }else{
-            
         }
     }//GEN-LAST:event_AceptarFormaRegistroButtonActionPerformed
+
+    private void confirmarConciliacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarConciliacionButtonActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) tablaConciliacionTable.getModel();
+        
+        int cantidad = 0;
+        for(int i = 0; i < modelo.getRowCount(); i++){
+            if(esIntValido(modelo.getValueAt(i, 3).toString()) && !modelo.getValueAt(i, 3).toString().equals("")){
+                cantidad = Integer.parseInt(modelo.getValueAt(i, 3).toString());
+                if(cantidad < 0){
+                    JOptionPane.showMessageDialog(null, "Cantidad inválida en " + modelo.getValueAt(i, 1).toString(), "Error", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Cantidad inválida en " + modelo.getValueAt(i, 1).toString(), "Error", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+        
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Está seguro que deseas realizar la conciliación y terminar turno?", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        if(opcion == JOptionPane.YES_OPTION){
+            for(int i = 0; i < modelo.getRowCount(); i++){
+                conectar.insertar_detalle_conciliacion(id_farmacia, Integer.parseInt(modelo.getValueAt(i, 0).toString()), Integer.parseInt(modelo.getValueAt(i, 3).toString()));
+            }
+        }
+        conectar.finalizarTurno();
+        TurnoPanel.setVisible(false);
+        pantallaPanel.setVisible(true);
+        recepcionPanel.setVisible(false);
+        ingresoDirectoInventarioDialog.setVisible(false);
+    }//GEN-LAST:event_confirmarConciliacionButtonActionPerformed
+
+    private void sumarCantidadConciliacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sumarCantidadConciliacionButtonActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) tablaConciliacionTable.getModel();
+        int seleccion = tablaConciliacionTable.getSelectedRow();
+        if(seleccion != -1){
+            String cantidadS = modelo.getValueAt(seleccion, 3).toString();
+            if(esIntValido(cantidadS)){
+                int cantidad = Integer.parseInt(cantidadS) + 1;
+                modelo.setValueAt(cantidad, seleccion, 3);
+                tablaConciliacionTable.setModel(modelo);
+            }
+        }
+    }//GEN-LAST:event_sumarCantidadConciliacionButtonActionPerformed
+
+    private void restarCantidadConciliacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restarCantidadConciliacionButtonActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) tablaConciliacionTable.getModel();
+        int seleccion = tablaConciliacionTable.getSelectedRow();
+        if(seleccion != -1){
+            String cantidadS = modelo.getValueAt(seleccion, 3).toString();
+            if(esIntValido(cantidadS)){
+                int cantidad = Integer.parseInt(cantidadS) - 1;
+                if(cantidad < 0)
+                    cantidad = 0;
+                modelo.setValueAt(cantidad, seleccion, 3);
+                tablaConciliacionTable.setModel(modelo);
+            }
+        }
+    }//GEN-LAST:event_restarCantidadConciliacionButtonActionPerformed
 
     public boolean esFechaValida(String fecha) {
         try {
@@ -1211,7 +1269,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         try {
             Integer.parseInt(entero);
             return true;
-        } catch (DateTimeParseException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }
@@ -1266,9 +1324,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JButton buscarProductoButton;
     private javax.swing.JLabel buscarProductoLabel;
     private javax.swing.JButton cancelarVentaButton;
-    private javax.swing.JLabel cantidadConciliacion1Label;
     private javax.swing.JTextField cantidadRecepcionTextField;
     private javax.swing.JPanel cierreTurnoPanel;
+    private javax.swing.JButton confirmarConciliacionButton;
     private javax.swing.JButton eliminarProductoButton;
     private javax.swing.JPanel entregasPendientesPanel;
     private javax.swing.JLabel escribirFormatoFechaRecepcionLabel;
@@ -1284,7 +1342,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTextField idProveedorTextField;
     private javax.swing.JLabel imagenInicioLabel;
     private javax.swing.JLabel ingresarCantidadRecepcionLabel;
-    private javax.swing.JTextField ingresarConciliacionCantidad1TextField;
     private javax.swing.JLabel ingresarFechaVRecepcionLabel;
     private javax.swing.JTextField ingresarIDProdRecepcionTextField;
     private javax.swing.JLabel ingresarIdClienteLabel;
@@ -1293,6 +1350,8 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel ingresarIdProveedorLabel;
     private javax.swing.JLabel ingresarPrecioUnitarioRecepcionLabel;
     private javax.swing.JTextField ingresarProductoTextField;
+    private javax.swing.JLabel ingreseCantidadFisicaConciliacionLabel;
+    private javax.swing.JLabel ingreseCantidadManualConciliacionLabel;
     private javax.swing.JLabel ingreseFormaRegistroLabel;
     private javax.swing.JDialog ingresoDirectoInventarioDialog;
     private javax.swing.JButton iniciarTButton;
@@ -1300,6 +1359,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JPanel iniciarTurnoPanel;
     private javax.swing.JPanel inventarioEstimadoPanel;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane listarProductosParaVentaScrollPane;
     private javax.swing.JScrollPane listarProductosVentaScrollPane;
     private javax.swing.JTable listarProductosVentaTable;
@@ -1307,7 +1367,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel metodoPagoLabel;
     private javax.swing.JLabel modificarCantidadEnTablaLabel;
     private javax.swing.JLabel montoTotalVentaLabel;
-    private javax.swing.JLabel nombreProductoConciliacionLabel;
     private javax.swing.JPanel paginaInicioTurnoPanel;
     private javax.swing.JPanel pantallaPanel;
     private javax.swing.JTextField precioRecepcionTextField;
@@ -1322,8 +1381,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JPanel registrarVentaPanel;
     private javax.swing.JButton regresarDeInicioTurnoButton;
     private javax.swing.JButton reportesButton;
+    private javax.swing.JButton restarCantidadConciliacionButton;
     private javax.swing.JToggleButton salirToggleButton;
     private javax.swing.JLabel seleccionInicioLabel;
+    private javax.swing.JButton sumarCantidadConciliacionButton;
+    private javax.swing.JTable tablaConciliacionTable;
     private javax.swing.JPanel topProductosPanel;
     private javax.swing.JPanel verReportesPanel;
     private javax.swing.JButton volverDeReportesButton;
