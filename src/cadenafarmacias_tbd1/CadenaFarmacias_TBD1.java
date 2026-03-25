@@ -98,6 +98,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         entregasPendientesPanel = new javax.swing.JPanel();
         MargenProductoPanel = new javax.swing.JPanel();
         RankingFarmaciasPanel = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        rankingFarmaciasVentasTable = new javax.swing.JTable();
+        rankingFarmaciasVentaLabel = new javax.swing.JLabel();
         TurnoPanel = new javax.swing.JPanel();
         TurnoTabbedPane = new javax.swing.JTabbedPane();
         paginaInicioTurnoPanel = new javax.swing.JPanel();
@@ -358,6 +361,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         verReportesPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         ReportesTabbedPane.setBackground(new java.awt.Color(255, 255, 255));
+        ReportesTabbedPane.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rankingReportesMouseClicked(evt);
+            }
+        });
 
         VentasPanel.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -411,9 +419,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(buscarFechaFinalVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(VentasPanelLayout.createSequentialGroup()
-                        .addComponent(volverDeReportesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(345, 345, 345)
-                        .addComponent(filtrarVentasButton)))
+                        .addGap(448, 448, 448)
+                        .addComponent(filtrarVentasButton))
+                    .addComponent(volverDeReportesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         VentasPanelLayout.setVerticalGroup(
@@ -432,10 +440,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                     .addComponent(buscarFechaInicioVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscarFechaFinalVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
-                .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(filtrarVentasButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(volverDeReportesButton))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addComponent(filtrarVentasButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(volverDeReportesButton)
+                .addGap(18, 18, 18))
         );
 
         ReportesTabbedPane.addTab("Ventas", VentasPanel);
@@ -450,7 +458,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         );
         precioVigentesPanelLayout.setVerticalGroup(
             precioVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 514, Short.MAX_VALUE)
         );
 
         ReportesTabbedPane.addTab("Previos Vigentes", precioVigentesPanel);
@@ -521,7 +529,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                             .addComponent(buscarFechaFinalTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(filtrarTopProductosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         ReportesTabbedPane.addTab("Top Productos", topProductosPanel);
@@ -536,7 +544,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         );
         inventarioEstimadoPanelLayout.setVerticalGroup(
             inventarioEstimadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 514, Short.MAX_VALUE)
         );
 
         ReportesTabbedPane.addTab("Inventario Estimado", inventarioEstimadoPanel);
@@ -551,7 +559,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         );
         entregasPendientesPanelLayout.setVerticalGroup(
             entregasPendientesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 514, Short.MAX_VALUE)
         );
 
         ReportesTabbedPane.addTab("Entregas Pendientes", entregasPendientesPanel);
@@ -566,22 +574,46 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         );
         MargenProductoPanelLayout.setVerticalGroup(
             MargenProductoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 514, Short.MAX_VALUE)
         );
 
         ReportesTabbedPane.addTab("Margen Producto", MargenProductoPanel);
 
         RankingFarmaciasPanel.setBackground(new java.awt.Color(0, 153, 153));
 
+        rankingFarmaciasVentasTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane4.setViewportView(rankingFarmaciasVentasTable);
+
+        rankingFarmaciasVentaLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        rankingFarmaciasVentaLabel.setForeground(new java.awt.Color(0, 0, 0));
+        rankingFarmaciasVentaLabel.setText("Ranking de Farmacias por Ventas");
+
         javax.swing.GroupLayout RankingFarmaciasPanelLayout = new javax.swing.GroupLayout(RankingFarmaciasPanel);
         RankingFarmaciasPanel.setLayout(RankingFarmaciasPanelLayout);
         RankingFarmaciasPanelLayout.setHorizontalGroup(
             RankingFarmaciasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RankingFarmaciasPanelLayout.createSequentialGroup()
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addGroup(RankingFarmaciasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 851, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rankingFarmaciasVentaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28))
         );
         RankingFarmaciasPanelLayout.setVerticalGroup(
             RankingFarmaciasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RankingFarmaciasPanelLayout.createSequentialGroup()
+                .addContainerGap(76, Short.MAX_VALUE)
+                .addComponent(rankingFarmaciasVentaLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127))
         );
 
         ReportesTabbedPane.addTab("Ranking Farmacias", RankingFarmaciasPanel);
@@ -638,7 +670,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addComponent(bienvenidoTurnoLabel)
                 .addGap(18, 18, 18)
                 .addComponent(farmaciaNombreLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 357, Short.MAX_VALUE)
                 .addComponent(finalizarTurnoButton)
                 .addGap(15, 15, 15))
         );
@@ -1558,6 +1590,13 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         ReporteConciliacionDialog.dispose();
     }//GEN-LAST:event_aceptarReporteConciliacionToggleButtonActionPerformed
 
+    private void rankingReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rankingReportesMouseClicked
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo  = conectar.cargarVista("ranking_ventas", modelo);
+        rankingFarmaciasVentasTable.setModel(modelo);
+        rankingFarmaciasVentasTable.setCellSelectionEnabled(false);
+    }//GEN-LAST:event_rankingReportesMouseClicked
+
     public boolean esFechaValida(String fecha) {
         try {
             LocalDate.parse(fecha);
@@ -1676,6 +1715,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel label_modificar_precio;
     private javax.swing.JScrollPane listarProductosParaVentaScrollPane;
     private javax.swing.JScrollPane listarProductosVentaScrollPane;
@@ -1693,6 +1733,8 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JPanel precioVigentesPanel;
     private javax.swing.JPanel preciosVigentesPanel;
     private javax.swing.JTable productosIngresarTable;
+    private javax.swing.JLabel rankingFarmaciasVentaLabel;
+    private javax.swing.JTable rankingFarmaciasVentasTable;
     private javax.swing.JButton realizarRecepcionButton;
     private javax.swing.JButton realizarVentaButton;
     private javax.swing.JPanel recepcionPanel;
