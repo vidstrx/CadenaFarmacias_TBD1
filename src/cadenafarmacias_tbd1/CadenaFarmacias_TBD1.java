@@ -1127,6 +1127,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 montoTotalVentaLabel.setText("Monto total: ");
                 idClienteVentaTextField.setText("");
                 AceptarFormaRegistroButton.setEnabled(true);
+                ingresarProductoTextField.setText("");
             }
         } else {
             JOptionPane.showMessageDialog(null, "No se encuentra el cliente en la base de datos", "Error", JOptionPane.WARNING_MESSAGE);
@@ -1288,6 +1289,8 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             for (int i = 0; i < modelo.getRowCount(); i++) {
                 conectar.insertar_detalle_conciliacion(id_farmacia, Integer.parseInt(modelo.getValueAt(i, 0).toString()), Integer.parseInt(modelo.getValueAt(i, 3).toString()));
             }
+        }else if((opcion == JOptionPane.NO_OPTION || opcion == JOptionPane.CANCEL_OPTION)){
+            return;
         }
         conectar.finalizarTurno();
         TurnoPanel.setVisible(false);
