@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
  * @author David Samuel
  */
 public class ConexionDB {
+
     private static Connection connection = null;
 
     public static Connection getConnection() {
@@ -33,64 +34,64 @@ public class ConexionDB {
 
                 connection = DriverManager.getConnection(url, user, pass);
                 System.out.println("Conexion exitosa a la base de datos en la nube.");
-                
-                
+
             } catch (IOException | SQLException e) {
                 e.printStackTrace();
             }
         }
         return connection;
     }
-    
-    public DefaultTableModel buscarProducto(String nombre_producto, int id_farmacia, DefaultTableModel modelo){
+
+    public DefaultTableModel buscarProducto(String nombre_producto, int id_farmacia, DefaultTableModel modelo) {
         String comando = "CALL buscar_producto(?,?)";
         try {
             CallableStatement callStmt = connection.prepareCall(comando);
             callStmt.setString(1, nombre_producto);
             callStmt.setInt(2, id_farmacia);
-            
+
             ResultSet rs = callStmt.executeQuery();
-            while(rs.next()){
-                modelo.addRow(new Object[] {
-                    rs.getInt("codigo_lote"), 
-                    rs.getInt("id_producto"), 
-                    rs.getString("nombre_producto"), 
-                    rs.getString("tipo_presentacion"), 
-                    rs.getString("volumen_cantidad"), 
-                    rs.getDouble("precio"), 
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getInt("codigo_lote"),
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre_producto"),
+                    rs.getString("tipo_presentacion"),
+                    rs.getString("volumen_cantidad"),
+                    rs.getDouble("precio"),
                     rs.getInt("cantidad"),
                     rs.getDate("fecha_vencimiento")
                 });
-            }    
+            }
             return modelo;
         } catch (SQLException ex) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return null;
     }
-    
-    public String idExiste(String id, String campo1, String campo2, String tabla){
+
+    public String idExiste(String id, String campo1, String campo2, String tabla) {
         String comando = "SELECT * FROM " + tabla + " WHERE " + campo1 + " = ? LIMIT 1";
         PreparedStatement st;
         try {
             st = connection.prepareStatement(comando);
             st.setString(1, id);
-            
+
             ResultSet nueva_tabla = st.executeQuery();
-            
-            if(nueva_tabla.next())
+
+            if (nueva_tabla.next()) {
                 return nueva_tabla.getString(campo2);
-            else
+            } else {
                 return "";
+            }
         } catch (SQLException ex) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             return "";
         }
     }
-    
-    public void iniciarRecepcion(int id_farmacia, int id_proveedor, int id_empleado){
+
+    public void iniciarRecepcion(int id_farmacia, int id_proveedor, int id_empleado) {
         String comando = "{call insertar_recepcion_suministra(?, ?, ?)}";
-        try(CallableStatement cs = connection.prepareCall(comando)){
+        try (CallableStatement cs = connection.prepareCall(comando)) {
             cs.setInt(1, id_farmacia);
             cs.setInt(2, id_proveedor);
             cs.setInt(3, id_empleado);
@@ -99,19 +100,19 @@ public class ConexionDB {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
-    
-    public void iniciarTurno(){
+
+    public void iniciarTurno() {
         String comando = "{call insertar_turno()}";
-        try(CallableStatement cs = connection.prepareCall(comando)){
+        try (CallableStatement cs = connection.prepareCall(comando)) {
             cs.execute();
         } catch (SQLException ex) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
-    
-    public void insertarDetalleRecepcion(int id_farmacia, int id_producto, int cantidad, double precio, LocalDate fecha_vencimiento) throws SQLException{
+
+    public void insertarDetalleRecepcion(int id_farmacia, int id_producto, int cantidad, double precio, LocalDate fecha_vencimiento) throws SQLException {
         String comando = "{Call insertar_detalle_recepcion_lote_almacena(?,?,?,?,?)}";
-        try(CallableStatement cs = connection.prepareCall(comando)){
+        try (CallableStatement cs = connection.prepareCall(comando)) {
             cs.setInt(1, id_farmacia);
             cs.setInt(2, id_producto);
             cs.setInt(3, cantidad);
@@ -123,18 +124,18 @@ public class ConexionDB {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
-    
-    public void finalizarTurno(){
+
+    public void finalizarTurno() {
         String comando = "UPDATE turno SET hora_final = CURRENT_TIME() WHERE id_turno = (SELECT * FROM (SELECT MAX(id_turno) FROM turno) AS t)";
         PreparedStatement st;
-        try{
+        try {
             st = connection.prepareStatement(comando);
             int cambio = st.executeUpdate();
         } catch (SQLException ex) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }
-    
+
     public String verificarStock(int id_farmacia, String nombre_producto, int codigo_lote, int cantidad) {
         String comando = "CALL verificar_stock(?,?,?,?,?)";
         try {
@@ -145,15 +146,15 @@ public class ConexionDB {
             callStmt.setInt(4, cantidad);
             callStmt.registerOutParameter(5, Types.VARCHAR);
             callStmt.execute();
-            
+
             return callStmt.getString(5);
         } catch (SQLException ex) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return null;
     }
-    
-    public void insertar_venta(int id_empleado, int id_farmacia, int id_cliente, String metodo_pago){
+
+    public void insertar_venta(int id_empleado, int id_farmacia, int id_cliente, String metodo_pago) {
         String comando = "call insertar_venta(?,?,?,?)";
         try {
             CallableStatement callStmt = connection.prepareCall(comando);
@@ -161,14 +162,14 @@ public class ConexionDB {
             callStmt.setInt(2, id_farmacia);
             callStmt.setInt(3, id_cliente);
             callStmt.setString(4, metodo_pago);
-            
+
             callStmt.execute();
         } catch (SQLException e) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
         }
     }
-    
-    public double insertar_detalle_venta(int codigo_lote, int id_producto, int cantidad){
+
+    public double insertar_detalle_venta(int codigo_lote, int id_producto, int cantidad) {
         String comando = "call insertar_detalle_venta(?,?,?,?)";
         try {
             CallableStatement callStmt = connection.prepareCall(comando);
@@ -177,33 +178,33 @@ public class ConexionDB {
             callStmt.setInt(3, cantidad);
             callStmt.registerOutParameter(4, Types.DECIMAL);
             callStmt.execute();
-            
+
             return callStmt.getDouble(4);
         } catch (SQLException e) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
             return 0;
         }
     }
-    
-    public void insertar_conciliacion(int id_farmacia){
+
+    public void insertar_conciliacion(int id_farmacia) {
         String comando = "call insertar_conciliacion(?)";
         try {
             CallableStatement callStmt = connection.prepareCall(comando);
             callStmt.setInt(1, id_farmacia);
             callStmt.execute();
-            
+
         } catch (SQLException e) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
         }
     }
-    
-    public ResultSet enumerarProductos(int id_farmacia){
+
+    public ResultSet enumerarProductos(int id_farmacia) {
         String comando = "SELECT p.nombre_producto, p.id_producto, a.cantidad FROM producto p, almacena a WHERE p.id_producto = a.id_producto AND a.id_farmacia = ?;";
         PreparedStatement st;
         try {
             st = connection.prepareStatement(comando);
             st.setInt(1, id_farmacia);
-            
+
             ResultSet nueva_tabla = st.executeQuery();
             return nueva_tabla;
         } catch (SQLException ex) {
@@ -211,8 +212,8 @@ public class ConexionDB {
             return null;
         }
     }
-    
-    public void insertar_detalle_conciliacion(int id_farmacia, int id_producto, int cantidad){
+
+    public void insertar_detalle_conciliacion(int id_farmacia, int id_producto, int cantidad) {
         String comando = "call insertar_detalle_conciliacion(?, ?, ?, ?)";
         try {
             CallableStatement callStmt = connection.prepareCall(comando);
@@ -221,15 +222,95 @@ public class ConexionDB {
             callStmt.setInt(3, cantidad);
             callStmt.execute();
             String mensaje = callStmt.getString(4);
-            
-            if(!mensaje.equals(" "))
+
+            if (!mensaje.equals(" ")) {
                 JOptionPane.showConfirmDialog(null, mensaje, "CUIDADO", JOptionPane.WARNING_MESSAGE);
-            
+            }
+
         } catch (SQLException e) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
         }
     }
-    
+
+    public DefaultTableModel cargarVistaProductos(DefaultTableModel modelo) {
+
+        String sql = "SELECT * FROM vista_productos";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            // Limpiar modelo
+            modelo.setRowCount(0);
+            modelo.setColumnCount(0);
+
+            // Columnas
+            modelo.addColumn("ID");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Precio");
+
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre"),
+                    rs.getDouble("precio")
+                });
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return modelo;
+    }
+
+    public DefaultTableModel buscarProductoPorId(int id, DefaultTableModel modelo) {
+
+        String sql = "SELECT * FROM vista_productos WHERE id_producto = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            modelo.setRowCount(0);
+            modelo.setColumnCount(0);
+
+            modelo.addColumn("ID");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Precio");
+
+            if (!rs.isBeforeFirst()) {
+                JOptionPane.showMessageDialog(null, "Producto no encontrado");
+            }
+
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getInt("id_producto"),
+                    rs.getString("nombre"),
+                    rs.getDouble("precio")
+                });
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return modelo;
+    }
+
+    public void actualizarPrecioProducto(int id, double nuevoPrecio) {
+        String sql = "{call actualizar_precio_producto(?, ?)}";
+        try (CallableStatement cs = connection.prepareCall(sql)) {
+            cs.setInt(1, id);
+            cs.setDouble(2, nuevoPrecio);
+            cs.execute();
+            JOptionPane.showMessageDialog(null, "Precio actualizado con éxito!");
+        } catch (SQLException e) {
+            // Aquí capturará el mensaje de la validacion en la db
+            JOptionPane.showMessageDialog(null, "Error al actualizar: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 //    public void insertar(String nombre, String email, String telefono) {
 //        String query = "insert into clientes(nombre,email,telefono) values (?,?,?)";
 //        try {
