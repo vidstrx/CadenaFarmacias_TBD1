@@ -311,6 +311,31 @@ public class ConexionDB {
         }
     }
 
+    
+    public DefaultTableModel cargarVista(String nombre_vista, DefaultTableModel modelo) {
+        String comando = "SELECT * FROM " + nombre_vista;
+        try {
+            PreparedStatement ps = connection.prepareStatement(comando);
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData metadata = rs.getMetaData();
+            
+            for (int i = 1; i <= metadata.getColumnCount(); i++) {
+                modelo.addColumn(metadata.getColumnLabel(i));     
+            }
+            
+            while (rs.next()) {
+                Object[] fila = new Object[metadata.getColumnCount()];
+                for (int i = 1; i <= metadata.getColumnCount(); i++) {
+                    fila[i-1] = rs.getObject(i);
+                }
+                modelo.addRow(fila);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar datos: " + e.getMessage());
+        }
+        return modelo;
+    }
+    
 //    public void insertar(String nombre, String email, String telefono) {
 //        String query = "insert into clientes(nombre,email,telefono) values (?,?,?)";
 //        try {

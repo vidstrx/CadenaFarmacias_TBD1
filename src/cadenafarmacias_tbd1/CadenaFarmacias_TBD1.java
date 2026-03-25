@@ -19,6 +19,8 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     DefaultTableModel listar_productos_para_venta_tabla = new DefaultTableModel();
     DefaultTableModel listar_productos_venta_tabla = new DefaultTableModel();
     DefaultTableModel prod_vigentes = new DefaultTableModel();
+    DefaultTableModel vistaVentasModel = new DefaultTableModel();
+    DefaultTableModel vistaTopProductosModel = new DefaultTableModel();
     int id_empleado;
     int id_farmacia;
     int id_proveedor;
@@ -68,14 +70,29 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         verReportesPanel = new javax.swing.JPanel();
         ReportesTabbedPane = new javax.swing.JTabbedPane();
         VentasPanel = new javax.swing.JPanel();
+        vistaVentasProductosScroll = new javax.swing.JScrollPane();
+        vistaVentasProductoFarmaciaTable = new javax.swing.JTable();
+        volverDeReportesButton = new javax.swing.JButton();
+        mostrarVentasButton = new javax.swing.JButton();
+        buscarIdProductoVentasTxtField = new javax.swing.JTextField();
+        buscarIdFarmaciaVentasTxtField = new javax.swing.JTextField();
+        buscarFechaInicioVentasTxtField = new javax.swing.JTextField();
+        buscarFechaFinalVentasTxtField = new javax.swing.JTextField();
+        filtrarVentasButton = new javax.swing.JButton();
         precioVigentesPanel = new javax.swing.JPanel();
         topProductosPanel = new javax.swing.JPanel();
+        vistaTopProductosScroll = new javax.swing.JScrollPane();
+        vistaTopProductosTable = new javax.swing.JTable();
+        mostrarTopProductosButton = new javax.swing.JButton();
+        buscarIdFarmaciaTopTxtField = new javax.swing.JTextField();
+        buscarFechaInicialTopTxtField = new javax.swing.JTextField();
+        buscarFechaFinalTopTxtField = new javax.swing.JTextField();
+        filtrarTopProductosButton = new javax.swing.JButton();
         inventarioEstimadoPanel = new javax.swing.JPanel();
         cierreTurnoPanel = new javax.swing.JPanel();
         entregasPendientesPanel = new javax.swing.JPanel();
         MargenProductoPanel = new javax.swing.JPanel();
         RankingFarmaciasPanel = new javax.swing.JPanel();
-        volverDeReportesButton = new javax.swing.JButton();
         TurnoPanel = new javax.swing.JPanel();
         TurnoTabbedPane = new javax.swing.JTabbedPane();
         paginaInicioTurnoPanel = new javax.swing.JPanel();
@@ -117,7 +134,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         escribirFormatoFechaRecepcionLabel = new javax.swing.JLabel();
         finalizarRecepcionToggleButton = new javax.swing.JToggleButton();
         preciosVigentesPanel = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
         listar_precios_prod = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         txt_id_producto = new javax.swing.JTextField();
@@ -295,15 +312,81 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         VentasPanel.setBackground(new java.awt.Color(0, 153, 153));
 
+        vistaVentasProductoFarmaciaTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        vistaVentasProductosScroll.setViewportView(vistaVentasProductoFarmaciaTable);
+
+        volverDeReportesButton.setBackground(new java.awt.Color(255, 0, 0));
+        volverDeReportesButton.setForeground(new java.awt.Color(255, 255, 255));
+        volverDeReportesButton.setText("Volver");
+        volverDeReportesButton.addActionListener(this::volverDeReportesButtonActionPerformed);
+
+        mostrarVentasButton.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        mostrarVentasButton.setText("Mostrar Todo");
+        mostrarVentasButton.addActionListener(this::mostrarVentasButtonActionPerformed);
+
+        buscarIdProductoVentasTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        buscarIdFarmaciaVentasTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        buscarFechaInicioVentasTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        buscarFechaFinalVentasTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        filtrarVentasButton.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        filtrarVentasButton.setText("Filtrar");
+
         javax.swing.GroupLayout VentasPanelLayout = new javax.swing.GroupLayout(VentasPanel);
         VentasPanel.setLayout(VentasPanelLayout);
         VentasPanelLayout.setHorizontalGroup(
             VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
+            .addGroup(VentasPanelLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(vistaVentasProductosScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mostrarVentasButton)
+                    .addGroup(VentasPanelLayout.createSequentialGroup()
+                        .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(buscarIdFarmaciaVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(buscarFechaInicioVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, VentasPanelLayout.createSequentialGroup()
+                                    .addGap(356, 356, 356)
+                                    .addComponent(buscarIdProductoVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(buscarFechaFinalVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(VentasPanelLayout.createSequentialGroup()
+                        .addComponent(volverDeReportesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(345, 345, 345)
+                        .addComponent(filtrarVentasButton)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         VentasPanelLayout.setVerticalGroup(
             VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGroup(VentasPanelLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(vistaVentasProductosScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mostrarVentasButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarIdProductoVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addComponent(buscarIdFarmaciaVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buscarFechaInicioVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarFechaFinalVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filtrarVentasButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(volverDeReportesButton))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         ReportesTabbedPane.addTab("Ventas", VentasPanel);
@@ -325,15 +408,71 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         topProductosPanel.setBackground(new java.awt.Color(0, 153, 153));
 
+        vistaTopProductosTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        vistaTopProductosScroll.setViewportView(vistaTopProductosTable);
+
+        mostrarTopProductosButton.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        mostrarTopProductosButton.setText("Mostrar todo");
+        mostrarTopProductosButton.addActionListener(this::mostrarTopProductosButtonActionPerformed);
+
+        buscarIdFarmaciaTopTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        buscarFechaInicialTopTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        buscarFechaFinalTopTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        filtrarTopProductosButton.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        filtrarTopProductosButton.setText("Filtrar");
+
         javax.swing.GroupLayout topProductosPanelLayout = new javax.swing.GroupLayout(topProductosPanel);
         topProductosPanel.setLayout(topProductosPanelLayout);
         topProductosPanelLayout.setHorizontalGroup(
             topProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
+            .addGroup(topProductosPanelLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(topProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(vistaTopProductosScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 837, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(topProductosPanelLayout.createSequentialGroup()
+                        .addGroup(topProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(topProductosPanelLayout.createSequentialGroup()
+                                .addComponent(mostrarTopProductosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(165, 165, 165)
+                                .addComponent(buscarIdFarmaciaTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(buscarFechaInicialTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addComponent(buscarFechaFinalTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topProductosPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(filtrarTopProductosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(337, 337, 337))
         );
         topProductosPanelLayout.setVerticalGroup(
             topProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGroup(topProductosPanelLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(vistaTopProductosScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(topProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(topProductosPanelLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(mostrarTopProductosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(topProductosPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(buscarIdFarmaciaTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(topProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buscarFechaInicialTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buscarFechaFinalTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(filtrarTopProductosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         ReportesTabbedPane.addTab("Top Productos", topProductosPanel);
@@ -413,28 +552,15 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         ReportesTabbedPane.addTab("Ranking Farmacias", RankingFarmaciasPanel);
 
-        volverDeReportesButton.setBackground(new java.awt.Color(255, 0, 0));
-        volverDeReportesButton.setForeground(new java.awt.Color(255, 255, 255));
-        volverDeReportesButton.setText("Volver");
-        volverDeReportesButton.addActionListener(this::volverDeReportesButtonActionPerformed);
-
         javax.swing.GroupLayout verReportesPanelLayout = new javax.swing.GroupLayout(verReportesPanel);
         verReportesPanel.setLayout(verReportesPanelLayout);
         verReportesPanelLayout.setHorizontalGroup(
             verReportesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(ReportesTabbedPane)
-            .addGroup(verReportesPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(volverDeReportesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         verReportesPanelLayout.setVerticalGroup(
             verReportesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(verReportesPanelLayout.createSequentialGroup()
-                .addComponent(ReportesTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(volverDeReportesButton)
-                .addContainerGap(16, Short.MAX_VALUE))
+            .addComponent(ReportesTabbedPane)
         );
 
         TurnoPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -713,7 +839,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                     .addComponent(precioRecepcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(agregarLoteButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
                 .addComponent(finalizarRecepcionToggleButton)
                 .addContainerGap())
         );
@@ -770,7 +896,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 listar_precios_prodMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(listar_precios_prod);
+        jScrollPane3.setViewportView(listar_precios_prod);
 
         jLabel1.setText("Buscar por ID: ");
 
@@ -789,7 +915,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             .addGroup(preciosVigentesPanelLayout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(preciosVigentesPanelLayout.createSequentialGroup()
                         .addGroup(preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, preciosVigentesPanelLayout.createSequentialGroup()
@@ -811,7 +937,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(preciosVigentesPanelLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addGroup(preciosVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -1365,6 +1491,24 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_listar_precios_prodMouseClicked
 
+    private void mostrarVentasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarVentasButtonActionPerformed
+        vistaVentasModel = conectar.cargarVista("ventas_por_farmacia_producto", vistaVentasModel);
+        if (vistaVentasModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No se encontraron registros", "Error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            vistaVentasProductoFarmaciaTable.setModel(vistaVentasModel);
+        }
+    }//GEN-LAST:event_mostrarVentasButtonActionPerformed
+
+    private void mostrarTopProductosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarTopProductosButtonActionPerformed
+        vistaTopProductosModel = conectar.cargarVista("top_productos", vistaTopProductosModel);
+        if (vistaTopProductosModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No se encontraron registros", "Error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            vistaTopProductosTable.setModel(vistaTopProductosModel);
+        }
+    }//GEN-LAST:event_mostrarTopProductosButtonActionPerformed
+
     public boolean esFechaValida(String fecha) {
         try {
             LocalDate.parse(fecha);
@@ -1432,6 +1576,13 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel bienvenidoTurnoLabel;
     private javax.swing.JButton btn_buscar_prod;
     private javax.swing.JButton btn_modificar_precio;
+    private javax.swing.JTextField buscarFechaFinalTopTxtField;
+    private javax.swing.JTextField buscarFechaFinalVentasTxtField;
+    private javax.swing.JTextField buscarFechaInicialTopTxtField;
+    private javax.swing.JTextField buscarFechaInicioVentasTxtField;
+    private javax.swing.JTextField buscarIdFarmaciaTopTxtField;
+    private javax.swing.JTextField buscarIdFarmaciaVentasTxtField;
+    private javax.swing.JTextField buscarIdProductoVentasTxtField;
     private javax.swing.JButton buscarProductoButton;
     private javax.swing.JLabel buscarProductoLabel;
     private javax.swing.JButton cancelarVentaButton;
@@ -1443,6 +1594,8 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel escribirFormatoFechaRecepcionLabel;
     private javax.swing.JLabel farmaciaNombreLabel;
     private javax.swing.JTextField fechaVRecepcionTextField;
+    private javax.swing.JButton filtrarTopProductosButton;
+    private javax.swing.JButton filtrarVentasButton;
     private javax.swing.JToggleButton finalizarRecepcionToggleButton;
     private javax.swing.JButton finalizarTurnoButton;
     private javax.swing.JComboBox<String> formaRegistroComboBox;
@@ -1472,7 +1625,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel label_modificar_precio;
     private javax.swing.JScrollPane listarProductosParaVentaScrollPane;
     private javax.swing.JScrollPane listarProductosVentaScrollPane;
@@ -1482,6 +1635,8 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel metodoPagoLabel;
     private javax.swing.JLabel modificarCantidadEnTablaLabel;
     private javax.swing.JLabel montoTotalVentaLabel;
+    private javax.swing.JButton mostrarTopProductosButton;
+    private javax.swing.JButton mostrarVentasButton;
     private javax.swing.JPanel paginaInicioTurnoPanel;
     private javax.swing.JPanel pantallaPanel;
     private javax.swing.JTextField precioRecepcionTextField;
@@ -1505,6 +1660,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTextField txt_id_producto;
     private javax.swing.JTextField txt_modificar_precio;
     private javax.swing.JPanel verReportesPanel;
+    private javax.swing.JScrollPane vistaTopProductosScroll;
+    private javax.swing.JTable vistaTopProductosTable;
+    private javax.swing.JTable vistaVentasProductoFarmaciaTable;
+    private javax.swing.JScrollPane vistaVentasProductosScroll;
     private javax.swing.JButton volverDeReportesButton;
     // End of variables declaration//GEN-END:variables
 }
