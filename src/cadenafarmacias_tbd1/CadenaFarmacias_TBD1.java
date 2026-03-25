@@ -1,6 +1,7 @@
 package cadenafarmacias_tbd1;
 
 import com.mysql.cj.jdbc.CallableStatement;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -60,6 +61,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         sumarCantidadConciliacionButton = new javax.swing.JButton();
         restarCantidadConciliacionButton = new javax.swing.JButton();
         ingreseCantidadManualConciliacionLabel = new javax.swing.JLabel();
+        ReporteConciliacionDialog = new javax.swing.JDialog();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        reporteConciliacionTable = new javax.swing.JTable();
+        reviseReporteConciliacionLabel = new javax.swing.JLabel();
+        aceptarReporteConciliacionToggleButton = new javax.swing.JToggleButton();
         pantallaPanel = new javax.swing.JPanel();
         bienvenidoLabel = new javax.swing.JLabel();
         imagenInicioLabel = new javax.swing.JLabel();
@@ -89,7 +95,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         buscarFechaFinalTopTxtField = new javax.swing.JTextField();
         filtrarTopProductosButton = new javax.swing.JButton();
         inventarioEstimadoPanel = new javax.swing.JPanel();
-        cierreTurnoPanel = new javax.swing.JPanel();
         entregasPendientesPanel = new javax.swing.JPanel();
         MargenProductoPanel = new javax.swing.JPanel();
         RankingFarmaciasPanel = new javax.swing.JPanel();
@@ -144,7 +149,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         btn_modificar_precio = new javax.swing.JButton();
         registrarInventarioFisicoPanel = new javax.swing.JPanel();
         ingreseFormaRegistroLabel = new javax.swing.JLabel();
-        formaRegistroComboBox = new javax.swing.JComboBox<>();
         AceptarFormaRegistroButton = new javax.swing.JButton();
         iniciarTurnoPanel = new javax.swing.JPanel();
         ingresarIdClienteLabel = new javax.swing.JLabel();
@@ -230,6 +234,51 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                     .addComponent(sumarCantidadConciliacionButton)
                     .addComponent(restarCantidadConciliacionButton))
                 .addContainerGap(54, Short.MAX_VALUE))
+        );
+
+        ReporteConciliacionDialog.setBackground(new java.awt.Color(255, 255, 0));
+
+        reporteConciliacionTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(reporteConciliacionTable);
+
+        reviseReporteConciliacionLabel.setText("Revise el Reporte de Conciliación");
+
+        aceptarReporteConciliacionToggleButton.setText("Aceptar");
+        aceptarReporteConciliacionToggleButton.addActionListener(this::aceptarReporteConciliacionToggleButtonActionPerformed);
+
+        javax.swing.GroupLayout ReporteConciliacionDialogLayout = new javax.swing.GroupLayout(ReporteConciliacionDialog.getContentPane());
+        ReporteConciliacionDialog.getContentPane().setLayout(ReporteConciliacionDialogLayout);
+        ReporteConciliacionDialogLayout.setHorizontalGroup(
+            ReporteConciliacionDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReporteConciliacionDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ReporteConciliacionDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
+                    .addGroup(ReporteConciliacionDialogLayout.createSequentialGroup()
+                        .addComponent(reviseReporteConciliacionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteConciliacionDialogLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(aceptarReporteConciliacionToggleButton)))
+                .addContainerGap())
+        );
+        ReporteConciliacionDialogLayout.setVerticalGroup(
+            ReporteConciliacionDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReporteConciliacionDialogLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(reviseReporteConciliacionLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(aceptarReporteConciliacionToggleButton)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -491,21 +540,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         );
 
         ReportesTabbedPane.addTab("Inventario Estimado", inventarioEstimadoPanel);
-
-        cierreTurnoPanel.setBackground(new java.awt.Color(0, 153, 153));
-
-        javax.swing.GroupLayout cierreTurnoPanelLayout = new javax.swing.GroupLayout(cierreTurnoPanel);
-        cierreTurnoPanel.setLayout(cierreTurnoPanelLayout);
-        cierreTurnoPanelLayout.setHorizontalGroup(
-            cierreTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
-        );
-        cierreTurnoPanelLayout.setVerticalGroup(
-            cierreTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
-        );
-
-        ReportesTabbedPane.addTab("Cierre de Turno", cierreTurnoPanel);
 
         entregasPendientesPanel.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -956,9 +990,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         registrarInventarioFisicoPanel.setBackground(new java.awt.Color(0, 153, 102));
 
         ingreseFormaRegistroLabel.setForeground(new java.awt.Color(255, 255, 255));
-        ingreseFormaRegistroLabel.setText("Elija forma de registro:");
-
-        formaRegistroComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ingreso Directo", "Conteo manual" }));
+        ingreseFormaRegistroLabel.setText("Iniciar Conciliación y finalizar turno:");
 
         AceptarFormaRegistroButton.setText("Aceptar");
         AceptarFormaRegistroButton.addActionListener(this::AceptarFormaRegistroButtonActionPerformed);
@@ -967,26 +999,24 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         registrarInventarioFisicoPanel.setLayout(registrarInventarioFisicoPanelLayout);
         registrarInventarioFisicoPanelLayout.setHorizontalGroup(
             registrarInventarioFisicoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registrarInventarioFisicoPanelLayout.createSequentialGroup()
-                .addContainerGap(323, Short.MAX_VALUE)
-                .addGroup(registrarInventarioFisicoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(AceptarFormaRegistroButton)
+            .addGroup(registrarInventarioFisicoPanelLayout.createSequentialGroup()
+                .addGroup(registrarInventarioFisicoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(registrarInventarioFisicoPanelLayout.createSequentialGroup()
-                        .addComponent(ingreseFormaRegistroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(formaRegistroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(333, 333, 333))
+                        .addGap(348, 348, 348)
+                        .addComponent(ingreseFormaRegistroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(registrarInventarioFisicoPanelLayout.createSequentialGroup()
+                        .addGap(407, 407, 407)
+                        .addComponent(AceptarFormaRegistroButton)))
+                .addContainerGap(364, Short.MAX_VALUE))
         );
         registrarInventarioFisicoPanelLayout.setVerticalGroup(
             registrarInventarioFisicoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(registrarInventarioFisicoPanelLayout.createSequentialGroup()
-                .addContainerGap(231, Short.MAX_VALUE)
-                .addGroup(registrarInventarioFisicoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ingreseFormaRegistroLabel)
-                    .addComponent(formaRegistroComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(271, Short.MAX_VALUE)
+                .addComponent(ingreseFormaRegistroLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AceptarFormaRegistroButton)
-                .addGap(246, 246, 246))
+                .addGap(240, 240, 240))
         );
 
         TurnoTabbedPane.addTab("Registrar Inventario Físico", registrarInventarioFisicoPanel);
@@ -1378,6 +1408,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 while (tabla.next()) {
                     modelo.addRow(new Object[]{tabla.getString("id_producto"), tabla.getString("nombre_producto"), tabla.getString("cantidad"), "0"});
                 }
+                ingresoDirectoInventarioDialog.setTitle("Conciliación Cierre de Turno");
                 ingresoDirectoInventarioDialog.setSize(970, 540);
                 ingresoDirectoInventarioDialog.setLocationRelativeTo(this);
                 ingresoDirectoInventarioDialog.setModal(true);
@@ -1390,6 +1421,8 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.getLogger(CadenaFarmacias_TBD1.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
+        }else{
+            JOptionPane.showConfirmDialog(null, "Sin productos para realizar conciliacion");
         }
     }//GEN-LAST:event_AceptarFormaRegistroButtonActionPerformed
 
@@ -1419,6 +1452,17 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             return;
         }
         conectar.finalizarTurno();
+        
+        DefaultTableModel modelo2 = new DefaultTableModel();
+        DefaultTableModel tuplas = conectar.cargarVista("cierre_turno_inventario", modelo2);
+        reporteConciliacionTable.setModel(tuplas);
+        reporteConciliacionTable.setCellSelectionEnabled(false);
+        ReporteConciliacionDialog.setTitle("Vista Ventas vs. Conciliación");
+        ReporteConciliacionDialog.setSize(1070, 360);
+        ReporteConciliacionDialog.setLocationRelativeTo(this);
+        ReporteConciliacionDialog.setModal(true);
+        ReporteConciliacionDialog.setVisible(true);
+        
         TurnoPanel.setVisible(false);
         pantallaPanel.setVisible(true);
         recepcionPanel.setVisible(false);
@@ -1509,6 +1553,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mostrarTopProductosButtonActionPerformed
 
+    private void aceptarReporteConciliacionToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarReporteConciliacionToggleButtonActionPerformed
+        ReporteConciliacionDialog.setModal(false);
+        ReporteConciliacionDialog.dispose();
+    }//GEN-LAST:event_aceptarReporteConciliacionToggleButtonActionPerformed
+
     public boolean esFechaValida(String fecha) {
         try {
             LocalDate.parse(fecha);
@@ -1566,10 +1615,12 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JButton AceptarFormaRegistroButton;
     private javax.swing.JPanel MargenProductoPanel;
     private javax.swing.JPanel RankingFarmaciasPanel;
+    private javax.swing.JDialog ReporteConciliacionDialog;
     private javax.swing.JTabbedPane ReportesTabbedPane;
     private javax.swing.JPanel TurnoPanel;
     private javax.swing.JTabbedPane TurnoTabbedPane;
     private javax.swing.JPanel VentasPanel;
+    private javax.swing.JToggleButton aceptarReporteConciliacionToggleButton;
     private javax.swing.JButton agregarLoteButton;
     private javax.swing.JButton agregarProductoButton;
     private javax.swing.JLabel bienvenidoLabel;
@@ -1587,7 +1638,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel buscarProductoLabel;
     private javax.swing.JButton cancelarVentaButton;
     private javax.swing.JTextField cantidadRecepcionTextField;
-    private javax.swing.JPanel cierreTurnoPanel;
     private javax.swing.JButton confirmarConciliacionButton;
     private javax.swing.JButton eliminarProductoButton;
     private javax.swing.JPanel entregasPendientesPanel;
@@ -1598,7 +1648,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JButton filtrarVentasButton;
     private javax.swing.JToggleButton finalizarRecepcionToggleButton;
     private javax.swing.JButton finalizarTurnoButton;
-    private javax.swing.JComboBox<String> formaRegistroComboBox;
     private javax.swing.JLabel idClienteLabel;
     private javax.swing.JTextField idClienteTextField;
     private javax.swing.JTextField idClienteVentaTextField;
@@ -1625,6 +1674,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel label_modificar_precio;
     private javax.swing.JScrollPane listarProductosParaVentaScrollPane;
@@ -1650,8 +1700,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JPanel registrarRecepcionPanel;
     private javax.swing.JPanel registrarVentaPanel;
     private javax.swing.JButton regresarDeInicioTurnoButton;
+    private javax.swing.JTable reporteConciliacionTable;
     private javax.swing.JButton reportesButton;
     private javax.swing.JButton restarCantidadConciliacionButton;
+    private javax.swing.JLabel reviseReporteConciliacionLabel;
     private javax.swing.JToggleButton salirToggleButton;
     private javax.swing.JLabel seleccionInicioLabel;
     private javax.swing.JButton sumarCantidadConciliacionButton;
