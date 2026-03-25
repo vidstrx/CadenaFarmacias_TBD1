@@ -1,2 +1,6 @@
 /dist/
 db.properties
+/build/
+nbproject/private/
+*.class
+*.log
