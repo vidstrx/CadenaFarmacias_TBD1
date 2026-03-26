@@ -26,6 +26,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     int id_empleado;
     int id_farmacia;
     int id_proveedor;
+    int id_venta;
     String hora_inicio_turno;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadenaFarmacias_TBD1.class.getName());
@@ -163,6 +164,21 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         registrarInventarioFisicoPanel = new javax.swing.JPanel();
         ingreseFormaRegistroLabel = new javax.swing.JLabel();
         AceptarFormaRegistroButton = new javax.swing.JButton();
+        registrarDevolucionPanel = new javax.swing.JPanel();
+        ingreseIdVentaLabel = new javax.swing.JLabel();
+        ingreseIdVentaTextField = new javax.swing.JTextField();
+        buscarIdVentaButton = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        listarProductosVentaDevolucionTable = new javax.swing.JTable();
+        agregarProductoDevolucionButton = new javax.swing.JButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        listarProductosDevolucionTable = new javax.swing.JTable();
+        eliminarProductoDevolucionButton = new javax.swing.JButton();
+        realizarDevolucionButton = new javax.swing.JButton();
+        cancelarDevolucionButton = new javax.swing.JButton();
+        ingreseIdClienteDevolucionLabel = new javax.swing.JLabel();
+        ingreseIdClienteDevolucionTextField = new javax.swing.JTextField();
+        ventaOriginalLabel = new javax.swing.JLabel();
         iniciarTurnoPanel = new javax.swing.JPanel();
         ingresarIdClienteLabel = new javax.swing.JLabel();
         idClienteTextField = new javax.swing.JTextField();
@@ -914,7 +930,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        TurnoTabbedPane.addTab("Registrar Venta", registrarVentaPanel);
+        TurnoTabbedPane.addTab("Venta", registrarVentaPanel);
 
         registrarRecepcionPanel.setBackground(new java.awt.Color(0, 153, 102));
         registrarRecepcionPanel.setForeground(new java.awt.Color(255, 255, 255));
@@ -1028,7 +1044,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addComponent(recepcionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        TurnoTabbedPane.addTab("Registrar Recepción", registrarRecepcionPanel);
+        TurnoTabbedPane.addTab("Recepción", registrarRecepcionPanel);
 
         preciosVigentesPanel.setBackground(new java.awt.Color(0, 153, 102));
 
@@ -1138,6 +1154,133 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         );
 
         TurnoTabbedPane.addTab("Registrar Inventario Físico", registrarInventarioFisicoPanel);
+
+        registrarDevolucionPanel.setBackground(new java.awt.Color(0, 153, 102));
+
+        ingreseIdVentaLabel.setText("Ingrese ID de la venta:");
+
+        buscarIdVentaButton.setText("Buscar");
+        buscarIdVentaButton.addActionListener(this::buscarIdVentaButtonActionPerformed);
+
+        listarProductosVentaDevolucionTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID producto", "Nombre producto", "Cantidad", "Precio"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane7.setViewportView(listarProductosVentaDevolucionTable);
+
+        agregarProductoDevolucionButton.setText("Agregar");
+        agregarProductoDevolucionButton.addActionListener(this::agregarProductoDevolucionButtonActionPerformed);
+
+        listarProductosDevolucionTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID producto", "Nombre producto", "Cantidad", "Fecha Vencimiento"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane8.setViewportView(listarProductosDevolucionTable);
+
+        eliminarProductoDevolucionButton.setText("Eliminar");
+        eliminarProductoDevolucionButton.addActionListener(this::eliminarProductoDevolucionButtonActionPerformed);
+
+        realizarDevolucionButton.setText("Realizar");
+        realizarDevolucionButton.addActionListener(this::realizarDevolucionButtonActionPerformed);
+
+        cancelarDevolucionButton.setText("Cancelar");
+        cancelarDevolucionButton.addActionListener(this::cancelarDevolucionButtonActionPerformed);
+
+        ingreseIdClienteDevolucionLabel.setText("Ingrese ID de cliente:");
+
+        ventaOriginalLabel.setText("Venta original");
+
+        javax.swing.GroupLayout registrarDevolucionPanelLayout = new javax.swing.GroupLayout(registrarDevolucionPanel);
+        registrarDevolucionPanel.setLayout(registrarDevolucionPanelLayout);
+        registrarDevolucionPanelLayout.setHorizontalGroup(
+            registrarDevolucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registrarDevolucionPanelLayout.createSequentialGroup()
+                .addGroup(registrarDevolucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(registrarDevolucionPanelLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(registrarDevolucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(eliminarProductoDevolucionButton)
+                            .addComponent(agregarProductoDevolucionButton)
+                            .addGroup(registrarDevolucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(registrarDevolucionPanelLayout.createSequentialGroup()
+                                    .addComponent(ingreseIdVentaLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ingreseIdVentaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(buscarIdVentaButton))
+                                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 843, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(ventaOriginalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(registrarDevolucionPanelLayout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(ingreseIdClienteDevolucionLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ingreseIdClienteDevolucionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cancelarDevolucionButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(realizarDevolucionButton)))
+                .addContainerGap(34, Short.MAX_VALUE))
+            .addGroup(registrarDevolucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registrarDevolucionPanelLayout.createSequentialGroup()
+                    .addContainerGap(39, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 836, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(36, Short.MAX_VALUE)))
+        );
+        registrarDevolucionPanelLayout.setVerticalGroup(
+            registrarDevolucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(registrarDevolucionPanelLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(registrarDevolucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ingreseIdVentaLabel)
+                    .addComponent(ingreseIdVentaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarIdVentaButton))
+                .addGap(28, 28, 28)
+                .addComponent(ventaOriginalLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(agregarProductoDevolucionButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
+                .addComponent(eliminarProductoDevolucionButton)
+                .addGap(18, 18, 18)
+                .addGroup(registrarDevolucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(realizarDevolucionButton)
+                    .addComponent(cancelarDevolucionButton)
+                    .addComponent(ingreseIdClienteDevolucionLabel)
+                    .addComponent(ingreseIdClienteDevolucionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(93, 93, 93))
+            .addGroup(registrarDevolucionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, registrarDevolucionPanelLayout.createSequentialGroup()
+                    .addContainerGap(281, Short.MAX_VALUE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(173, Short.MAX_VALUE)))
+        );
+
+        TurnoTabbedPane.addTab("Devolución", registrarDevolucionPanel);
 
         javax.swing.GroupLayout TurnoPanelLayout = new javax.swing.GroupLayout(TurnoPanel);
         TurnoPanel.setLayout(TurnoPanelLayout);
@@ -1315,6 +1458,17 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             idClienteTextField.setText("");
             idFarmaciaTextField.setText("");
             AceptarFormaRegistroButton.setEnabled(false);
+            
+            listarProductosVentaDevolucionTable.setVisible(false);
+            agregarProductoDevolucionButton.setVisible(false);
+            agregarProductoDevolucionButton.setVisible(false);
+            listarProductosDevolucionTable.setVisible(false);
+            eliminarProductoDevolucionButton.setVisible(false);
+            ingreseIdClienteDevolucionLabel.setVisible(false);
+            ingreseIdClienteDevolucionTextField.setVisible(false);
+            cancelarDevolucionButton.setVisible(false);
+            realizarDevolucionButton.setVisible(false);
+            ventaOriginalLabel.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null, "ID empleado o ID farmacia no existe");
         }
@@ -1706,6 +1860,111 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_filtrarActionPerformed
 
+    private void buscarIdVentaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarIdVentaButtonActionPerformed
+        if(ingreseIdVentaTextField.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Ingrese el ID de venta para devolución");
+            return;
+        }else{
+            String id_farmacia_string = conectar.idExiste(ingreseIdVentaTextField.getText(), "id_movimiento", "id_farmacia", "realiza");
+            if(!id_farmacia_string.equals("") && id_farmacia == Integer.parseInt(id_farmacia_string)){
+                DefaultTableModel modelo = (DefaultTableModel) listarProductosVentaDevolucionTable.getModel();
+                modelo = conectar.buscarProductoDevolucion(id_farmacia, Integer.parseInt(ingreseIdVentaTextField.getText()), modelo);
+                listarProductosVentaDevolucionTable.setModel(modelo);
+                
+                id_venta = Integer.parseInt(ingreseIdVentaTextField.getText());
+                listarProductosVentaDevolucionTable.setVisible(true);
+                agregarProductoDevolucionButton.setVisible(true);
+                agregarProductoDevolucionButton.setVisible(true);
+                listarProductosDevolucionTable.setVisible(true);
+                eliminarProductoDevolucionButton.setVisible(true);
+                ingreseIdClienteDevolucionLabel.setVisible(true);
+                ingreseIdClienteDevolucionTextField.setVisible(true);
+                cancelarDevolucionButton.setVisible(true);
+                realizarDevolucionButton.setVisible(true);
+                ventaOriginalLabel.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(this, "El ID de venta ingresado no existe o no pertenece a la farmacia actual");
+                return;
+            }
+        }
+    }//GEN-LAST:event_buscarIdVentaButtonActionPerformed
+
+    private void realizarDevolucionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarDevolucionButtonActionPerformed
+        if(ingreseIdClienteDevolucionTextField.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Ingrese ID de cliente");
+            return;
+        }
+        String nombre = conectar.idExiste(ingreseIdClienteDevolucionTextField.getText(), "id_cliente", "nombre", "cliente");
+        if(nombre.equals("")){
+            JOptionPane.showMessageDialog(this, "ID de cliente inválido");
+            return;
+        }
+        DefaultTableModel modelo = (DefaultTableModel) listarProductosDevolucionTable.getModel();
+        for(int i = 0; i < modelo.getRowCount(); i++){
+            if(!esFechaValida(modelo.getValueAt(i, 3).toString())){
+                JOptionPane.showMessageDialog(this, "Fecha de vencimiento invalida en " + modelo.getValueAt(i, 1).toString());
+                return;
+            }
+        }
+        
+        conectar.insertarDevolucion(id_venta, Integer.parseInt(ingreseIdClienteDevolucionTextField.getText()), id_farmacia, id_empleado);
+        for(int i = 0; i < modelo.getRowCount(); i++){
+            conectar.insertarDetalleDevolucion(Integer.parseInt(modelo.getValueAt(i, 0).toString()), id_farmacia, Integer.parseInt(modelo.getValueAt(i, 2).toString()), LocalDate.parse(modelo.getValueAt(i, 3).toString()));
+        }
+        
+        listarProductosVentaDevolucionTable.setVisible(false);
+        listarProductosDevolucionTable.setVisible(false);
+        agregarProductoDevolucionButton.setVisible(false);
+        agregarProductoDevolucionButton.setVisible(false);
+        eliminarProductoDevolucionButton.setVisible(false);
+        ingreseIdClienteDevolucionLabel.setVisible(false);
+        ingreseIdClienteDevolucionTextField.setVisible(false);
+        cancelarDevolucionButton.setVisible(false);
+        realizarDevolucionButton.setVisible(false);
+    }//GEN-LAST:event_realizarDevolucionButtonActionPerformed
+
+    private void cancelarDevolucionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarDevolucionButtonActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) listarProductosDevolucionTable.getModel();
+        modelo.setRowCount(0);
+        listarProductosDevolucionTable.setModel(modelo);
+    }//GEN-LAST:event_cancelarDevolucionButtonActionPerformed
+
+    private void agregarProductoDevolucionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProductoDevolucionButtonActionPerformed
+        int fila = listarProductosVentaDevolucionTable.getSelectedRow();
+        if(fila != -1){
+            DefaultTableModel modelo = (DefaultTableModel) listarProductosVentaDevolucionTable.getModel();
+            DefaultTableModel modelo2 = (DefaultTableModel) listarProductosDevolucionTable.getModel();
+            
+            if(modelo2.getRowCount() == 0){
+                modelo2.addRow(new Object[]{modelo.getValueAt(fila, 0), modelo.getValueAt(fila, 1), 1, ""});
+            }else{
+                for(int i = 0; i < modelo2.getRowCount(); i++){
+                    if(modelo2.getValueAt(i, 0) == modelo.getValueAt(fila, 0)){
+                        int cantidad = Integer.parseInt(modelo2.getValueAt(i, 2).toString());
+                        modelo2.setValueAt(cantidad + 1, fila, 2);
+                        break;
+                    }
+                }
+            }
+            listarProductosDevolucionTable.setModel(modelo2);
+        }else{
+            JOptionPane.showMessageDialog(this, "Seleccione un producto");
+            return;
+        }
+    }//GEN-LAST:event_agregarProductoDevolucionButtonActionPerformed
+
+    private void eliminarProductoDevolucionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarProductoDevolucionButtonActionPerformed
+        int fila = listarProductosDevolucionTable.getSelectedRow();
+        if(fila != -1){
+            DefaultTableModel modelo = (DefaultTableModel) listarProductosDevolucionTable.getModel();
+            modelo.removeRow(fila);
+            listarProductosDevolucionTable.setModel(modelo);
+        }else{
+            JOptionPane.showMessageDialog(this, "Seleccione un producto");
+            return;
+        }
+    }//GEN-LAST:event_eliminarProductoDevolucionButtonActionPerformed
+
     public boolean esFechaValida(String fecha) {
         try {
             LocalDate.parse(fecha);
@@ -1771,6 +2030,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JToggleButton aceptarReporteConciliacionToggleButton;
     private javax.swing.JButton agregarLoteButton;
     private javax.swing.JButton agregarProductoButton;
+    private javax.swing.JButton agregarProductoDevolucionButton;
     private javax.swing.JLabel bienvenidoLabel;
     private javax.swing.JLabel bienvenidoTurnoLabel;
     private javax.swing.JButton btn_buscar_prod;
@@ -1783,12 +2043,15 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTextField buscarIdFarmaciaTopTxtField;
     private javax.swing.JTextField buscarIdFarmaciaVentasTxtField;
     private javax.swing.JTextField buscarIdProductoVentasTxtField;
+    private javax.swing.JButton buscarIdVentaButton;
     private javax.swing.JButton buscarProductoButton;
     private javax.swing.JLabel buscarProductoLabel;
+    private javax.swing.JButton cancelarDevolucionButton;
     private javax.swing.JButton cancelarVentaButton;
     private javax.swing.JTextField cantidadRecepcionTextField;
     private javax.swing.JButton confirmarConciliacionButton;
     private javax.swing.JButton eliminarProductoButton;
+    private javax.swing.JButton eliminarProductoDevolucionButton;
     private javax.swing.JPanel entregasPendientesPanel;
     private javax.swing.JLabel escribirFormatoFechaRecepcionLabel;
     private javax.swing.JLabel farmaciaNombreLabel;
@@ -1815,6 +2078,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel ingreseCantidadFisicaConciliacionLabel;
     private javax.swing.JLabel ingreseCantidadManualConciliacionLabel;
     private javax.swing.JLabel ingreseFormaRegistroLabel;
+    private javax.swing.JLabel ingreseIdClienteDevolucionLabel;
+    private javax.swing.JTextField ingreseIdClienteDevolucionTextField;
+    private javax.swing.JLabel ingreseIdVentaLabel;
+    private javax.swing.JTextField ingreseIdVentaTextField;
     private javax.swing.JDialog ingresoDirectoInventarioDialog;
     private javax.swing.JButton iniciarTButton;
     private javax.swing.JButton iniciarTurnoButton;
@@ -1828,9 +2095,13 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JLabel label_modificar_precio;
     private javax.swing.JLabel lbl_id_farmacia;
+    private javax.swing.JTable listarProductosDevolucionTable;
     private javax.swing.JScrollPane listarProductosParaVentaScrollPane;
+    private javax.swing.JTable listarProductosVentaDevolucionTable;
     private javax.swing.JScrollPane listarProductosVentaScrollPane;
     private javax.swing.JTable listarProductosVentaTable;
     private javax.swing.JTable listar_precios_prod;
@@ -1850,9 +2121,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTable productosIngresarTable;
     private javax.swing.JLabel rankingFarmaciasVentaLabel;
     private javax.swing.JTable rankingFarmaciasVentasTable;
+    private javax.swing.JButton realizarDevolucionButton;
     private javax.swing.JButton realizarRecepcionButton;
     private javax.swing.JButton realizarVentaButton;
     private javax.swing.JPanel recepcionPanel;
+    private javax.swing.JPanel registrarDevolucionPanel;
     private javax.swing.JPanel registrarInventarioFisicoPanel;
     private javax.swing.JPanel registrarRecepcionPanel;
     private javax.swing.JPanel registrarVentaPanel;
@@ -1871,6 +2144,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTextField txt_filtrar;
     private javax.swing.JTextField txt_id_producto;
     private javax.swing.JTextField txt_modificar_precio;
+    private javax.swing.JLabel ventaOriginalLabel;
     private javax.swing.JPanel verReportesPanel;
     private javax.swing.JScrollPane vistaTopProductosScroll;
     private javax.swing.JTable vistaTopProductosTable;

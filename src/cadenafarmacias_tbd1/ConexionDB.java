@@ -68,6 +68,30 @@ public class ConexionDB {
         }
         return null;
     }
+    
+    public DefaultTableModel buscarProductoDevolucion(int id_farmacia, int id_venta, DefaultTableModel modelo) {
+        String comando = "SELECT dv.id_producto, p.nombre_producto, dv.cantidad, p.precio\n" +
+                "FROM realiza r, producto p, venta v, detalle_venta dv\n" +
+                "WHERE (r.id_movimiento, dv.id_movimiento, dv.id_producto, id_farmacia, v.id_movimiento) " + 
+                "= (v.id_movimiento, v.id_movimiento, p.id_producto, ?, ?);";
+        PreparedStatement st;
+        try {
+            st = connection.prepareStatement(comando);
+            st.setInt(1, id_farmacia);
+            st.setInt(2, id_venta);
+
+            ResultSet nueva_tabla = st.executeQuery();
+
+            while (nueva_tabla.next()) {
+                modelo.addRow(new Object[]{nueva_tabla.getInt("id_producto"), nueva_tabla.getString("nombre_producto"), nueva_tabla.getInt("cantidad")
+                , nueva_tabla.getFloat("precio")});
+            }
+            return modelo;
+        } catch (SQLException ex) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            return null;
+        }
+    }
 
     public String idExiste(String id, String campo1, String campo2, String tabla) {
         String comando = "SELECT * FROM " + tabla + " WHERE " + campo1 + " = ? LIMIT 1";
@@ -95,6 +119,33 @@ public class ConexionDB {
             cs.setInt(1, id_farmacia);
             cs.setInt(2, id_proveedor);
             cs.setInt(3, id_empleado);
+            cs.execute();
+        } catch (SQLException ex) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    
+    public void insertarDevolucion(int id_venta, int id_cliente, int id_farmacia, int id_empleado) {
+        String comando = "{call insertar_devolucion(?, ?, ?, ?)}";
+        try (CallableStatement cs = connection.prepareCall(comando)) {
+            cs.setInt(1, id_venta);
+            cs.setInt(2, id_cliente);
+            cs.setInt(3, id_farmacia);
+            cs.setInt(4, id_empleado);
+            cs.execute();
+        } catch (SQLException ex) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    
+    public void insertarDetalleDevolucion(int id_producto, int id_farmacia, int cantidad, LocalDate fecha_vencimiento) {
+        String comando = "{call insertar_detalle_devolucion(?, ?, ?, ?)}";
+        try (CallableStatement cs = connection.prepareCall(comando)) {
+            cs.setInt(1, id_producto);
+            cs.setInt(2, id_farmacia);
+            cs.setInt(3, cantidad);
+            java.sql.Date fecha = java.sql.Date.valueOf(fecha_vencimiento);
+            cs.setDate(4, fecha);
             cs.execute();
         } catch (SQLException ex) {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
@@ -381,6 +432,8 @@ public class ConexionDB {
         }
         return modelo;
     }
+    
+    
 
 //    public void insertar(String nombre, String email, String telefono) {
 //        String query = "insert into clientes(nombre,email,telefono) values (?,?,?)";
