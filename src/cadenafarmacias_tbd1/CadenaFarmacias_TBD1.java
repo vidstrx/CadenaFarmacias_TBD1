@@ -179,6 +179,20 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         ingreseIdClienteDevolucionLabel = new javax.swing.JLabel();
         ingreseIdClienteDevolucionTextField = new javax.swing.JTextField();
         ventaOriginalLabel = new javax.swing.JLabel();
+        transladoPanel = new javax.swing.JPanel();
+        ingreseFarmaciaDestinoLabel = new javax.swing.JLabel();
+        farmaciaDestinoIDTextField = new javax.swing.JTextField();
+        buscarIdFarmaciaDestinoButton = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        lotesFarmaciaOrigenTable = new javax.swing.JTable();
+        lotesFarmaciaOrigdenLabel = new javax.swing.JLabel();
+        agregarLoteTransladoButton = new javax.swing.JButton();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        lotesFarmaciaDestinoTable = new javax.swing.JTable();
+        lotesFarmaciaDestinoLabel = new javax.swing.JLabel();
+        eliminarLoteTransladoButton = new javax.swing.JButton();
+        realizarTransladoButton = new javax.swing.JButton();
+        cancelarTransladoButton = new javax.swing.JButton();
         iniciarTurnoPanel = new javax.swing.JPanel();
         ingresarIdClienteLabel = new javax.swing.JLabel();
         idClienteTextField = new javax.swing.JTextField();
@@ -1282,6 +1296,124 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         TurnoTabbedPane.addTab("Devolución", registrarDevolucionPanel);
 
+        transladoPanel.setBackground(new java.awt.Color(0, 153, 102));
+
+        ingreseFarmaciaDestinoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        ingreseFarmaciaDestinoLabel.setText("Ingrese ID de farmacia destino:");
+
+        buscarIdFarmaciaDestinoButton.setText("Buscar");
+        buscarIdFarmaciaDestinoButton.addActionListener(this::buscarIdFarmaciaDestinoButtonActionPerformed);
+
+        lotesFarmaciaOrigenTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID lote", "ID producto", "Nombre producto", "Cantidad"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane9.setViewportView(lotesFarmaciaOrigenTable);
+
+        lotesFarmaciaOrigdenLabel.setForeground(new java.awt.Color(255, 255, 255));
+        lotesFarmaciaOrigdenLabel.setText("Lotes de farmacia origen");
+
+        agregarLoteTransladoButton.setText("Agregar");
+        agregarLoteTransladoButton.addActionListener(this::agregarLoteTransladoButtonActionPerformed);
+
+        lotesFarmaciaDestinoTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID lote", "ID producto", "Nombre producto", "Cantidad"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane10.setViewportView(lotesFarmaciaDestinoTable);
+
+        lotesFarmaciaDestinoLabel.setForeground(new java.awt.Color(255, 255, 255));
+        lotesFarmaciaDestinoLabel.setText("Lotes translado a farmacia destino");
+
+        eliminarLoteTransladoButton.setText("Eliminar");
+        eliminarLoteTransladoButton.addActionListener(this::eliminarLoteTransladoButtonActionPerformed);
+
+        realizarTransladoButton.setText("Realizar Translado");
+        realizarTransladoButton.addActionListener(this::realizarTransladoButtonActionPerformed);
+
+        cancelarTransladoButton.setText("Cancelar Translado");
+        cancelarTransladoButton.addActionListener(this::cancelarTransladoButtonActionPerformed);
+
+        javax.swing.GroupLayout transladoPanelLayout = new javax.swing.GroupLayout(transladoPanel);
+        transladoPanel.setLayout(transladoPanelLayout);
+        transladoPanelLayout.setHorizontalGroup(
+            transladoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(transladoPanelLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(transladoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lotesFarmaciaDestinoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(transladoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(eliminarLoteTransladoButton)
+                        .addGroup(transladoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(agregarLoteTransladoButton)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 844, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, transladoPanelLayout.createSequentialGroup()
+                                .addComponent(ingreseFarmaciaDestinoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(farmaciaDestinoIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(35, 35, 35)
+                                .addComponent(buscarIdFarmaciaDestinoButton))
+                            .addComponent(lotesFarmaciaOrigdenLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGroup(transladoPanelLayout.createSequentialGroup()
+                            .addComponent(cancelarTransladoButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(realizarTransladoButton))))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+        transladoPanelLayout.setVerticalGroup(
+            transladoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(transladoPanelLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(transladoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ingreseFarmaciaDestinoLabel)
+                    .addComponent(farmaciaDestinoIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarIdFarmaciaDestinoButton))
+                .addGap(19, 19, 19)
+                .addComponent(lotesFarmaciaOrigdenLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(agregarLoteTransladoButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(lotesFarmaciaDestinoLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(eliminarLoteTransladoButton)
+                .addGap(38, 38, 38)
+                .addGroup(transladoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(realizarTransladoButton)
+                    .addComponent(cancelarTransladoButton))
+                .addGap(21, 21, 21))
+        );
+
+        TurnoTabbedPane.addTab("Translado", transladoPanel);
+
         javax.swing.GroupLayout TurnoPanelLayout = new javax.swing.GroupLayout(TurnoPanel);
         TurnoPanel.setLayout(TurnoPanelLayout);
         TurnoPanelLayout.setHorizontalGroup(
@@ -1469,6 +1601,17 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             cancelarDevolucionButton.setVisible(false);
             realizarDevolucionButton.setVisible(false);
             ventaOriginalLabel.setVisible(false);
+            
+            
+            lotesFarmaciaOrigdenLabel.setVisible(false);
+            lotesFarmaciaOrigenTable.setVisible(false);
+            agregarLoteTransladoButton.setVisible(false);
+            lotesFarmaciaDestinoLabel.setVisible(false);
+            lotesFarmaciaDestinoTable.setVisible(false);
+            eliminarLoteTransladoButton.setVisible(false);
+            cancelarTransladoButton.setVisible(false);
+            realizarTransladoButton.setVisible(false);
+            farmaciaDestinoIDTextField.setEnabled(true);
         } else {
             JOptionPane.showMessageDialog(null, "ID empleado o ID farmacia no existe");
         }
@@ -1921,6 +2064,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         ingreseIdClienteDevolucionTextField.setVisible(false);
         cancelarDevolucionButton.setVisible(false);
         realizarDevolucionButton.setVisible(false);
+        ingreseIdVentaTextField.setText("");
     }//GEN-LAST:event_realizarDevolucionButtonActionPerformed
 
     private void cancelarDevolucionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarDevolucionButtonActionPerformed
@@ -1964,6 +2108,106 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             return;
         }
     }//GEN-LAST:event_eliminarProductoDevolucionButtonActionPerformed
+
+    private void buscarIdFarmaciaDestinoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarIdFarmaciaDestinoButtonActionPerformed
+            if(!esIntValido(farmaciaDestinoIDTextField.getText())){
+                JOptionPane.showMessageDialog(this, "Ingrese un ID válido");
+                return;
+            }
+            
+            int id_farmacia_destino = Integer.parseInt(farmaciaDestinoIDTextField.getText());
+            
+            if(conectar.idExiste(id_farmacia_destino+"", "id_farmacia", "nombre", "farmacia").equals("") || id_farmacia_destino == id_farmacia){
+                JOptionPane.showMessageDialog(this, "Ingrese un ID válido");
+                return;
+            }
+            
+            DefaultTableModel modelo = (DefaultTableModel) lotesFarmaciaOrigenTable.getModel();
+            modelo.setRowCount(0);
+            modelo = conectar.insertarTablaFarmaciaDestinoTranslado(modelo, id_farmacia);
+            lotesFarmaciaOrigenTable.setModel(modelo);
+            
+            buscarIdFarmaciaDestinoButton.setEnabled(false);
+            lotesFarmaciaOrigdenLabel.setVisible(true);
+            lotesFarmaciaOrigenTable.setVisible(true);
+            agregarLoteTransladoButton.setVisible(true);
+            lotesFarmaciaDestinoLabel.setVisible(true);
+            lotesFarmaciaDestinoTable.setVisible(true);
+            eliminarLoteTransladoButton.setVisible(true);
+            cancelarTransladoButton.setVisible(true);
+            realizarTransladoButton.setVisible(true);
+            farmaciaDestinoIDTextField.setEnabled(false);
+    }//GEN-LAST:event_buscarIdFarmaciaDestinoButtonActionPerformed
+
+    private void realizarTransladoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizarTransladoButtonActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) lotesFarmaciaDestinoTable.getModel();
+        if(modelo.getRowCount() == 0){
+            JOptionPane.showMessageDialog(this, "No ha ingresado lotes");
+            return;
+        }else{
+            conectar.insertarTranslado(id_farmacia, Integer.parseInt(farmaciaDestinoIDTextField.getText()), id_empleado);
+            for(int i = 0; i < modelo.getRowCount(); i++){
+                conectar.insertarDetalleTranslado(Integer.parseInt(modelo.getValueAt(i, 1).toString()), Integer.parseInt(modelo.getValueAt(i, 3).toString()), id_farmacia, Integer.parseInt(farmaciaDestinoIDTextField.getText()));
+            }
+        }
+        
+        modelo.setRowCount(0);
+        buscarIdFarmaciaDestinoButton.setEnabled(true);
+        farmaciaDestinoIDTextField.setEnabled(true);
+        farmaciaDestinoIDTextField.setText("");
+        lotesFarmaciaOrigdenLabel.setVisible(false);
+        lotesFarmaciaOrigenTable.setVisible(false);
+        agregarLoteTransladoButton.setVisible(false);
+        lotesFarmaciaDestinoLabel.setVisible(false);
+        lotesFarmaciaDestinoTable.setVisible(false);
+        eliminarLoteTransladoButton.setVisible(false);
+        cancelarTransladoButton.setVisible(false);
+        realizarTransladoButton.setVisible(false);
+    }//GEN-LAST:event_realizarTransladoButtonActionPerformed
+
+    private void agregarLoteTransladoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarLoteTransladoButtonActionPerformed
+        int fila = lotesFarmaciaOrigenTable.getSelectedRow();
+        DefaultTableModel modelo1 = (DefaultTableModel) lotesFarmaciaOrigenTable.getModel();
+        DefaultTableModel modelo2 = (DefaultTableModel) lotesFarmaciaDestinoTable.getModel();
+        if(fila != -1){
+            modelo2.addRow(modelo1.getDataVector().elementAt(fila));
+            modelo1.removeRow(fila);
+        }else{
+            JOptionPane.showMessageDialog(this, "Seleccione un lote");
+            return;
+        }
+    }//GEN-LAST:event_agregarLoteTransladoButtonActionPerformed
+
+    private void eliminarLoteTransladoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarLoteTransladoButtonActionPerformed
+        int fila = lotesFarmaciaDestinoTable.getSelectedRow();
+        DefaultTableModel modelo1 = (DefaultTableModel) lotesFarmaciaOrigenTable.getModel();
+        DefaultTableModel modelo2 = (DefaultTableModel) lotesFarmaciaDestinoTable.getModel();
+        if(fila != -1){
+            modelo1.addRow(modelo2.getDataVector().elementAt(fila));
+            modelo2.removeRow(fila);
+        }else{
+            JOptionPane.showMessageDialog(this, "Seleccione un lote");
+            return;
+        }
+    }//GEN-LAST:event_eliminarLoteTransladoButtonActionPerformed
+
+    private void cancelarTransladoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarTransladoButtonActionPerformed
+        DefaultTableModel modelo1 = (DefaultTableModel) lotesFarmaciaOrigenTable.getModel();
+        DefaultTableModel modelo2 = (DefaultTableModel) lotesFarmaciaDestinoTable.getModel();
+        
+        modelo1.setRowCount(0);
+        modelo2.setRowCount(0);
+        farmaciaDestinoIDTextField.setEnabled(true);
+        buscarIdFarmaciaDestinoButton.setEnabled(true);
+        lotesFarmaciaOrigdenLabel.setVisible(false);
+        lotesFarmaciaOrigenTable.setVisible(false);
+        agregarLoteTransladoButton.setVisible(false);
+        lotesFarmaciaDestinoLabel.setVisible(false);
+        lotesFarmaciaDestinoTable.setVisible(false);
+        eliminarLoteTransladoButton.setVisible(false);
+        cancelarTransladoButton.setVisible(false);
+        realizarTransladoButton.setVisible(false);
+    }//GEN-LAST:event_cancelarTransladoButtonActionPerformed
 
     public boolean esFechaValida(String fecha) {
         try {
@@ -2029,6 +2273,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JPanel VentasPanel;
     private javax.swing.JToggleButton aceptarReporteConciliacionToggleButton;
     private javax.swing.JButton agregarLoteButton;
+    private javax.swing.JButton agregarLoteTransladoButton;
     private javax.swing.JButton agregarProductoButton;
     private javax.swing.JButton agregarProductoDevolucionButton;
     private javax.swing.JLabel bienvenidoLabel;
@@ -2040,6 +2285,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTextField buscarFechaFinalVentasTxtField;
     private javax.swing.JTextField buscarFechaInicialTopTxtField;
     private javax.swing.JTextField buscarFechaInicioVentasTxtField;
+    private javax.swing.JButton buscarIdFarmaciaDestinoButton;
     private javax.swing.JTextField buscarIdFarmaciaTopTxtField;
     private javax.swing.JTextField buscarIdFarmaciaVentasTxtField;
     private javax.swing.JTextField buscarIdProductoVentasTxtField;
@@ -2047,13 +2293,16 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JButton buscarProductoButton;
     private javax.swing.JLabel buscarProductoLabel;
     private javax.swing.JButton cancelarDevolucionButton;
+    private javax.swing.JButton cancelarTransladoButton;
     private javax.swing.JButton cancelarVentaButton;
     private javax.swing.JTextField cantidadRecepcionTextField;
     private javax.swing.JButton confirmarConciliacionButton;
+    private javax.swing.JButton eliminarLoteTransladoButton;
     private javax.swing.JButton eliminarProductoButton;
     private javax.swing.JButton eliminarProductoDevolucionButton;
     private javax.swing.JPanel entregasPendientesPanel;
     private javax.swing.JLabel escribirFormatoFechaRecepcionLabel;
+    private javax.swing.JTextField farmaciaDestinoIDTextField;
     private javax.swing.JLabel farmaciaNombreLabel;
     private javax.swing.JTextField fechaVRecepcionTextField;
     private javax.swing.JButton filtrarTopProductosButton;
@@ -2077,6 +2326,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTextField ingresarProductoTextField;
     private javax.swing.JLabel ingreseCantidadFisicaConciliacionLabel;
     private javax.swing.JLabel ingreseCantidadManualConciliacionLabel;
+    private javax.swing.JLabel ingreseFarmaciaDestinoLabel;
     private javax.swing.JLabel ingreseFormaRegistroLabel;
     private javax.swing.JLabel ingreseIdClienteDevolucionLabel;
     private javax.swing.JTextField ingreseIdClienteDevolucionTextField;
@@ -2090,6 +2340,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -2097,6 +2348,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel label_modificar_precio;
     private javax.swing.JLabel lbl_id_farmacia;
     private javax.swing.JTable listarProductosDevolucionTable;
@@ -2105,6 +2357,10 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane listarProductosVentaScrollPane;
     private javax.swing.JTable listarProductosVentaTable;
     private javax.swing.JTable listar_precios_prod;
+    private javax.swing.JLabel lotesFarmaciaDestinoLabel;
+    private javax.swing.JTable lotesFarmaciaDestinoTable;
+    private javax.swing.JLabel lotesFarmaciaOrigdenLabel;
+    private javax.swing.JTable lotesFarmaciaOrigenTable;
     private javax.swing.JLabel margenPrecioProductoLabel;
     private javax.swing.JTable margenPrecioProductoTable;
     private javax.swing.JComboBox<String> metodoPagoComboBox;
@@ -2123,6 +2379,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTable rankingFarmaciasVentasTable;
     private javax.swing.JButton realizarDevolucionButton;
     private javax.swing.JButton realizarRecepcionButton;
+    private javax.swing.JButton realizarTransladoButton;
     private javax.swing.JButton realizarVentaButton;
     private javax.swing.JPanel recepcionPanel;
     private javax.swing.JPanel registrarDevolucionPanel;
@@ -2141,6 +2398,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JTable tablaConciliacionTable;
     private javax.swing.JTable tabla_preciosvig;
     private javax.swing.JPanel topProductosPanel;
+    private javax.swing.JPanel transladoPanel;
     private javax.swing.JTextField txt_filtrar;
     private javax.swing.JTextField txt_id_producto;
     private javax.swing.JTextField txt_modificar_precio;

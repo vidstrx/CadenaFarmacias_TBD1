@@ -433,7 +433,57 @@ public class ConexionDB {
         return modelo;
     }
     
+    public DefaultTableModel insertarTablaFarmaciaDestinoTranslado(DefaultTableModel modelo, int id_farmacia){
+        String comando1 = "SELECT l.codigo_lote, p.id_producto, p.nombre_producto, l.cantidad\n" +
+                         "FROM lote l, recepcion rp, producto p, realiza r, detalle_recepcion dr\n" +
+                         "WHERE (rp.id_movimiento, dr.codigo_lote, l.id_producto, dr.id_movimiento, r.id_farmacia) = "
+                       + "(r.id_movimiento, l.codigo_lote, p.id_producto, rp.id_movimiento, ?);";
+        PreparedStatement st;
+        try {
+            st = connection.prepareStatement(comando1);
+            st.setInt(1, id_farmacia);
+
+            ResultSet nueva_tabla = st.executeQuery();
+
+            while (nueva_tabla.next()) {
+                modelo.addRow(new Object[]{nueva_tabla.getInt("codigo_lote"), nueva_tabla.getInt("id_producto"), nueva_tabla.getString("nombre_producto")
+                , nueva_tabla.getInt("cantidad")});
+            }
+            return modelo;
+        } catch (SQLException ex) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            return null;
+        }
+    }
     
+    public void insertarTranslado(int id_farmacia_origen, int id_farmacia_destino, int id_empleado) {
+        String comando = "call insertar_traslado(?,?,?)";
+        try {
+            CallableStatement callStmt = connection.prepareCall(comando);
+            callStmt.setInt(1, id_farmacia_origen);
+            callStmt.setInt(2, id_farmacia_destino);
+            callStmt.setInt(3, id_empleado);
+
+            callStmt.execute();
+        } catch (SQLException e) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
+        }
+    }
+
+    public void insertarDetalleTranslado(int id_producto, int cantidad, int if_farmacia_origen, int id_farmacia_destino) {
+        String comando = "call insertar_detalle_traslado(?,?,?,?)";
+        try {
+            CallableStatement callStmt = connection.prepareCall(comando);
+            callStmt.setInt(1, id_producto);
+            callStmt.setInt(2, cantidad);
+            callStmt.setInt(3, if_farmacia_origen);
+            callStmt.setInt(4, id_farmacia_destino);
+            callStmt.execute();
+
+        } catch (SQLException e) {
+            System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
+        }
+    }
 
 //    public void insertar(String nombre, String email, String telefono) {
 //        String query = "insert into clientes(nombre,email,telefono) values (?,?,?)";
