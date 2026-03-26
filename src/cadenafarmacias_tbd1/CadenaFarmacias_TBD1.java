@@ -22,6 +22,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     DefaultTableModel prod_vigentes = new DefaultTableModel();
     DefaultTableModel vistaVentasModel = new DefaultTableModel();
     DefaultTableModel vistaTopProductosModel = new DefaultTableModel();
+    DefaultTableModel tabla_precios_vigentes = new DefaultTableModel();
     int id_empleado;
     int id_farmacia;
     int id_proveedor;
@@ -86,6 +87,12 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         buscarFechaFinalVentasTxtField = new javax.swing.JTextField();
         filtrarVentasButton = new javax.swing.JButton();
         precioVigentesPanel = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tabla_preciosvig = new javax.swing.JTable();
+        lbl_id_farmacia = new javax.swing.JLabel();
+        txt_filtrar = new javax.swing.JTextField();
+        btn_mostrar_precio_vigente = new javax.swing.JButton();
+        seleccion_filtrar = new javax.swing.JComboBox<>();
         topProductosPanel = new javax.swing.JPanel();
         vistaTopProductosScroll = new javax.swing.JScrollPane();
         vistaTopProductosTable = new javax.swing.JTable();
@@ -453,18 +460,70 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         precioVigentesPanel.setBackground(new java.awt.Color(0, 153, 153));
 
+        tabla_preciosvig.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane6.setViewportView(tabla_preciosvig);
+
+        lbl_id_farmacia.setText("Ingrese el filtro:");
+
+        txt_filtrar.addActionListener(this::txt_filtrarActionPerformed);
+
+        btn_mostrar_precio_vigente.setText("MOSTRAR");
+        btn_mostrar_precio_vigente.addActionListener(this::btn_mostrar_precio_vigenteActionPerformed);
+
+        seleccion_filtrar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "ID Farmacia", "Fecha" }));
+
         javax.swing.GroupLayout precioVigentesPanelLayout = new javax.swing.GroupLayout(precioVigentesPanel);
         precioVigentesPanel.setLayout(precioVigentesPanelLayout);
         precioVigentesPanelLayout.setHorizontalGroup(
             precioVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
+            .addGroup(precioVigentesPanelLayout.createSequentialGroup()
+                .addGroup(precioVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(precioVigentesPanelLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(precioVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(precioVigentesPanelLayout.createSequentialGroup()
+                                .addGroup(precioVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txt_filtrar, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_id_farmacia, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
+                                .addGap(215, 215, 215)
+                                .addComponent(seleccion_filtrar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(precioVigentesPanelLayout.createSequentialGroup()
+                        .addGap(280, 280, 280)
+                        .addComponent(btn_mostrar_precio_vigente, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
         precioVigentesPanelLayout.setVerticalGroup(
             precioVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 514, Short.MAX_VALUE)
+            .addGroup(precioVigentesPanelLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(precioVigentesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, precioVigentesPanelLayout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(seleccion_filtrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(208, Short.MAX_VALUE))
+                    .addGroup(precioVigentesPanelLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(lbl_id_farmacia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txt_filtrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_mostrar_precio_vigente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65))))
         );
 
-        ReportesTabbedPane.addTab("Previos Vigentes", precioVigentesPanel);
+        ReportesTabbedPane.addTab("Precios Vigentes", precioVigentesPanel);
 
         topProductosPanel.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -636,7 +695,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         RankingFarmaciasPanelLayout.setVerticalGroup(
             RankingFarmaciasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RankingFarmaciasPanelLayout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
+                .addContainerGap(94, Short.MAX_VALUE)
                 .addComponent(rankingFarmaciasVentaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -697,7 +756,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addComponent(bienvenidoTurnoLabel)
                 .addGap(18, 18, 18)
                 .addComponent(farmaciaNombreLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 357, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE)
                 .addComponent(finalizarTurnoButton)
                 .addGap(15, 15, 15))
         );
@@ -852,7 +911,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                     .addComponent(realizarVentaButton)
                     .addComponent(montoTotalVentaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelarVentaButton))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         TurnoTabbedPane.addTab("Registrar Venta", registrarVentaPanel);
@@ -932,7 +991,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                     .addComponent(precioRecepcionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(agregarLoteButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
                 .addComponent(finalizarRecepcionToggleButton)
                 .addContainerGap())
         );
@@ -964,7 +1023,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                     .addComponent(idProveedorTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(realizarRecepcionButton)
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(288, Short.MAX_VALUE))
             .addGroup(registrarRecepcionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(recepcionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1041,7 +1100,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                     .addComponent(label_modificar_precio)
                     .addComponent(txt_modificar_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_modificar_precio))
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
 
         TurnoTabbedPane.addTab("Precios Vigentes", preciosVigentesPanel);
@@ -1480,7 +1539,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.getLogger(CadenaFarmacias_TBD1.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
-        }else{
+        } else {
             JOptionPane.showConfirmDialog(null, "Sin productos para realizar conciliacion");
         }
     }//GEN-LAST:event_AceptarFormaRegistroButtonActionPerformed
@@ -1507,11 +1566,11 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             for (int i = 0; i < modelo.getRowCount(); i++) {
                 conectar.insertar_detalle_conciliacion(id_farmacia, Integer.parseInt(modelo.getValueAt(i, 0).toString()), Integer.parseInt(modelo.getValueAt(i, 3).toString()));
             }
-        }else if((opcion == JOptionPane.NO_OPTION || opcion == JOptionPane.CANCEL_OPTION)){
+        } else if ((opcion == JOptionPane.NO_OPTION || opcion == JOptionPane.CANCEL_OPTION)) {
             return;
         }
         conectar.finalizarTurno();
-        
+
         DefaultTableModel modelo2 = new DefaultTableModel();
         DefaultTableModel tuplas = conectar.cargarVista("cierre_turno_inventario", modelo2);
         reporteConciliacionTable.setModel(tuplas);
@@ -1521,7 +1580,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         ReporteConciliacionDialog.setLocationRelativeTo(this);
         ReporteConciliacionDialog.setModal(true);
         ReporteConciliacionDialog.setVisible(true);
-        
+
         TurnoPanel.setVisible(false);
         pantallaPanel.setVisible(true);
         recepcionPanel.setVisible(false);
@@ -1619,15 +1678,33 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
     private void rankingReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rankingReportesMouseClicked
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo  = conectar.cargarVista("ranking_ventas", modelo);
+        modelo = conectar.cargarVista("ranking_ventas", modelo);
         rankingFarmaciasVentasTable.setModel(modelo);
         rankingFarmaciasVentasTable.setCellSelectionEnabled(false);
-        
+
         DefaultTableModel modelo2 = new DefaultTableModel();
-        modelo2  = conectar.cargarVista("marge_producto", modelo2);
+        modelo2 = conectar.cargarVista("marge_producto", modelo2);
         margenPrecioProductoTable.setModel(modelo2);
         margenPrecioProductoTable.setCellSelectionEnabled(false);
     }//GEN-LAST:event_rankingReportesMouseClicked
+
+    private void btn_mostrar_precio_vigenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_mostrar_precio_vigenteActionPerformed
+        // TODO add your handling code here:
+        String criterio = seleccion_filtrar.getSelectedItem().toString();
+        String valor = txt_filtrar.getText().trim();
+
+        if (valor.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese un valor para buscar");
+            return;
+        }
+
+        tabla_preciosvig.setModel(conectar.filtrarPrecios(criterio, valor));
+
+    }//GEN-LAST:event_btn_mostrar_precio_vigenteActionPerformed
+
+    private void txt_filtrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_filtrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_filtrarActionPerformed
 
     public boolean esFechaValida(String fecha) {
         try {
@@ -1698,6 +1775,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel bienvenidoTurnoLabel;
     private javax.swing.JButton btn_buscar_prod;
     private javax.swing.JButton btn_modificar_precio;
+    private javax.swing.JButton btn_mostrar_precio_vigente;
     private javax.swing.JTextField buscarFechaFinalTopTxtField;
     private javax.swing.JTextField buscarFechaFinalVentasTxtField;
     private javax.swing.JTextField buscarFechaInicialTopTxtField;
@@ -1749,7 +1827,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JLabel label_modificar_precio;
+    private javax.swing.JLabel lbl_id_farmacia;
     private javax.swing.JScrollPane listarProductosParaVentaScrollPane;
     private javax.swing.JScrollPane listarProductosVentaScrollPane;
     private javax.swing.JTable listarProductosVentaTable;
@@ -1783,9 +1863,12 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel reviseReporteConciliacionLabel;
     private javax.swing.JToggleButton salirToggleButton;
     private javax.swing.JLabel seleccionInicioLabel;
+    private javax.swing.JComboBox<String> seleccion_filtrar;
     private javax.swing.JButton sumarCantidadConciliacionButton;
     private javax.swing.JTable tablaConciliacionTable;
+    private javax.swing.JTable tabla_preciosvig;
     private javax.swing.JPanel topProductosPanel;
+    private javax.swing.JTextField txt_filtrar;
     private javax.swing.JTextField txt_id_producto;
     private javax.swing.JTextField txt_modificar_precio;
     private javax.swing.JPanel verReportesPanel;

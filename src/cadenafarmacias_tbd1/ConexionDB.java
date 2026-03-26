@@ -311,22 +311,21 @@ public class ConexionDB {
         }
     }
 
-    
     public DefaultTableModel cargarVista(String nombre_vista, DefaultTableModel modelo) {
         String comando = "SELECT * FROM " + nombre_vista;
         try {
             PreparedStatement ps = connection.prepareStatement(comando);
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData metadata = rs.getMetaData();
-            
+
             for (int i = 1; i <= metadata.getColumnCount(); i++) {
-                modelo.addColumn(metadata.getColumnLabel(i));     
+                modelo.addColumn(metadata.getColumnLabel(i));
             }
-            
+
             while (rs.next()) {
                 Object[] fila = new Object[metadata.getColumnCount()];
                 for (int i = 1; i <= metadata.getColumnCount(); i++) {
-                    fila[i-1] = rs.getObject(i);
+                    fila[i - 1] = rs.getObject(i);
                 }
                 modelo.addRow(fila);
             }
@@ -335,7 +334,54 @@ public class ConexionDB {
         }
         return modelo;
     }
-    
+
+    public DefaultTableModel filtrarPrecios(String criterio, String busqueda) {
+        String[] columnas = {"Farmacia", "Producto", "Laboratorio", "Presentación", "Precio", "Vigencia Hasta"};
+        DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+
+        StringBuilder sql = new StringBuilder("SELECT * FROM vista_precios_vigentes WHERE 1=1");
+        switch (criterio) {
+            case "Nombre":
+                sql.append(" AND LOWER(nombre_producto) LIKE LOWER(?)");
+                break;
+            case "ID Farmacia":
+                sql.append(" AND id_farmacia = ?");
+                break;
+            case "Fecha":
+                // Filtra por fecha ingresada Y que no hayan finalizado (fecha_final >= hoy)
+                sql.append(" AND ? BETWEEN fecha_inicio AND fecha_final AND fecha_final >= CURDATE()");
+                break;
+        }
+
+        try (PreparedStatement st = connection.prepareStatement(sql.toString())) {
+            if (!busqueda.trim().isEmpty()) {
+                if (criterio.equals("ID Farmacia")) {
+                    st.setInt(1, Integer.parseInt(busqueda.trim()));
+                } else {
+                    // Para nombre usamos %busqueda%, para fecha usamos la cadena exacta
+                    String valor = criterio.equals("Nombre") ? "%" + busqueda.trim() + "%" : busqueda.trim();
+                    st.setString(1, valor);
+                }
+            }
+
+            try (ResultSet rs = st.executeQuery()) {
+                while (rs.next()) {
+                    modelo.addRow(new Object[]{
+                        rs.getString("nombre_farmacia"),
+                        rs.getString("nombre_producto"),
+                        rs.getString("lab_fabricante"),
+                        rs.getString("tipo_presentacion"),
+                        rs.getDouble("precio_venta"),
+                        rs.getString("fecha_final") // Muestra cuándo vence el precio
+                    });
+                }
+            }
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(ConexionDB.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        return modelo;
+    }
+
 //    public void insertar(String nombre, String email, String telefono) {
 //        String query = "insert into clientes(nombre,email,telefono) values (?,?,?)";
 //        try {
