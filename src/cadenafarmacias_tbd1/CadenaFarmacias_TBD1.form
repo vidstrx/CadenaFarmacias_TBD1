@@ -1100,7 +1100,6 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="finalizarTurnoButton" min="-2" max="-2" attributes="0"/>
                               <Component id="bienvenidoTurnoLabel" alignment="0" pref="860" max="32767" attributes="0"/>
                               <Component id="farmaciaNombreLabel" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -1115,9 +1114,7 @@
                           <Component id="bienvenidoTurnoLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="farmaciaNombreLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="364" max="32767" attributes="0"/>
-                          <Component id="finalizarTurnoButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <EmptySpace pref="442" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1133,17 +1130,6 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Bienvenido:"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="finalizarTurnoButton">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="24" style="0"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Finalizar Turno"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="finalizarTurnoButtonActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="farmaciaNombreLabel">
                   <Properties>
@@ -1838,8 +1824,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Registrar Inventario F&#xed;sico">
-                    <Property name="tabTitle" type="java.lang.String" value="Registrar Inventario F&#xed;sico"/>
+                  <JTabbedPaneConstraints tabName="Cierre Turno">
+                    <Property name="tabTitle" type="java.lang.String" value="Cierre Turno"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>

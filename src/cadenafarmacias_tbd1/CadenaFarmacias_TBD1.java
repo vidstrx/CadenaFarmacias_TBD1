@@ -2,6 +2,7 @@ package cadenafarmacias_tbd1;
 
 import com.mysql.cj.jdbc.CallableStatement;
 import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -31,7 +32,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadenaFarmacias_TBD1.class.getName());
 
-    public CadenaFarmacias_TBD1() {
+    public CadenaFarmacias_TBD1(){
         initComponents();
         this.setTitle("Sistema de Control e Inventarios");
         TurnoPanel.setVisible(false);
@@ -116,7 +117,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         TurnoTabbedPane = new javax.swing.JTabbedPane();
         paginaInicioTurnoPanel = new javax.swing.JPanel();
         bienvenidoTurnoLabel = new javax.swing.JLabel();
-        finalizarTurnoButton = new javax.swing.JButton();
         farmaciaNombreLabel = new javax.swing.JLabel();
         registrarVentaPanel = new javax.swing.JPanel();
         buscarProductoLabel = new javax.swing.JLabel();
@@ -759,10 +759,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         bienvenidoTurnoLabel.setForeground(new java.awt.Color(255, 255, 255));
         bienvenidoTurnoLabel.setText("Bienvenido:");
 
-        finalizarTurnoButton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        finalizarTurnoButton.setText("Finalizar Turno");
-        finalizarTurnoButton.addActionListener(this::finalizarTurnoButtonActionPerformed);
-
         farmaciaNombreLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         farmaciaNombreLabel.setForeground(new java.awt.Color(255, 255, 255));
         farmaciaNombreLabel.setText("Farmacia: ");
@@ -774,7 +770,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             .addGroup(paginaInicioTurnoPanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(paginaInicioTurnoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(finalizarTurnoButton)
                     .addComponent(bienvenidoTurnoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
                     .addComponent(farmaciaNombreLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -786,9 +781,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addComponent(bienvenidoTurnoLabel)
                 .addGap(18, 18, 18)
                 .addComponent(farmaciaNombreLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE)
-                .addComponent(finalizarTurnoButton)
-                .addGap(15, 15, 15))
+                .addContainerGap(442, Short.MAX_VALUE))
         );
 
         TurnoTabbedPane.addTab("Página Inicio", paginaInicioTurnoPanel);
@@ -1167,7 +1160,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addGap(240, 240, 240))
         );
 
-        TurnoTabbedPane.addTab("Registrar Inventario Físico", registrarInventarioFisicoPanel);
+        TurnoTabbedPane.addTab("Cierre Turno", registrarInventarioFisicoPanel);
 
         registrarDevolucionPanel.setBackground(new java.awt.Color(0, 153, 102));
 
@@ -1616,13 +1609,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ID empleado o ID farmacia no existe");
         }
     }//GEN-LAST:event_iniciarTButtonActionPerformed
-
-    private void finalizarTurnoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarTurnoButtonActionPerformed
-        conectar.finalizarTurno();
-        TurnoPanel.setVisible(false);
-        pantallaPanel.setVisible(true);
-        recepcionPanel.setVisible(false);
-    }//GEN-LAST:event_finalizarTurnoButtonActionPerformed
 
     private void TurnoTabbedPaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TurnoTabbedPaneMouseClicked
         listar_precios_prod.setModel(conectar.cargarVistaProductos(prod_vigentes));
@@ -2308,7 +2294,6 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JButton filtrarTopProductosButton;
     private javax.swing.JButton filtrarVentasButton;
     private javax.swing.JToggleButton finalizarRecepcionToggleButton;
-    private javax.swing.JButton finalizarTurnoButton;
     private javax.swing.JLabel idClienteLabel;
     private javax.swing.JTextField idClienteTextField;
     private javax.swing.JTextField idClienteVentaTextField;
