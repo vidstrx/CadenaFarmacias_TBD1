@@ -1806,6 +1806,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
             try {
                 conectar.insertar_conciliacion(id_farmacia);
                 DefaultTableModel modelo = (DefaultTableModel) tablaConciliacionTable.getModel();
+                modelo.setRowCount(0);
                 while (tabla.next()) {
                     modelo.addRow(new Object[]{tabla.getString("id_producto"), tabla.getString("nombre_producto"), tabla.getString("cantidad"), "0"});
                 }
@@ -1829,6 +1830,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
     private void confirmarConciliacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarConciliacionButtonActionPerformed
         DefaultTableModel modelo = (DefaultTableModel) tablaConciliacionTable.getModel();
+        modelo.setRowCount(0);
 
         int cantidad = 0;
         for (int i = 0; i < modelo.getRowCount(); i++) {
