@@ -484,6 +484,51 @@ public class ConexionDB {
             System.getLogger(ConexionDB.class.getName()).log(System.Logger.Level.ERROR, (String) null, e);
         }
     }
+    
+    public DefaultTableModel cargarVistaFiltrada(String nombre_vista, String nombre_farmacia, String nombre_producto, String fechaInicial, String fechaFinal, DefaultTableModel modelo) {
+        StringBuilder comando = new StringBuilder("SELECT * FROM ").append(nombre_vista).append(" WHERE 1 = 1");
+
+        if (!nombre_farmacia.isEmpty())
+            comando.append(" AND nombre_farmacia LIKE ?");
+
+        if (!nombre_producto.isEmpty())
+            comando.append(" AND nombre_producto LIKE ?");
+
+        if (!fechaInicial.isEmpty() && !fechaFinal.isEmpty())
+            comando.append(" AND fecha BETWEEN ? AND ?");
+        
+        try {
+            PreparedStatement ps = connection.prepareStatement(comando.toString());
+            int indice = 1;
+            if (!nombre_farmacia.isEmpty())
+                ps.setString(indice++, "%" + nombre_farmacia + "%");
+
+            if (!nombre_producto.isEmpty())
+                ps.setString(indice++, "%" + nombre_producto + "%");
+
+            if (!fechaInicial.isEmpty() && !fechaFinal.isEmpty()) {
+                ps.setString(indice++, fechaInicial);
+                ps.setString(indice++, fechaFinal);
+            }
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData metadata = rs.getMetaData();
+
+            for (int i = 1; i <= metadata.getColumnCount(); i++) {
+                modelo.addColumn(metadata.getColumnLabel(i));
+            }
+
+            while (rs.next()) {
+                Object[] fila = new Object[metadata.getColumnCount()];
+                for (int i = 1; i <= metadata.getColumnCount(); i++) {
+                    fila[i - 1] = rs.getObject(i);
+                }
+                modelo.addRow(fila);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar datos: " + e.getMessage());
+        }
+        return modelo;
+    }
 
 //    public void insertar(String nombre, String email, String telefono) {
 //        String query = "insert into clientes(nombre,email,telefono) values (?,?,?)";
