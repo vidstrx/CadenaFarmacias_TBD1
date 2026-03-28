@@ -462,26 +462,42 @@
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="vistaVentasProductosScroll" min="-2" pref="860" max="-2" attributes="0"/>
-                              <Component id="mostrarVentasButton" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="buscarIdFarmaciaVentasTxtField" min="-2" pref="131" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="buscarFechaInicioVentasTxtField" min="-2" pref="131" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="356" max="-2" attributes="0"/>
-                                              <Component id="buscarIdProductoVentasTxtField" min="-2" pref="131" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="buscarFechaFinalVentasTxtField" min="-2" pref="131" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="448" max="-2" attributes="0"/>
                                   <Component id="filtrarVentasButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="volverDeReportesButton" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                          <Component id="buscarNombreFarmaciaVentasTxtField" min="-2" pref="131" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Component id="fechaInicialVentasLabel" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="buscarFechaInicioVentasTxtField" min="-2" pref="131" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="356" max="-2" attributes="0"/>
+                                                  <Component id="buscarNombreProductoVentasTxtField" min="-2" pref="131" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <Component id="mostrarVentasButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="nombreProductoVentasLabel" pref="149" max="32767" attributes="0"/>
+                                          <Component id="nombreFarmaciaVentasLabel" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="buscarFechaFinalVentasTxtField" min="-2" pref="131" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="fechaFinalVentasLabel" min="-2" pref="108" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
                           <EmptySpace pref="24" max="32767" attributes="0"/>
                       </Group>
@@ -495,14 +511,20 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="mostrarVentasButton" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                              <Component id="buscarIdProductoVentasTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buscarNombreProductoVentasTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreProductoVentasLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                          <Component id="buscarIdFarmaciaVentasTxtField" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="buscarNombreFarmaciaVentasTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="nombreFarmaciaVentasLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="buscarFechaInicioVentasTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buscarFechaFinalVentasTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fechaInicialVentasLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fechaFinalVentasLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                           <Component id="filtrarVentasButton" min="-2" pref="31" max="-2" attributes="0"/>
@@ -555,14 +577,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostrarVentasButtonActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="buscarIdProductoVentasTxtField">
+                <Component class="javax.swing.JTextField" name="buscarNombreProductoVentasTxtField">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="14" style="1"/>
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="buscarIdFarmaciaVentasTxtField">
+                <Component class="javax.swing.JTextField" name="buscarNombreFarmaciaVentasTxtField">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="14" style="1"/>
@@ -589,6 +611,41 @@
                       <Font name="Segoe UI" size="16" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Filtrar"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtrarVentasButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="nombreProductoVentasLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Nombre del producto"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="nombreFarmaciaVentasLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Nombre de farmacia"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="fechaInicialVentasLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Fecha Inicial"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="fechaFinalVentasLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Fecha Final"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -742,12 +799,26 @@
                                       <Group type="102" attributes="0">
                                           <Component id="mostrarTopProductosButton" min="-2" pref="140" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
-                                          <Component id="buscarIdFarmaciaTopTxtField" min="-2" pref="161" max="-2" attributes="0"/>
+                                          <Component id="buscarNombreFarmaciaTopTxtField" min="-2" pref="161" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="buscarFechaInicialTopTxtField" min="-2" pref="161" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="fechaInicialTopLabel" min="-2" pref="101" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="buscarFechaInicialTopTxtField" min="-2" pref="161" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                  <Component id="buscarFechaFinalTopTxtField" min="-2" pref="161" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                                          <Component id="buscarFechaFinalTopTxtField" min="-2" pref="161" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="nombreFarmaciaTopLabel" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="fechaFinalTopLabel" min="-2" pref="146" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace pref="36" max="32767" attributes="0"/>
@@ -771,11 +842,16 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="buscarIdFarmaciaTopTxtField" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="buscarNombreFarmaciaTopTxtField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="nombreFarmaciaTopLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="buscarFechaInicialTopTxtField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                                       <Component id="buscarFechaFinalTopTxtField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Component id="fechaInicialTopLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fechaFinalTopLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -814,7 +890,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostrarTopProductosButtonActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="buscarIdFarmaciaTopTxtField">
+                <Component class="javax.swing.JTextField" name="buscarNombreFarmaciaTopTxtField">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="14" style="1"/>
@@ -842,6 +918,33 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Filtrar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtrarTopProductosButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="nombreFarmaciaTopLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Nombre de Farmacia"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="fechaInicialTopLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Fecha Inicial"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="fechaFinalTopLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Fecha Final"/>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -862,15 +965,211 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="911" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="mostrarInventarioEstButton" min="-2" pref="146" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="buscarNombreProdInventarioTxtField" pref="167" max="32767" attributes="0"/>
+                                              <Component id="buscarNombreFarmInventarioTxtField" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="nombreProductoInventarioLabel" min="-2" pref="161" max="-2" attributes="0"/>
+                                              <Component id="nombreFarmaciaInventarioLabel" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Component id="inventarioEstimadoScroll" min="-2" pref="822" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="184" max="-2" attributes="0"/>
+                                  <Component id="fechaInicialInventarioLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="buscarFechaInicialInventarioTxtField" min="-2" pref="140" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="buscarFechaFinalInventarioTxtField" min="-2" pref="151" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="fechaFinalInventarioLabel" min="-2" pref="93" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="374" max="-2" attributes="0"/>
+                                  <Component id="filtrarInventarioButton" min="-2" pref="122" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace pref="46" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="514" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                          <Component id="inventarioEstimadoScroll" min="-2" pref="256" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="mostrarInventarioEstButton" min="-2" pref="33" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="buscarNombreProdInventarioTxtField" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                                      <Component id="nombreProductoInventarioLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="buscarNombreFarmInventarioTxtField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="nombreFarmaciaInventarioLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="buscarFechaInicialInventarioTxtField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="buscarFechaFinalInventarioTxtField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="fechaInicialInventarioLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fechaFinalInventarioLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="filtrarInventarioButton" min="-2" pref="32" max="-2" attributes="0"/>
+                          <EmptySpace pref="28" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JScrollPane" name="inventarioEstimadoScroll">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JTable" name="inventarioEstimadoTabla">
+                      <Properties>
+                        <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                          <Table columnCount="0" rowCount="0"/>
+                        </Property>
+                        <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                          <TableColumnModel selectionModel="0">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                              <Title/>
+                              <Editor/>
+                              <Renderer/>
+                            </Column>
+                          </TableColumnModel>
+                        </Property>
+                        <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                          <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                        </Property>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Component class="javax.swing.JButton" name="mostrarInventarioEstButton">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="16" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Mostrar Todo"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mostrarInventarioEstButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JTextField" name="buscarNombreProdInventarioTxtField">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="buscarNombreFarmInventarioTxtField">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="buscarFechaInicialInventarioTxtField">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="buscarFechaFinalInventarioTxtField">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="nombreProductoInventarioLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Nombre de producto"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="nombreFarmaciaInventarioLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Nombre de farmacia"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="fechaInicialInventarioLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Fecha Inicial"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="fechaFinalInventarioLabel">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Fecha Final"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="filtrarInventarioButton">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="14" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Filtrar"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filtrarInventarioButtonActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="entregasPendientesPanel">
               <Properties>

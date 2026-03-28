@@ -24,6 +24,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     DefaultTableModel vistaVentasModel = new DefaultTableModel();
     DefaultTableModel vistaTopProductosModel = new DefaultTableModel();
     DefaultTableModel tabla_precios_vigentes = new DefaultTableModel();
+    DefaultTableModel vistaInventarioEstimadoModel = new DefaultTableModel();
     int id_empleado;
     int id_farmacia;
     int id_proveedor;
@@ -83,11 +84,15 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         vistaVentasProductoFarmaciaTable = new javax.swing.JTable();
         volverDeReportesButton = new javax.swing.JButton();
         mostrarVentasButton = new javax.swing.JButton();
-        buscarIdProductoVentasTxtField = new javax.swing.JTextField();
-        buscarIdFarmaciaVentasTxtField = new javax.swing.JTextField();
+        buscarNombreProductoVentasTxtField = new javax.swing.JTextField();
+        buscarNombreFarmaciaVentasTxtField = new javax.swing.JTextField();
         buscarFechaInicioVentasTxtField = new javax.swing.JTextField();
         buscarFechaFinalVentasTxtField = new javax.swing.JTextField();
         filtrarVentasButton = new javax.swing.JButton();
+        nombreProductoVentasLabel = new javax.swing.JLabel();
+        nombreFarmaciaVentasLabel = new javax.swing.JLabel();
+        fechaInicialVentasLabel = new javax.swing.JLabel();
+        fechaFinalVentasLabel = new javax.swing.JLabel();
         precioVigentesPanel = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tabla_preciosvig = new javax.swing.JTable();
@@ -99,11 +104,26 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         vistaTopProductosScroll = new javax.swing.JScrollPane();
         vistaTopProductosTable = new javax.swing.JTable();
         mostrarTopProductosButton = new javax.swing.JButton();
-        buscarIdFarmaciaTopTxtField = new javax.swing.JTextField();
+        buscarNombreFarmaciaTopTxtField = new javax.swing.JTextField();
         buscarFechaInicialTopTxtField = new javax.swing.JTextField();
         buscarFechaFinalTopTxtField = new javax.swing.JTextField();
         filtrarTopProductosButton = new javax.swing.JButton();
+        nombreFarmaciaTopLabel = new javax.swing.JLabel();
+        fechaInicialTopLabel = new javax.swing.JLabel();
+        fechaFinalTopLabel = new javax.swing.JLabel();
         inventarioEstimadoPanel = new javax.swing.JPanel();
+        inventarioEstimadoScroll = new javax.swing.JScrollPane();
+        inventarioEstimadoTabla = new javax.swing.JTable();
+        mostrarInventarioEstButton = new javax.swing.JButton();
+        buscarNombreProdInventarioTxtField = new javax.swing.JTextField();
+        buscarNombreFarmInventarioTxtField = new javax.swing.JTextField();
+        buscarFechaInicialInventarioTxtField = new javax.swing.JTextField();
+        buscarFechaFinalInventarioTxtField = new javax.swing.JTextField();
+        nombreProductoInventarioLabel = new javax.swing.JLabel();
+        nombreFarmaciaInventarioLabel = new javax.swing.JLabel();
+        fechaInicialInventarioLabel = new javax.swing.JLabel();
+        fechaFinalInventarioLabel = new javax.swing.JLabel();
+        filtrarInventarioButton = new javax.swing.JButton();
         entregasPendientesPanel = new javax.swing.JPanel();
         MargenProductoPanel = new javax.swing.JPanel();
         margenPrecioProductoLabel = new javax.swing.JLabel();
@@ -428,9 +448,9 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         mostrarVentasButton.setText("Mostrar Todo");
         mostrarVentasButton.addActionListener(this::mostrarVentasButtonActionPerformed);
 
-        buscarIdProductoVentasTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buscarNombreProductoVentasTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        buscarIdFarmaciaVentasTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buscarNombreFarmaciaVentasTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         buscarFechaInicioVentasTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
@@ -438,6 +458,19 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         filtrarVentasButton.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         filtrarVentasButton.setText("Filtrar");
+        filtrarVentasButton.addActionListener(this::filtrarVentasButtonActionPerformed);
+
+        nombreProductoVentasLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nombreProductoVentasLabel.setText("Nombre del producto");
+
+        nombreFarmaciaVentasLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nombreFarmaciaVentasLabel.setText("Nombre de farmacia");
+
+        fechaInicialVentasLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fechaInicialVentasLabel.setText("Fecha Inicial");
+
+        fechaFinalVentasLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fechaFinalVentasLabel.setText("Fecha Final");
 
         javax.swing.GroupLayout VentasPanelLayout = new javax.swing.GroupLayout(VentasPanel);
         VentasPanel.setLayout(VentasPanelLayout);
@@ -447,21 +480,32 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(vistaVentasProductosScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 860, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mostrarVentasButton)
-                    .addGroup(VentasPanelLayout.createSequentialGroup()
-                        .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(buscarIdFarmaciaVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(buscarFechaInicioVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, VentasPanelLayout.createSequentialGroup()
-                                    .addGap(356, 356, 356)
-                                    .addComponent(buscarIdProductoVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(18, 18, 18)
-                        .addComponent(buscarFechaFinalVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(VentasPanelLayout.createSequentialGroup()
                         .addGap(448, 448, 448)
                         .addComponent(filtrarVentasButton))
-                    .addComponent(volverDeReportesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(volverDeReportesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(VentasPanelLayout.createSequentialGroup()
+                        .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(buscarNombreFarmaciaVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(VentasPanelLayout.createSequentialGroup()
+                                        .addComponent(fechaInicialVentasLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buscarFechaInicioVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, VentasPanelLayout.createSequentialGroup()
+                                        .addGap(356, 356, 356)
+                                        .addComponent(buscarNombreProductoVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(mostrarVentasButton))
+                        .addGap(18, 18, 18)
+                        .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(nombreProductoVentasLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                                .addComponent(nombreFarmaciaVentasLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(VentasPanelLayout.createSequentialGroup()
+                                .addComponent(buscarFechaFinalVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fechaFinalVentasLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         VentasPanelLayout.setVerticalGroup(
@@ -472,13 +516,18 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(mostrarVentasButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscarIdProductoVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buscarNombreProductoVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreProductoVentasLabel))
                 .addGap(16, 16, 16)
-                .addComponent(buscarIdFarmaciaVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buscarNombreFarmaciaVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreFarmaciaVentasLabel))
                 .addGap(18, 18, 18)
                 .addGroup(VentasPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buscarFechaInicioVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buscarFechaFinalVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buscarFechaFinalVentasTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaInicialVentasLabel)
+                    .addComponent(fechaFinalVentasLabel))
                 .addGap(13, 13, 13)
                 .addComponent(filtrarVentasButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -571,7 +620,7 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         mostrarTopProductosButton.setText("Mostrar todo");
         mostrarTopProductosButton.addActionListener(this::mostrarTopProductosButtonActionPerformed);
 
-        buscarIdFarmaciaTopTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buscarNombreFarmaciaTopTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         buscarFechaInicialTopTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
@@ -579,6 +628,16 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         filtrarTopProductosButton.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         filtrarTopProductosButton.setText("Filtrar");
+        filtrarTopProductosButton.addActionListener(this::filtrarTopProductosButtonActionPerformed);
+
+        nombreFarmaciaTopLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nombreFarmaciaTopLabel.setText("Nombre de Farmacia");
+
+        fechaInicialTopLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fechaInicialTopLabel.setText("Fecha Inicial");
+
+        fechaFinalTopLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fechaFinalTopLabel.setText("Fecha Final");
 
         javax.swing.GroupLayout topProductosPanelLayout = new javax.swing.GroupLayout(topProductosPanel);
         topProductosPanel.setLayout(topProductosPanelLayout);
@@ -593,10 +652,20 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                             .addGroup(topProductosPanelLayout.createSequentialGroup()
                                 .addComponent(mostrarTopProductosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(165, 165, 165)
-                                .addComponent(buscarIdFarmaciaTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(buscarFechaInicialTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addComponent(buscarFechaFinalTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(buscarNombreFarmaciaTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(topProductosPanelLayout.createSequentialGroup()
+                                .addComponent(fechaInicialTopLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buscarFechaInicialTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(topProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(topProductosPanelLayout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(buscarFechaFinalTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(topProductosPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(nombreFarmaciaTopLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fechaFinalTopLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, topProductosPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -614,11 +683,15 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
                         .addComponent(mostrarTopProductosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(topProductosPanelLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(buscarIdFarmaciaTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(topProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buscarNombreFarmaciaTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreFarmaciaTopLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(topProductosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buscarFechaInicialTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buscarFechaFinalTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(buscarFechaFinalTopTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fechaInicialTopLabel)
+                            .addComponent(fechaFinalTopLabel))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(filtrarTopProductosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(68, Short.MAX_VALUE))
@@ -628,15 +701,106 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
 
         inventarioEstimadoPanel.setBackground(new java.awt.Color(0, 153, 153));
 
+        inventarioEstimadoTabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        inventarioEstimadoScroll.setViewportView(inventarioEstimadoTabla);
+
+        mostrarInventarioEstButton.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        mostrarInventarioEstButton.setText("Mostrar Todo");
+        mostrarInventarioEstButton.addActionListener(this::mostrarInventarioEstButtonActionPerformed);
+
+        buscarNombreProdInventarioTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        buscarNombreFarmInventarioTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        buscarFechaInicialInventarioTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        buscarFechaFinalInventarioTxtField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        nombreProductoInventarioLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nombreProductoInventarioLabel.setText("Nombre de producto");
+
+        nombreFarmaciaInventarioLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        nombreFarmaciaInventarioLabel.setText("Nombre de farmacia");
+
+        fechaInicialInventarioLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fechaInicialInventarioLabel.setText("Fecha Inicial");
+
+        fechaFinalInventarioLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        fechaFinalInventarioLabel.setText("Fecha Final");
+
+        filtrarInventarioButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        filtrarInventarioButton.setText("Filtrar");
+        filtrarInventarioButton.addActionListener(this::filtrarInventarioButtonActionPerformed);
+
         javax.swing.GroupLayout inventarioEstimadoPanelLayout = new javax.swing.GroupLayout(inventarioEstimadoPanel);
         inventarioEstimadoPanel.setLayout(inventarioEstimadoPanelLayout);
         inventarioEstimadoPanelLayout.setHorizontalGroup(
             inventarioEstimadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 911, Short.MAX_VALUE)
+            .addGroup(inventarioEstimadoPanelLayout.createSequentialGroup()
+                .addGroup(inventarioEstimadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(inventarioEstimadoPanelLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(inventarioEstimadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(inventarioEstimadoPanelLayout.createSequentialGroup()
+                                .addComponent(mostrarInventarioEstButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(181, 181, 181)
+                                .addGroup(inventarioEstimadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(buscarNombreProdInventarioTxtField, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                                    .addComponent(buscarNombreFarmInventarioTxtField))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(inventarioEstimadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nombreProductoInventarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nombreFarmaciaInventarioLabel)))
+                            .addComponent(inventarioEstimadoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(inventarioEstimadoPanelLayout.createSequentialGroup()
+                        .addGap(184, 184, 184)
+                        .addComponent(fechaInicialInventarioLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buscarFechaInicialInventarioTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buscarFechaFinalInventarioTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fechaFinalInventarioLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(inventarioEstimadoPanelLayout.createSequentialGroup()
+                        .addGap(374, 374, 374)
+                        .addComponent(filtrarInventarioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         inventarioEstimadoPanelLayout.setVerticalGroup(
             inventarioEstimadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 514, Short.MAX_VALUE)
+            .addGroup(inventarioEstimadoPanelLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(inventarioEstimadoScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(inventarioEstimadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(inventarioEstimadoPanelLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(mostrarInventarioEstButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inventarioEstimadoPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(inventarioEstimadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buscarNombreProdInventarioTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreProductoInventarioLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(inventarioEstimadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buscarNombreFarmInventarioTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreFarmaciaInventarioLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(inventarioEstimadoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buscarFechaInicialInventarioTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarFechaFinalInventarioTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaInicialInventarioLabel)
+                    .addComponent(fechaFinalInventarioLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(filtrarInventarioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         ReportesTabbedPane.addTab("Inventario Estimado", inventarioEstimadoPanel);
@@ -1939,6 +2103,8 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     }//GEN-LAST:event_listar_precios_prodMouseClicked
 
     private void mostrarVentasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarVentasButtonActionPerformed
+        vistaVentasModel.setColumnCount(0);
+        vistaVentasModel.setRowCount(0);
         vistaVentasModel = conectar.cargarVista("ventas_por_farmacia_producto", vistaVentasModel);
         if (vistaVentasModel.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "No se encontraron registros", "Error", JOptionPane.WARNING_MESSAGE);
@@ -1948,6 +2114,8 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     }//GEN-LAST:event_mostrarVentasButtonActionPerformed
 
     private void mostrarTopProductosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarTopProductosButtonActionPerformed
+        vistaTopProductosModel.setColumnCount(0);
+        vistaTopProductosModel.setRowCount(0);
         vistaTopProductosModel = conectar.cargarVista("top_productos", vistaTopProductosModel);
         if (vistaTopProductosModel.getRowCount() == 0) {
             JOptionPane.showMessageDialog(null, "No se encontraron registros", "Error", JOptionPane.WARNING_MESSAGE);
@@ -2197,6 +2365,83 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
         realizarTransladoButton.setVisible(false);
     }//GEN-LAST:event_cancelarTransladoButtonActionPerformed
 
+    private void mostrarInventarioEstButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarInventarioEstButtonActionPerformed
+        vistaInventarioEstimadoModel.setColumnCount(0);
+        vistaInventarioEstimadoModel.setRowCount(0);
+        vistaInventarioEstimadoModel = conectar.cargarVista("vista_inventario_estimado", vistaInventarioEstimadoModel);
+        if (vistaInventarioEstimadoModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No se encontraron registros", "Error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            inventarioEstimadoTabla.setModel(vistaInventarioEstimadoModel);
+        }
+    }//GEN-LAST:event_mostrarInventarioEstButtonActionPerformed
+
+    private void filtrarVentasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrarVentasButtonActionPerformed
+        vistaVentasModel.setColumnCount(0);
+        vistaVentasModel.setRowCount(0);
+        if (buscarNombreProductoVentasTxtField.getText().isEmpty() || buscarNombreFarmaciaVentasTxtField.getText().isEmpty() || buscarFechaInicioVentasTxtField.getText().isEmpty() || buscarFechaFinalVentasTxtField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Faltan campos por llenar", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!esFechaValida(buscarFechaInicioVentasTxtField.getText()) || !esFechaValida(buscarFechaFinalVentasTxtField.getText())){
+            JOptionPane.showMessageDialog(null, "Fecha invalida", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        vistaVentasModel = conectar.cargarVistaFiltrada("ventas_por_farmacia_producto",buscarNombreFarmaciaVentasTxtField.getText(),
+                buscarNombreProductoVentasTxtField.getText(),buscarFechaInicioVentasTxtField.getText(), buscarFechaFinalVentasTxtField.getText(), vistaVentasModel);
+        if (vistaVentasModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No se encontraron registros", "Error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            vistaVentasProductoFarmaciaTable.setModel(vistaVentasModel);
+        }
+    }//GEN-LAST:event_filtrarVentasButtonActionPerformed
+
+    private void filtrarTopProductosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrarTopProductosButtonActionPerformed
+        vistaTopProductosModel.setColumnCount(0);
+        vistaTopProductosModel.setRowCount(0);
+        if (buscarNombreFarmaciaTopTxtField.getText().isEmpty() || buscarFechaInicialTopTxtField.getText().isEmpty() || buscarFechaFinalTopTxtField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Faltan campos por llenar", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!esFechaValida(buscarFechaInicialTopTxtField.getText()) || !esFechaValida(buscarFechaFinalTopTxtField.getText())){
+            JOptionPane.showMessageDialog(null, "Fecha invalida", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        vistaTopProductosModel = conectar.cargarVistaFiltrada("top_productos",buscarNombreFarmaciaTopTxtField.getText(), 
+                "" ,buscarFechaInicialTopTxtField.getText(), buscarFechaFinalTopTxtField.getText(), vistaTopProductosModel);
+        if (vistaTopProductosModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No se encontraron registros", "Error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            vistaTopProductosTable.setModel(vistaTopProductosModel);
+        }
+    }//GEN-LAST:event_filtrarTopProductosButtonActionPerformed
+
+    private void filtrarInventarioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtrarInventarioButtonActionPerformed
+        vistaInventarioEstimadoModel.setColumnCount(0);
+        vistaInventarioEstimadoModel.setRowCount(0);
+        if (buscarNombreProdInventarioTxtField.getText().isEmpty() || buscarNombreFarmInventarioTxtField.getText().isEmpty() || buscarFechaInicialInventarioTxtField.getText().isEmpty() || buscarFechaFinalInventarioTxtField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Faltan campos por llenar", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (!esFechaValida(buscarFechaInicialInventarioTxtField.getText()) || !esFechaValida(buscarFechaFinalInventarioTxtField.getText())){
+            JOptionPane.showMessageDialog(null, "Fecha invalida", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        vistaInventarioEstimadoModel = conectar.cargarVistaFiltrada("vista_inventario_estimado",buscarNombreFarmInventarioTxtField.getText(), 
+                buscarNombreProdInventarioTxtField.getText() ,buscarFechaInicialInventarioTxtField.getText(), buscarFechaFinalInventarioTxtField.getText(), vistaInventarioEstimadoModel);
+        if (vistaInventarioEstimadoModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No se encontraron registros", "Error", JOptionPane.WARNING_MESSAGE);
+        } else {
+            inventarioEstimadoTabla.setModel(vistaInventarioEstimadoModel);
+        }
+    }//GEN-LAST:event_filtrarInventarioButtonActionPerformed
+
     public boolean esFechaValida(String fecha) {
         try {
             LocalDate.parse(fecha);
@@ -2269,15 +2514,19 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JButton btn_buscar_prod;
     private javax.swing.JButton btn_modificar_precio;
     private javax.swing.JButton btn_mostrar_precio_vigente;
+    private javax.swing.JTextField buscarFechaFinalInventarioTxtField;
     private javax.swing.JTextField buscarFechaFinalTopTxtField;
     private javax.swing.JTextField buscarFechaFinalVentasTxtField;
+    private javax.swing.JTextField buscarFechaInicialInventarioTxtField;
     private javax.swing.JTextField buscarFechaInicialTopTxtField;
     private javax.swing.JTextField buscarFechaInicioVentasTxtField;
     private javax.swing.JButton buscarIdFarmaciaDestinoButton;
-    private javax.swing.JTextField buscarIdFarmaciaTopTxtField;
-    private javax.swing.JTextField buscarIdFarmaciaVentasTxtField;
-    private javax.swing.JTextField buscarIdProductoVentasTxtField;
     private javax.swing.JButton buscarIdVentaButton;
+    private javax.swing.JTextField buscarNombreFarmInventarioTxtField;
+    private javax.swing.JTextField buscarNombreFarmaciaTopTxtField;
+    private javax.swing.JTextField buscarNombreFarmaciaVentasTxtField;
+    private javax.swing.JTextField buscarNombreProdInventarioTxtField;
+    private javax.swing.JTextField buscarNombreProductoVentasTxtField;
     private javax.swing.JButton buscarProductoButton;
     private javax.swing.JLabel buscarProductoLabel;
     private javax.swing.JButton cancelarDevolucionButton;
@@ -2292,7 +2541,14 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel escribirFormatoFechaRecepcionLabel;
     private javax.swing.JTextField farmaciaDestinoIDTextField;
     private javax.swing.JLabel farmaciaNombreLabel;
+    private javax.swing.JLabel fechaFinalInventarioLabel;
+    private javax.swing.JLabel fechaFinalTopLabel;
+    private javax.swing.JLabel fechaFinalVentasLabel;
+    private javax.swing.JLabel fechaInicialInventarioLabel;
+    private javax.swing.JLabel fechaInicialTopLabel;
+    private javax.swing.JLabel fechaInicialVentasLabel;
     private javax.swing.JTextField fechaVRecepcionTextField;
+    private javax.swing.JButton filtrarInventarioButton;
     private javax.swing.JButton filtrarTopProductosButton;
     private javax.swing.JButton filtrarVentasButton;
     private javax.swing.JToggleButton finalizarRecepcionToggleButton;
@@ -2324,6 +2580,8 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JButton iniciarTurnoButton;
     private javax.swing.JPanel iniciarTurnoPanel;
     private javax.swing.JPanel inventarioEstimadoPanel;
+    private javax.swing.JScrollPane inventarioEstimadoScroll;
+    private javax.swing.JTable inventarioEstimadoTabla;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -2354,8 +2612,14 @@ public class CadenaFarmacias_TBD1 extends javax.swing.JFrame {
     private javax.swing.JLabel metodoPagoLabel;
     private javax.swing.JLabel modificarCantidadEnTablaLabel;
     private javax.swing.JLabel montoTotalVentaLabel;
+    private javax.swing.JButton mostrarInventarioEstButton;
     private javax.swing.JButton mostrarTopProductosButton;
     private javax.swing.JButton mostrarVentasButton;
+    private javax.swing.JLabel nombreFarmaciaInventarioLabel;
+    private javax.swing.JLabel nombreFarmaciaTopLabel;
+    private javax.swing.JLabel nombreFarmaciaVentasLabel;
+    private javax.swing.JLabel nombreProductoInventarioLabel;
+    private javax.swing.JLabel nombreProductoVentasLabel;
     private javax.swing.JPanel paginaInicioTurnoPanel;
     private javax.swing.JPanel pantallaPanel;
     private javax.swing.JTextField precioRecepcionTextField;
